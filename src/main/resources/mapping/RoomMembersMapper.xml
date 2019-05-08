@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chs.wechat.spy.mybatis.mapper.RoomMembersMapper">
+  <resultMap id="BaseResultMap" type="chs.wechat.spy.mybatis.model.RoomMembers">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="user_id" />
+    <result column="room_id" jdbcType="VARCHAR" property="room_id" />
+    <result column="member_id" jdbcType="VARCHAR" property="member_id" />
+    <result column="member_name" jdbcType="VARCHAR" property="member_name" />
+    <result column="member_nick" jdbcType="VARCHAR" property="member_nick" />
+    <result column="invited_by" jdbcType="VARCHAR" property="invited_by" />
+    <result column="small_head_url" jdbcType="VARCHAR" property="small_head_url" />
+    <result column="big_head_url" jdbcType="VARCHAR" property="big_head_url" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.mybatis.model.RoomMembersWithBLOBs">
+    <result column="small_head" jdbcType="LONGVARBINARY" property="small_head" />
+    <result column="big_head" jdbcType="LONGVARBINARY" property="big_head" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, room_id, member_id, member_name, member_nick, invited_by, small_head_url, 
+    big_head_url
+  </sql>
+  <sql id="Blob_Column_List">
+    small_head, big_head
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from room_members
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from room_members
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="chs.wechat.spy.mybatis.model.RoomMembersWithBLOBs">
+    insert into room_members (id, user_id, room_id, 
+      member_id, member_name, member_nick, 
+      invited_by, small_head_url, big_head_url, 
+      small_head, big_head)
+    values (#{id,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR}, #{room_id,jdbcType=VARCHAR}, 
+      #{member_id,jdbcType=VARCHAR}, #{member_name,jdbcType=VARCHAR}, #{member_nick,jdbcType=VARCHAR}, 
+      #{invited_by,jdbcType=VARCHAR}, #{small_head_url,jdbcType=VARCHAR}, #{big_head_url,jdbcType=VARCHAR}, 
+      #{small_head,jdbcType=LONGVARBINARY}, #{big_head,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="chs.wechat.spy.mybatis.model.RoomMembersWithBLOBs">
+    insert into room_members
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="room_id != null">
+        room_id,
+      </if>
+      <if test="member_id != null">
+        member_id,
+      </if>
+      <if test="member_name != null">
+        member_name,
+      </if>
+      <if test="member_nick != null">
+        member_nick,
+      </if>
+      <if test="invited_by != null">
+        invited_by,
+      </if>
+      <if test="small_head_url != null">
+        small_head_url,
+      </if>
+      <if test="big_head_url != null">
+        big_head_url,
+      </if>
+      <if test="small_head != null">
+        small_head,
+      </if>
+      <if test="big_head != null">
+        big_head,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="room_id != null">
+        #{room_id,jdbcType=VARCHAR},
+      </if>
+      <if test="member_id != null">
+        #{member_id,jdbcType=VARCHAR},
+      </if>
+      <if test="member_name != null">
+        #{member_name,jdbcType=VARCHAR},
+      </if>
+      <if test="member_nick != null">
+        #{member_nick,jdbcType=VARCHAR},
+      </if>
+      <if test="invited_by != null">
+        #{invited_by,jdbcType=VARCHAR},
+      </if>
+      <if test="small_head_url != null">
+        #{small_head_url,jdbcType=VARCHAR},
+      </if>
+      <if test="big_head_url != null">
+        #{big_head_url,jdbcType=VARCHAR},
+      </if>
+      <if test="small_head != null">
+        #{small_head,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="big_head != null">
+        #{big_head,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.mybatis.model.RoomMembersWithBLOBs">
+    update room_members
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="room_id != null">
+        room_id = #{room_id,jdbcType=VARCHAR},
+      </if>
+      <if test="member_id != null">
+        member_id = #{member_id,jdbcType=VARCHAR},
+      </if>
+      <if test="member_name != null">
+        member_name = #{member_name,jdbcType=VARCHAR},
+      </if>
+      <if test="member_nick != null">
+        member_nick = #{member_nick,jdbcType=VARCHAR},
+      </if>
+      <if test="invited_by != null">
+        invited_by = #{invited_by,jdbcType=VARCHAR},
+      </if>
+      <if test="small_head_url != null">
+        small_head_url = #{small_head_url,jdbcType=VARCHAR},
+      </if>
+      <if test="big_head_url != null">
+        big_head_url = #{big_head_url,jdbcType=VARCHAR},
+      </if>
+      <if test="small_head != null">
+        small_head = #{small_head,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="big_head != null">
+        big_head = #{big_head,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.mybatis.model.RoomMembersWithBLOBs">
+    update room_members
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      room_id = #{room_id,jdbcType=VARCHAR},
+      member_id = #{member_id,jdbcType=VARCHAR},
+      member_name = #{member_name,jdbcType=VARCHAR},
+      member_nick = #{member_nick,jdbcType=VARCHAR},
+      invited_by = #{invited_by,jdbcType=VARCHAR},
+      small_head_url = #{small_head_url,jdbcType=VARCHAR},
+      big_head_url = #{big_head_url,jdbcType=VARCHAR},
+      small_head = #{small_head,jdbcType=LONGVARBINARY},
+      big_head = #{big_head,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.mybatis.model.RoomMembers">
+    update room_members
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      room_id = #{room_id,jdbcType=VARCHAR},
+      member_id = #{member_id,jdbcType=VARCHAR},
+      member_name = #{member_name,jdbcType=VARCHAR},
+      member_nick = #{member_nick,jdbcType=VARCHAR},
+      invited_by = #{invited_by,jdbcType=VARCHAR},
+      small_head_url = #{small_head_url,jdbcType=VARCHAR},
+      big_head_url = #{big_head_url,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

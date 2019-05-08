@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chs.wechat.spy.mybatis.mapper.SysDictMapper">
+  <resultMap id="BaseResultMap" type="chs.wechat.spy.mybatis.model.SysDict">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dic_type" jdbcType="VARCHAR" property="dic_type" />
+    <result column="dic_name" jdbcType="VARCHAR" property="dic_name" />
+    <result column="dic_value" jdbcType="VARCHAR" property="dic_value" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dic_type, dic_name, dic_value
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_dic
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_dic
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="chs.wechat.spy.mybatis.model.SysDict">
+    insert into sys_dic (id, dic_type, dic_name, 
+      dic_value)
+    values (#{id,jdbcType=VARCHAR}, #{dic_type,jdbcType=VARCHAR}, #{dic_name,jdbcType=VARCHAR}, 
+      #{dic_value,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="chs.wechat.spy.mybatis.model.SysDict">
+    insert into sys_dic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dic_type != null">
+        dic_type,
+      </if>
+      <if test="dic_name != null">
+        dic_name,
+      </if>
+      <if test="dic_value != null">
+        dic_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dic_type != null">
+        #{dic_type,jdbcType=VARCHAR},
+      </if>
+      <if test="dic_name != null">
+        #{dic_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dic_value != null">
+        #{dic_value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.mybatis.model.SysDict">
+    update sys_dic
+    <set>
+      <if test="dic_type != null">
+        dic_type = #{dic_type,jdbcType=VARCHAR},
+      </if>
+      <if test="dic_name != null">
+        dic_name = #{dic_name,jdbcType=VARCHAR},
+      </if>
+      <if test="dic_value != null">
+        dic_value = #{dic_value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.mybatis.model.SysDict">
+    update sys_dic
+    set dic_type = #{dic_type,jdbcType=VARCHAR},
+      dic_name = #{dic_name,jdbcType=VARCHAR},
+      dic_value = #{dic_value,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
