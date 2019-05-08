@@ -1,5 +1,6 @@
 package chs.wechat.spy.websocket;
 
+import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.EmptyHttpHeaders;
 import io.netty.handler.codec.http.FullHttpResponse;
@@ -69,7 +70,24 @@ public class WebSocketClientHandler extends SimpleChannelInboundHandler<Object> 
         if (frame instanceof TextWebSocketFrame) {
             TextWebSocketFrame textFrame = (TextWebSocketFrame) frame;
             try {
-                System.out.println(textFrame.text());
+                JSONObject evt = JSONObject.parseObject(textFrame.text());
+                switch (evt.getString("action")) {
+                    case "log"://log信息
+                        break;
+                    case "qrcode"://返回二维码数据
+                        WebSocketServerSingleton wss = WebSocketServerSingleton.getInstance();
+                        wss.sendAll("data:image/jpeg;base64," + evt.getString("context"));
+                        break;
+                    case "getcontact"://获取联系人信息。会多次传输
+                        break;
+                    case "getgroup"://获取群组信息。会多次传输
+                        break;
+                    case "getgzh"://获取公众号信息。会多次传输
+                        break;
+                    case "msgcallback"://微信消息回调事件
+                        break;
+                }
+
             } catch (Exception ex) {
                 logger.error(ex.getMessage());
             }

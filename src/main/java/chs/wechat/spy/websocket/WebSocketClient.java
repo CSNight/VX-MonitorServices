@@ -22,15 +22,39 @@ import java.util.concurrent.TimeUnit;
  * @author Stephen Mallette (http://stephen.genoprime.com)
  */
 public class WebSocketClient {
-
-    private final URI uri;
+    private static WebSocketClient ourInstance;
+    private int port = 0;
+    private String host = "127.0.0.1";
+    private static URI uri;
     private Channel ch;
     private static final EventLoopGroup group = new NioEventLoopGroup(4);
     private static final Logger logger = LoggerFactory.getLogger(WebSocketClient.class);
     private Bootstrap b;
 
-    public WebSocketClient(final String uri) {
-        this.uri = URI.create(uri);
+    public static WebSocketClient getInstance() {
+        if (ourInstance == null) {
+            synchronized (WebSocketClient.class) {
+                if (ourInstance == null) {
+                    ourInstance = new WebSocketClient();
+                }
+            }
+        }
+        return ourInstance;
+    }
+
+    private WebSocketClient() {
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public void setUri(String uuid) {
+        WebSocketClient.uri = URI.create("ws://" + host + ":" + port + "?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true");
     }
 
     public URI getUri() {

@@ -5,9 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.lang.reflect.Field;
 import java.util.Objects;
 import java.util.Properties;
@@ -111,6 +109,22 @@ public class ConfigProperties {
             e.printStackTrace();
         }
         return res;
+        //获取key对应的value值
+    }
+
+    public static void SetProperties(String key, String value) {
+        try {
+            String profile_path = ConfigProperties.class.getClassLoader().getResource("").getPath() + "config.properties";
+            Properties props = new Properties();
+            props.load(ConfigProperties.class.getClassLoader().getResourceAsStream("config.properties"));
+            OutputStream fos = new FileOutputStream(profile_path);
+            props.setProperty(key, value);
+            props.store(fos, "Update value");
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("属性文件更新错误");
+        }
         //获取key对应的value值
     }
 }

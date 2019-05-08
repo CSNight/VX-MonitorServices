@@ -2,9 +2,9 @@ package chs.wechat.spy.controller.user;
 
 import chs.wechat.spy.api_request.LoginRequest;
 import chs.wechat.spy.mybatis.mapper.WechatUserMapper;
+import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.websocket.WebSocketClient;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,11 +24,12 @@ public class LoginController {
     }
 
     @RequestMapping("/user/login_start")
-    public String get_qr() {
+    public String login_start() {
         uuid = GUID.getUUID();
-        JSONObject res = JSONObject.parseObject(lr.GetQRCode(uuid, device_name));
-        WebSocketClient ws = new WebSocketClient("ws://127.0.0.1:25015?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true");
+        ConfigProperties.SetProperties("app_uid", uuid);
+        WebSocketClient ws = WebSocketClient.getInstance();
+        ws.setUri(uuid);
         ws.open();
-        return "<img src=data:image/jpeg;base64," + res.getString("Context") + " />";
+        return uuid;
     }
 }
