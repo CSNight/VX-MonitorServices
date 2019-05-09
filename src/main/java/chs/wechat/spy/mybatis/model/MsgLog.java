@@ -5,27 +5,27 @@ import java.util.Date;
 public class MsgLog {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String msg_id;
+    private String msgId;
 
-    private Date msg_time;
+    private Date msgTime;
 
-    private Integer msg_type;
+    private Integer msgType;
 
-    private Integer msg_subtype;
+    private Integer msgSubtype;
 
-    private String from_user;
+    private String fromUser;
 
-    private String to_user;
+    private String toUser;
 
     private String uin;
 
-    private Integer msg_status;
+    private Integer msgStatus;
 
-    private String content_id;
+    private String contentId;
 
-    private byte[] msg_describe;
+    private byte[] msgDescribe;
 
     public String getId() {
         return id;
@@ -35,60 +35,60 @@ public class MsgLog {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getMsg_id() {
-        return msg_id;
+    public String getMsgId() {
+        return msgId;
     }
 
-    public void setMsg_id(String msg_id) {
-        this.msg_id = msg_id == null ? null : msg_id.trim();
+    public void setMsgId(String msgId) {
+        this.msgId = msgId == null ? null : msgId.trim();
     }
 
-    public Date getMsg_time() {
-        return msg_time;
+    public Date getMsgTime() {
+        return msgTime;
     }
 
-    public void setMsg_time(Date msg_time) {
-        this.msg_time = msg_time;
+    public void setMsgTime(Date msgTime) {
+        this.msgTime = msgTime;
     }
 
-    public Integer getMsg_type() {
-        return msg_type;
+    public Integer getMsgType() {
+        return msgType;
     }
 
-    public void setMsg_type(Integer msg_type) {
-        this.msg_type = msg_type;
+    public void setMsgType(Integer msgType) {
+        this.msgType = msgType;
     }
 
-    public Integer getMsg_subtype() {
-        return msg_subtype;
+    public Integer getMsgSubtype() {
+        return msgSubtype;
     }
 
-    public void setMsg_subtype(Integer msg_subtype) {
-        this.msg_subtype = msg_subtype;
+    public void setMsgSubtype(Integer msgSubtype) {
+        this.msgSubtype = msgSubtype;
     }
 
-    public String getFrom_user() {
-        return from_user;
+    public String getFromUser() {
+        return fromUser;
     }
 
-    public void setFrom_user(String from_user) {
-        this.from_user = from_user == null ? null : from_user.trim();
+    public void setFromUser(String fromUser) {
+        this.fromUser = fromUser == null ? null : fromUser.trim();
     }
 
-    public String getTo_user() {
-        return to_user;
+    public String getToUser() {
+        return toUser;
     }
 
-    public void setTo_user(String to_user) {
-        this.to_user = to_user == null ? null : to_user.trim();
+    public void setToUser(String toUser) {
+        this.toUser = toUser == null ? null : toUser.trim();
     }
 
     public String getUin() {
@@ -99,27 +99,27 @@ public class MsgLog {
         this.uin = uin == null ? null : uin.trim();
     }
 
-    public Integer getMsg_status() {
-        return msg_status;
+    public Integer getMsgStatus() {
+        return msgStatus;
     }
 
-    public void setMsg_status(Integer msg_status) {
-        this.msg_status = msg_status;
+    public void setMsgStatus(Integer msgStatus) {
+        this.msgStatus = msgStatus;
     }
 
-    public String getContent_id() {
-        return content_id;
+    public String getContentId() {
+        return contentId;
     }
 
-    public void setContent_id(String content_id) {
-        this.content_id = content_id == null ? null : content_id.trim();
+    public void setContentId(String contentId) {
+        this.contentId = contentId == null ? null : contentId.trim();
     }
 
-    public byte[] getMsg_describe() {
-        return msg_describe;
+    public byte[] getMsgDescribe() {
+        return msgDescribe;
     }
 
-    public void setMsg_describe(byte[] msg_describe) {
-        this.msg_describe = msg_describe;
+    public void setMsgDescribe(byte[] msgDescribe) {
+        this.msgDescribe = msgDescribe;
     }
 }

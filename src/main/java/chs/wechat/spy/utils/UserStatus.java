@@ -3,6 +3,7 @@ package chs.wechat.spy.utils;
 public class UserStatus {
     private String id = "";
     private String start_time = "";
+    private String current_opt = "";
     private String init_status = "false";
     private String login_status = "logout";
     private String login_time = "";
@@ -54,5 +55,13 @@ public class UserStatus {
 
     public void setLogout_time(String logout_time) {
         this.logout_time = logout_time;
+    }
+
+    public String getCurrent_opt() {
+        return current_opt;
+    }
+
+    public void setCurrent_opt(String current_opt) {
+        this.current_opt = current_opt;
     }
 }

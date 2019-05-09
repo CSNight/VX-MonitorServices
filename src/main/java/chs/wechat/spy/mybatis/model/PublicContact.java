@@ -3,11 +3,11 @@ package chs.wechat.spy.mybatis.model;
 public class PublicContact {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String pct_id;
+    private String pctId;
 
-    private String pct_name;
+    private String pctName;
 
     private String loc;
 
@@ -15,11 +15,11 @@ public class PublicContact {
 
     private String stranger;
 
-    private Integer add_source;
+    private Integer addSource;
 
-    private String small_head_url;
+    private String smallHeadUrl;
 
-    private String big_head_url;
+    private String bigHeadUrl;
 
     public String getId() {
         return id;
@@ -29,28 +29,28 @@ public class PublicContact {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getPct_id() {
-        return pct_id;
+    public String getPctId() {
+        return pctId;
     }
 
-    public void setPct_id(String pct_id) {
-        this.pct_id = pct_id == null ? null : pct_id.trim();
+    public void setPctId(String pctId) {
+        this.pctId = pctId == null ? null : pctId.trim();
     }
 
-    public String getPct_name() {
-        return pct_name;
+    public String getPctName() {
+        return pctName;
     }
 
-    public void setPct_name(String pct_name) {
-        this.pct_name = pct_name == null ? null : pct_name.trim();
+    public void setPctName(String pctName) {
+        this.pctName = pctName == null ? null : pctName.trim();
     }
 
     public String getLoc() {
@@ -77,27 +77,27 @@ public class PublicContact {
         this.stranger = stranger == null ? null : stranger.trim();
     }
 
-    public Integer getAdd_source() {
-        return add_source;
+    public Integer getAddSource() {
+        return addSource;
     }
 
-    public void setAdd_source(Integer add_source) {
-        this.add_source = add_source;
+    public void setAddSource(Integer addSource) {
+        this.addSource = addSource;
     }
 
-    public String getSmall_head_url() {
-        return small_head_url;
+    public String getSmallHeadUrl() {
+        return smallHeadUrl;
     }
 
-    public void setSmall_head_url(String small_head_url) {
-        this.small_head_url = small_head_url == null ? null : small_head_url.trim();
+    public void setSmallHeadUrl(String smallHeadUrl) {
+        this.smallHeadUrl = smallHeadUrl == null ? null : smallHeadUrl.trim();
     }
 
-    public String getBig_head_url() {
-        return big_head_url;
+    public String getBigHeadUrl() {
+        return bigHeadUrl;
     }
 
-    public void setBig_head_url(String big_head_url) {
-        this.big_head_url = big_head_url == null ? null : big_head_url.trim();
+    public void setBigHeadUrl(String bigHeadUrl) {
+        this.bigHeadUrl = bigHeadUrl == null ? null : bigHeadUrl.trim();
     }
 }

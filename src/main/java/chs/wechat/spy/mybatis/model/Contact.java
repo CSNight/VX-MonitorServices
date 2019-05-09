@@ -3,11 +3,11 @@ package chs.wechat.spy.mybatis.model;
 public class Contact {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String contract_id;
+    private String contractId;
 
-    private String contract_name;
+    private String contractName;
 
     private String remark;
 
@@ -19,11 +19,11 @@ public class Contact {
 
     private String signature;
 
-    private String add_source;
+    private String addSource;
 
-    private String small_head_url;
+    private String smallHeadUrl;
 
-    private String big_head_url;
+    private String bigHeadUrl;
 
     public String getId() {
         return id;
@@ -33,28 +33,28 @@ public class Contact {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getContract_id() {
-        return contract_id;
+    public String getContractId() {
+        return contractId;
     }
 
-    public void setContract_id(String contract_id) {
-        this.contract_id = contract_id == null ? null : contract_id.trim();
+    public void setContractId(String contractId) {
+        this.contractId = contractId == null ? null : contractId.trim();
     }
 
-    public String getContract_name() {
-        return contract_name;
+    public String getContractName() {
+        return contractName;
     }
 
-    public void setContract_name(String contract_name) {
-        this.contract_name = contract_name == null ? null : contract_name.trim();
+    public void setContractName(String contractName) {
+        this.contractName = contractName == null ? null : contractName.trim();
     }
 
     public String getRemark() {
@@ -97,27 +97,27 @@ public class Contact {
         this.signature = signature == null ? null : signature.trim();
     }
 
-    public String getAdd_source() {
-        return add_source;
+    public String getAddSource() {
+        return addSource;
     }
 
-    public void setAdd_source(String add_source) {
-        this.add_source = add_source == null ? null : add_source.trim();
+    public void setAddSource(String addSource) {
+        this.addSource = addSource == null ? null : addSource.trim();
     }
 
-    public String getSmall_head_url() {
-        return small_head_url;
+    public String getSmallHeadUrl() {
+        return smallHeadUrl;
     }
 
-    public void setSmall_head_url(String small_head_url) {
-        this.small_head_url = small_head_url == null ? null : small_head_url.trim();
+    public void setSmallHeadUrl(String smallHeadUrl) {
+        this.smallHeadUrl = smallHeadUrl == null ? null : smallHeadUrl.trim();
     }
 
-    public String getBig_head_url() {
-        return big_head_url;
+    public String getBigHeadUrl() {
+        return bigHeadUrl;
     }
 
-    public void setBig_head_url(String big_head_url) {
-        this.big_head_url = big_head_url == null ? null : big_head_url.trim();
+    public void setBigHeadUrl(String bigHeadUrl) {
+        this.bigHeadUrl = bigHeadUrl == null ? null : bigHeadUrl.trim();
     }
 }

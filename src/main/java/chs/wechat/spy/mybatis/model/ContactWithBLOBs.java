@@ -1,23 +1,23 @@
 package chs.wechat.spy.mybatis.model;
 
 public class ContactWithBLOBs extends Contact {
-    private byte[] small_head;
+    private byte[] smallHead;
 
-    private byte[] big_head;
+    private byte[] bigHead;
 
-    public byte[] getSmall_head() {
-        return small_head;
+    public byte[] getSmallHead() {
+        return smallHead;
     }
 
-    public void setSmall_head(byte[] small_head) {
-        this.small_head = small_head;
+    public void setSmallHead(byte[] smallHead) {
+        this.smallHead = smallHead;
     }
 
-    public byte[] getBig_head() {
-        return big_head;
+    public byte[] getBigHead() {
+        return bigHead;
     }
 
-    public void setBig_head(byte[] big_head) {
-        this.big_head = big_head;
+    public void setBigHead(byte[] bigHead) {
+        this.bigHead = bigHead;
     }
 }

@@ -3,21 +3,21 @@ package chs.wechat.spy.mybatis.model;
 public class RoomMembers {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String room_id;
+    private String roomId;
 
-    private String member_id;
+    private String memberId;
 
-    private String member_name;
+    private String memberName;
 
-    private String member_nick;
+    private String memberNick;
 
-    private String invited_by;
+    private String invitedBy;
 
-    private String small_head_url;
+    private String smallHeadUrl;
 
-    private String big_head_url;
+    private String bigHeadUrl;
 
     public String getId() {
         return id;
@@ -27,67 +27,67 @@ public class RoomMembers {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getRoom_id() {
-        return room_id;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id == null ? null : room_id.trim();
+    public void setRoomId(String roomId) {
+        this.roomId = roomId == null ? null : roomId.trim();
     }
 
-    public String getMember_id() {
-        return member_id;
+    public String getMemberId() {
+        return memberId;
     }
 
-    public void setMember_id(String member_id) {
-        this.member_id = member_id == null ? null : member_id.trim();
+    public void setMemberId(String memberId) {
+        this.memberId = memberId == null ? null : memberId.trim();
     }
 
-    public String getMember_name() {
-        return member_name;
+    public String getMemberName() {
+        return memberName;
     }
 
-    public void setMember_name(String member_name) {
-        this.member_name = member_name == null ? null : member_name.trim();
+    public void setMemberName(String memberName) {
+        this.memberName = memberName == null ? null : memberName.trim();
     }
 
-    public String getMember_nick() {
-        return member_nick;
+    public String getMemberNick() {
+        return memberNick;
     }
 
-    public void setMember_nick(String member_nick) {
-        this.member_nick = member_nick == null ? null : member_nick.trim();
+    public void setMemberNick(String memberNick) {
+        this.memberNick = memberNick == null ? null : memberNick.trim();
     }
 
-    public String getInvited_by() {
-        return invited_by;
+    public String getInvitedBy() {
+        return invitedBy;
     }
 
-    public void setInvited_by(String invited_by) {
-        this.invited_by = invited_by == null ? null : invited_by.trim();
+    public void setInvitedBy(String invitedBy) {
+        this.invitedBy = invitedBy == null ? null : invitedBy.trim();
     }
 
-    public String getSmall_head_url() {
-        return small_head_url;
+    public String getSmallHeadUrl() {
+        return smallHeadUrl;
     }
 
-    public void setSmall_head_url(String small_head_url) {
-        this.small_head_url = small_head_url == null ? null : small_head_url.trim();
+    public void setSmallHeadUrl(String smallHeadUrl) {
+        this.smallHeadUrl = smallHeadUrl == null ? null : smallHeadUrl.trim();
     }
 
-    public String getBig_head_url() {
-        return big_head_url;
+    public String getBigHeadUrl() {
+        return bigHeadUrl;
     }
 
-    public void setBig_head_url(String big_head_url) {
-        this.big_head_url = big_head_url == null ? null : big_head_url.trim();
+    public void setBigHeadUrl(String bigHeadUrl) {
+        this.bigHeadUrl = bigHeadUrl == null ? null : bigHeadUrl.trim();
     }
 }

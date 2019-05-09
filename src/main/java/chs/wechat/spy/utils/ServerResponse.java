@@ -1,16 +1,17 @@
 package chs.wechat.spy.utils;
 
 public class ServerResponse {
-    private int sucess = 0;
+    private int success = 0;
     private String response = "";
     private String type = "";
+    private long timestamp = System.currentTimeMillis();
 
-    public int getSucess() {
-        return sucess;
+    public int getSuccess() {
+        return success;
     }
 
-    public void setSucess(int sucess) {
-        this.sucess = sucess;
+    public void setSuccess(int sucess) {
+        this.success = sucess;
     }
 
     public String getResponse() {
@@ -20,6 +21,7 @@ public class ServerResponse {
     public void setResponse(String response) {
         this.response = response;
     }
+
     public String getType() {
         return type;
     }

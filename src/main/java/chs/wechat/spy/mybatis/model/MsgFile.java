@@ -5,17 +5,17 @@ import java.util.Date;
 public class MsgFile {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String from_id;
+    private String fromId;
 
-    private String file_name;
+    private String fileName;
 
     private String ext;
 
-    private Date file_time;
+    private Date fileTime;
 
-    private byte[] file_blob;
+    private byte[] fileBlob;
 
     public String getId() {
         return id;
@@ -25,28 +25,28 @@ public class MsgFile {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getFrom_id() {
-        return from_id;
+    public String getFromId() {
+        return fromId;
     }
 
-    public void setFrom_id(String from_id) {
-        this.from_id = from_id == null ? null : from_id.trim();
+    public void setFromId(String fromId) {
+        this.fromId = fromId == null ? null : fromId.trim();
     }
 
-    public String getFile_name() {
-        return file_name;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFile_name(String file_name) {
-        this.file_name = file_name == null ? null : file_name.trim();
+    public void setFileName(String fileName) {
+        this.fileName = fileName == null ? null : fileName.trim();
     }
 
     public String getExt() {
@@ -57,19 +57,19 @@ public class MsgFile {
         this.ext = ext == null ? null : ext.trim();
     }
 
-    public Date getFile_time() {
-        return file_time;
+    public Date getFileTime() {
+        return fileTime;
     }
 
-    public void setFile_time(Date file_time) {
-        this.file_time = file_time;
+    public void setFileTime(Date fileTime) {
+        this.fileTime = fileTime;
     }
 
-    public byte[] getFile_blob() {
-        return file_blob;
+    public byte[] getFileBlob() {
+        return fileBlob;
     }
 
-    public void setFile_blob(byte[] file_blob) {
-        this.file_blob = file_blob;
+    public void setFileBlob(byte[] fileBlob) {
+        this.fileBlob = fileBlob;
     }
 }

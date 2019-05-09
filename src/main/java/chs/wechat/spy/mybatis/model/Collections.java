@@ -5,9 +5,9 @@ import java.util.Date;
 public class Collections {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String col_id;
+    private String colId;
 
     private String seq;
 
@@ -25,20 +25,20 @@ public class Collections {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getCol_id() {
-        return col_id;
+    public String getColId() {
+        return colId;
     }
 
-    public void setCol_id(String col_id) {
-        this.col_id = col_id == null ? null : col_id.trim();
+    public void setColId(String colId) {
+        this.colId = colId == null ? null : colId.trim();
     }
 
     public String getSeq() {

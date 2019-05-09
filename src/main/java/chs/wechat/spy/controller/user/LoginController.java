@@ -35,6 +35,7 @@ public class LoginController {
         uuid = GUID.getUUID();
         UserStatus new_user = new UserStatus();
         new_user.setId(uuid);
+        new_user.setCurrent_opt("LOGIN_START");
         new_user.setStart_time(String.valueOf(System.currentTimeMillis()));
         rco.setHashTable("uuid", JSONUtil.pojo2json(new_user), true);
         rcm.close(rco.getJedis_id());

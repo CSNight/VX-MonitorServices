@@ -8,7 +8,7 @@ import chs.wechat.spy.websocket.WebSocketServerSingleton;
 import com.alibaba.fastjson.JSONObject;
 
 public class ApiMsgBus {
-    RedisClientOperation rco = new RedisClientOperation();
+    private RedisClientOperation rco = new RedisClientOperation();
 
     public void ApiMsgDispatch(String json_msg) {
         rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
@@ -33,18 +33,22 @@ public class ApiMsgBus {
         RedisConnManager.getInstance().close(rco.getJedis_id());
     }
 
-    public void ApiLogMsgProcess(String context, RedisClientOperation rco) {
+    private void ApiLogMsgProcess(String context, RedisClientOperation rco) {
         String uuid = ConfigProperties.GetProperties("app_uid");
         if (context.equals("初始化成功:1")) {
             rco.setHashField(uuid, "init_status", "true");
+            rco.setHashField(uuid, "current_opt", "INIT_SUCCESS");
         } else if (context.contains("初始化失败")) {
             rco.setHashField(uuid, "init_status", "false");
+            rco.setHashField(uuid, "current_opt", "INIT_FAILED");
         } else if (context.equals("请扫描二维码")) {
-
+            rco.setHashField(uuid, "current_opt", "WAITING_SCAN");
         } else if (context.equals("已过期")) {
-            WebSocketServerSingleton wss= WebSocketServerSingleton.getInstance();
-            ServerResponse sr=new ServerResponse();
-            sr.setSucess(1);
+            rco.setHashField(uuid, "current_opt", "TIME_OUT");
+            WebSocketServerSingleton wss = WebSocketServerSingleton.getInstance();
+            ServerResponse sr = new ServerResponse();
+            sr.setSuccess(1);
+            sr.setType("");
             sr.setResponse("OR_CODE_TIME_OUT");
             wss.sendAll("");
         }

@@ -3,23 +3,23 @@ package chs.wechat.spy.mybatis.model;
 public class ChatRooms {
     private String id;
 
-    private String user_id;
+    private String userId;
 
-    private String room_id;
+    private String roomId;
 
-    private String room_code;
+    private String roomCode;
 
-    private String room_nick;
+    private String roomNick;
 
-    private String room_owner;
+    private String roomOwner;
 
-    private Integer member_count;
+    private Integer memberCount;
 
-    private Boolean is_owner;
+    private Boolean isOwner;
 
-    private String small_head_url;
+    private String smallHeadUrl;
 
-    private byte[] small_head;
+    private byte[] smallHead;
 
     public String getId() {
         return id;
@@ -29,75 +29,75 @@ public class ChatRooms {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id == null ? null : user_id.trim();
+    public void setUserId(String userId) {
+        this.userId = userId == null ? null : userId.trim();
     }
 
-    public String getRoom_id() {
-        return room_id;
+    public String getRoomId() {
+        return roomId;
     }
 
-    public void setRoom_id(String room_id) {
-        this.room_id = room_id == null ? null : room_id.trim();
+    public void setRoomId(String roomId) {
+        this.roomId = roomId == null ? null : roomId.trim();
     }
 
-    public String getRoom_code() {
-        return room_code;
+    public String getRoomCode() {
+        return roomCode;
     }
 
-    public void setRoom_code(String room_code) {
-        this.room_code = room_code == null ? null : room_code.trim();
+    public void setRoomCode(String roomCode) {
+        this.roomCode = roomCode == null ? null : roomCode.trim();
     }
 
-    public String getRoom_nick() {
-        return room_nick;
+    public String getRoomNick() {
+        return roomNick;
     }
 
-    public void setRoom_nick(String room_nick) {
-        this.room_nick = room_nick == null ? null : room_nick.trim();
+    public void setRoomNick(String roomNick) {
+        this.roomNick = roomNick == null ? null : roomNick.trim();
     }
 
-    public String getRoom_owner() {
-        return room_owner;
+    public String getRoomOwner() {
+        return roomOwner;
     }
 
-    public void setRoom_owner(String room_owner) {
-        this.room_owner = room_owner == null ? null : room_owner.trim();
+    public void setRoomOwner(String roomOwner) {
+        this.roomOwner = roomOwner == null ? null : roomOwner.trim();
     }
 
-    public Integer getMember_count() {
-        return member_count;
+    public Integer getMemberCount() {
+        return memberCount;
     }
 
-    public void setMember_count(Integer member_count) {
-        this.member_count = member_count;
+    public void setMemberCount(Integer memberCount) {
+        this.memberCount = memberCount;
     }
 
-    public Boolean getIs_owner() {
-        return is_owner;
+    public Boolean getIsOwner() {
+        return isOwner;
     }
 
-    public void setIs_owner(Boolean is_owner) {
-        this.is_owner = is_owner;
+    public void setIsOwner(Boolean isOwner) {
+        this.isOwner = isOwner;
     }
 
-    public String getSmall_head_url() {
-        return small_head_url;
+    public String getSmallHeadUrl() {
+        return smallHeadUrl;
     }
 
-    public void setSmall_head_url(String small_head_url) {
-        this.small_head_url = small_head_url == null ? null : small_head_url.trim();
+    public void setSmallHeadUrl(String smallHeadUrl) {
+        this.smallHeadUrl = smallHeadUrl == null ? null : smallHeadUrl.trim();
     }
 
-    public byte[] getSmall_head() {
-        return small_head;
+    public byte[] getSmallHead() {
+        return smallHead;
     }
 
-    public void setSmall_head(byte[] small_head) {
-        this.small_head = small_head;
+    public void setSmallHead(byte[] smallHead) {
+        this.smallHead = smallHead;
     }
 }
