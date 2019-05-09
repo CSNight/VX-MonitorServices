@@ -1,6 +1,6 @@
 package chs.wechat.spy.mybatis.model;
 
-public class PublicContract {
+public class PublicContact {
     private String id;
 
     private String user_id;

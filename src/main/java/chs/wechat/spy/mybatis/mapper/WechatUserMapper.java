@@ -3,8 +3,6 @@ package chs.wechat.spy.mybatis.mapper;
 import chs.wechat.spy.mybatis.model.WechatUser;
 import chs.wechat.spy.mybatis.model.WechatUserWithBLOBs;
 
-import java.util.List;
-
 public interface WechatUserMapper {
     int deleteByPrimaryKey(String id);
 
@@ -19,6 +17,4 @@ public interface WechatUserMapper {
     int updateByPrimaryKeyWithBLOBs(WechatUserWithBLOBs record);
 
     int updateByPrimaryKey(WechatUser record);
-
-    List<WechatUserWithBLOBs> selectAll();
 }

@@ -1,6 +1,6 @@
 package chs.wechat.spy.mybatis.model;
 
-public class PublicContractWithBLOBs extends PublicContract {
+public class ContactWithBLOBs extends Contact {
     private byte[] small_head;
 
     private byte[] big_head;

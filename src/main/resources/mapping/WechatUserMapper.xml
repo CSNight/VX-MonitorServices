@@ -21,15 +21,174 @@
   <sql id="Blob_Column_List">
     head_image, qr_code
   </sql>
-  <select id="selectAll" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
     from wechat_user
+    where id = #{id,jdbcType=VARCHAR}
   </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from wechat_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="chs.wechat.spy.mybatis.model.WechatUserWithBLOBs">
+    insert into wechat_user (id, user_id, user_name, 
+      pwd, str62, user_sign, 
+      loc, sex, head_image, 
+      qr_code)
+    values (#{id,jdbcType=VARCHAR}, #{user_id,jdbcType=VARCHAR}, #{user_name,jdbcType=VARCHAR}, 
+      #{pwd,jdbcType=VARCHAR}, #{str62,jdbcType=VARCHAR}, #{user_sign,jdbcType=VARCHAR}, 
+      #{loc,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{head_image,jdbcType=LONGVARBINARY}, 
+      #{qr_code,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="chs.wechat.spy.mybatis.model.WechatUserWithBLOBs">
+    insert into wechat_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="user_id != null">
+        user_id,
+      </if>
+      <if test="user_name != null">
+        user_name,
+      </if>
+      <if test="pwd != null">
+        pwd,
+      </if>
+      <if test="str62 != null">
+        str62,
+      </if>
+      <if test="user_sign != null">
+        user_sign,
+      </if>
+      <if test="loc != null">
+        loc,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="head_image != null">
+        head_image,
+      </if>
+      <if test="qr_code != null">
+        qr_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_id != null">
+        #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_name != null">
+        #{user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="str62 != null">
+        #{str62,jdbcType=VARCHAR},
+      </if>
+      <if test="user_sign != null">
+        #{user_sign,jdbcType=VARCHAR},
+      </if>
+      <if test="loc != null">
+        #{loc,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="head_image != null">
+        #{head_image,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="qr_code != null">
+        #{qr_code,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.mybatis.model.WechatUserWithBLOBs">
+    update wechat_user
+    <set>
+      <if test="user_id != null">
+        user_id = #{user_id,jdbcType=VARCHAR},
+      </if>
+      <if test="user_name != null">
+        user_name = #{user_name,jdbcType=VARCHAR},
+      </if>
+      <if test="pwd != null">
+        pwd = #{pwd,jdbcType=VARCHAR},
+      </if>
+      <if test="str62 != null">
+        str62 = #{str62,jdbcType=VARCHAR},
+      </if>
+      <if test="user_sign != null">
+        user_sign = #{user_sign,jdbcType=VARCHAR},
+      </if>
+      <if test="loc != null">
+        loc = #{loc,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="head_image != null">
+        head_image = #{head_image,jdbcType=LONGVARBINARY},
+      </if>
+      <if test="qr_code != null">
+        qr_code = #{qr_code,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.mybatis.model.WechatUserWithBLOBs">
+    update wechat_user
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      user_name = #{user_name,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      str62 = #{str62,jdbcType=VARCHAR},
+      user_sign = #{user_sign,jdbcType=VARCHAR},
+      loc = #{loc,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      head_image = #{head_image,jdbcType=LONGVARBINARY},
+      qr_code = #{qr_code,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.mybatis.model.WechatUser">
+    update wechat_user
+    set user_id = #{user_id,jdbcType=VARCHAR},
+      user_name = #{user_name,jdbcType=VARCHAR},
+      pwd = #{pwd,jdbcType=VARCHAR},
+      str62 = #{str62,jdbcType=VARCHAR},
+      user_sign = #{user_sign,jdbcType=VARCHAR},
+      loc = #{loc,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="chs.wechat.spy.mybatis.model.WechatUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="user_id" />
+    <result column="user_name" jdbcType="VARCHAR" property="user_name" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="str62" jdbcType="VARCHAR" property="str62" />
+    <result column="user_sign" jdbcType="VARCHAR" property="user_sign" />
+    <result column="loc" jdbcType="VARCHAR" property="loc" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.mybatis.model.WechatUserWithBLOBs">
+    <result column="head_image" jdbcType="LONGVARBINARY" property="head_image" />
+    <result column="qr_code" jdbcType="LONGVARBINARY" property="qr_code" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, user_name, pwd, str62, user_sign, loc, sex
+  </sql>
+  <sql id="Blob_Column_List">
+    head_image, qr_code
+  </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select
+    select 
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
