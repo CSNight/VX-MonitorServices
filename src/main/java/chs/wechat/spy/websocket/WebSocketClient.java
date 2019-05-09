@@ -27,7 +27,7 @@ public class WebSocketClient {
     private String host = "127.0.0.1";
     private static URI uri;
     private Channel ch;
-    private static final EventLoopGroup group = new NioEventLoopGroup(4);
+    private static EventLoopGroup group = null;
     private static final Logger logger = LoggerFactory.getLogger(WebSocketClient.class);
     private Bootstrap b;
 
@@ -63,6 +63,7 @@ public class WebSocketClient {
 
     public void open() {
         try {
+            group = new NioEventLoopGroup(4);
             b = new Bootstrap();
             String protocol = uri.getScheme();
             if (!"ws".equals(protocol)) {
@@ -95,6 +96,9 @@ public class WebSocketClient {
     public void close() {
         // WebSocketClientHandler will close the connection when the server
         // responds to the CloseWebSocketFrame.
+        if (group == null || group.isShutdown() || group.isTerminated() || group.isShuttingDown() || ch == null) {
+            return;
+        }
         try {
             logger.info("WebSocket Client sending close");
             if (ch != null) {

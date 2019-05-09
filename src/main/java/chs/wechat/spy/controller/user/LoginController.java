@@ -2,8 +2,12 @@ package chs.wechat.spy.controller.user;
 
 import chs.wechat.spy.api_request.LoginRequest;
 import chs.wechat.spy.mybatis.mapper.WechatUserMapper;
+import chs.wechat.spy.redis.RedisClientOperation;
+import chs.wechat.spy.redis.RedisConnManager;
 import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.utils.GUID;
+import chs.wechat.spy.utils.JSONUtil;
+import chs.wechat.spy.utils.UserStatus;
 import chs.wechat.spy.websocket.WebSocketClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +18,7 @@ import javax.annotation.Resource;
 public class LoginController {
     private String uuid = "";
     private String device_name = "ipad";
+    private RedisClientOperation rco = new RedisClientOperation();
     @Resource
     private WechatUserMapper userMapper;
     LoginRequest lr = new LoginRequest();
@@ -25,10 +30,18 @@ public class LoginController {
 
     @RequestMapping("/user/login_start")
     public String login_start() {
+        RedisConnManager rcm = RedisConnManager.getInstance();
+        rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
         uuid = GUID.getUUID();
+        UserStatus new_user = new UserStatus();
+        new_user.setId(uuid);
+        new_user.setStart_time(String.valueOf(System.currentTimeMillis()));
+        rco.setHashTable("uuid", JSONUtil.pojo2json(new_user), true);
+        rcm.close(rco.getJedis_id());
         ConfigProperties.SetProperties("app_uid", uuid);
         WebSocketClient ws = WebSocketClient.getInstance();
         ws.setUri(uuid);
+        ws.close();
         ws.open();
         return uuid;
     }
