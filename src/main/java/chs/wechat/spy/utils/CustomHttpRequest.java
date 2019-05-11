@@ -156,4 +156,21 @@ public class CustomHttpRequest {
         return "error"; // 自定义错误信息
     }
 
+    private static byte[] download(String urlList) {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        try {
+            URL url = new URL(urlList);
+            DataInputStream dataInputStream = new DataInputStream(url.openStream());
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = dataInputStream.read(buffer)) > 0) {
+                output.write(buffer, 0, length);
+            }
+            dataInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return output.toByteArray();
+    }
+
 }

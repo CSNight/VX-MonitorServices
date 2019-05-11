@@ -1,134 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="chs.wechat.spy.mybatis.mapper.MsgFileMapper">
-    <resultMap id="BaseResultMap" type="chs.wechat.spy.mybatis.model.MsgFile">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
-        <result column="from_id" jdbcType="VARCHAR" property="fromId"/>
-        <result column="file_name" jdbcType="VARCHAR" property="fileName"/>
-        <result column="ext" jdbcType="VARCHAR" property="ext"/>
-        <result column="file_time" jdbcType="TIMESTAMP" property="fileTime"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.mybatis.model.MsgFile">
-        <result column="file_blob" jdbcType="LONGVARBINARY" property="fileBlob"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        id, user_id, from_id, file_name, ext, file_time
-    </sql>
-    <sql id="Blob_Column_List">
-        file_blob
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from msg_file
-        where id = #{id,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from msg_file
-        where id = #{id,jdbcType=VARCHAR}
-    </delete>
-    <insert id="insert" parameterType="chs.wechat.spy.mybatis.model.MsgFile">
-        insert into msg_file (id, user_id, from_id,
-                              file_name, ext, file_time,
-                              file_blob)
-        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{fromId,jdbcType=VARCHAR},
-                #{fileName,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP},
-                #{fileBlob,jdbcType=LONGVARBINARY})
-    </insert>
-    <insert id="insertSelective" parameterType="chs.wechat.spy.mybatis.model.MsgFile">
-        insert into msg_file
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="userId != null">
-                user_id,
-            </if>
-            <if test="fromId != null">
-                from_id,
-            </if>
-            <if test="fileName != null">
-                file_name,
-            </if>
-            <if test="ext != null">
-                ext,
-            </if>
-            <if test="fileTime != null">
-                file_time,
-            </if>
-            <if test="fileBlob != null">
-                file_blob,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="userId != null">
-                #{userId,jdbcType=VARCHAR},
-            </if>
-            <if test="fromId != null">
-                #{fromId,jdbcType=VARCHAR},
-            </if>
-            <if test="fileName != null">
-                #{fileName,jdbcType=VARCHAR},
-            </if>
-            <if test="ext != null">
-                #{ext,jdbcType=VARCHAR},
-            </if>
-            <if test="fileTime != null">
-                #{fileTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="fileBlob != null">
-                #{fileBlob,jdbcType=LONGVARBINARY},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.mybatis.model.MsgFile">
-        update msg_file
-        <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=VARCHAR},
-            </if>
-            <if test="fromId != null">
-                from_id = #{fromId,jdbcType=VARCHAR},
-            </if>
-            <if test="fileName != null">
-                file_name = #{fileName,jdbcType=VARCHAR},
-            </if>
-            <if test="ext != null">
-                ext = #{ext,jdbcType=VARCHAR},
-            </if>
-            <if test="fileTime != null">
-                file_time = #{fileTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="fileBlob != null">
-                file_blob = #{fileBlob,jdbcType=LONGVARBINARY},
-            </if>
-        </set>
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.mybatis.model.MsgFile">
-        update msg_file
-        set user_id   = #{userId,jdbcType=VARCHAR},
-            from_id   = #{fromId,jdbcType=VARCHAR},
-            file_name = #{fileName,jdbcType=VARCHAR},
-            ext       = #{ext,jdbcType=VARCHAR},
-            file_time = #{fileTime,jdbcType=TIMESTAMP},
-            file_blob = #{fileBlob,jdbcType=LONGVARBINARY}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.mybatis.model.MsgFile">
-        update msg_file
-        set user_id   = #{userId,jdbcType=VARCHAR},
-            from_id   = #{fromId,jdbcType=VARCHAR},
-            file_name = #{fileName,jdbcType=VARCHAR},
-            ext       = #{ext,jdbcType=VARCHAR},
-            file_time = #{fileTime,jdbcType=TIMESTAMP}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
+<mapper namespace="chs.wechat.spy.db.mybatis.mapper.MsgFileMapper">
+  <resultMap id="BaseResultMap" type="chs.wechat.spy.db.mybatis.model.MsgFile">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+    <result column="file_time" jdbcType="TIMESTAMP" property="fileTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.db.mybatis.model.MsgFile">
+    <result column="file_blob" jdbcType="LONGVARBINARY" property="fileBlob" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, from_id, file_name, ext, file_time
+  </sql>
+  <sql id="Blob_Column_List">
+    file_blob
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from msg_file
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from msg_file
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
+    insert into msg_file (id, user_id, from_id, 
+      file_name, ext, file_time, 
+      file_blob)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{fromId,jdbcType=VARCHAR}, 
+      #{fileName,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP}, 
+      #{fileBlob,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
+    insert into msg_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+      <if test="fileTime != null">
+        file_time,
+      </if>
+      <if test="fileBlob != null">
+        file_blob,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromId != null">
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="fileTime != null">
+        #{fileTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileBlob != null">
+        #{fileBlob,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
+    update msg_file
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromId != null">
+        from_id = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="fileTime != null">
+        file_time = #{fileTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileBlob != null">
+        file_blob = #{fileBlob,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
+    update msg_file
+    set user_id = #{userId,jdbcType=VARCHAR},
+      from_id = #{fromId,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR},
+      file_time = #{fileTime,jdbcType=TIMESTAMP},
+      file_blob = #{fileBlob,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
+    update msg_file
+    set user_id = #{userId,jdbcType=VARCHAR},
+      from_id = #{fromId,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      ext = #{ext,jdbcType=VARCHAR},
+      file_time = #{fileTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>

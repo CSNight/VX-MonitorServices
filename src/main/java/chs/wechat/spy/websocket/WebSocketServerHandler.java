@@ -1,6 +1,8 @@
 package chs.wechat.spy.websocket;
 
-import com.alibaba.fastjson.JSONObject;
+import chs.wechat.spy.db.redis.RedisClientOperation;
+import chs.wechat.spy.db.redis.RedisConnManager;
+import chs.wechat.spy.utils.ConfigProperties;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
@@ -49,6 +51,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         super.channelInactive(ctx);
         System.out.println("Remote Client disconnected!");
         channels.remove(ctx.channel());
+        RedisClientOperation rco = new RedisClientOperation();
+        rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
+        rco.deleteKey(ConfigProperties.GetProperties("app_uid"));
+        RedisConnManager.getInstance().close(rco.getJedis_id());
         ctx.close();
     }
 
@@ -99,36 +105,32 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
     }
 
     private void handleWebSocketFrame(ChannelHandlerContext ctx, WebSocketFrame frame) {
-        if (frame instanceof TextWebSocketFrame) {
-            String clientMsg = ((TextWebSocketFrame) frame).text();
-            try {
-                JSONObject jsonClientMsg = JSONObject.parseObject(clientMsg);
-                if ("connect".equals(jsonClientMsg.getString("requestType"))) {
-                    channels.add(ctx.channel());
+        try {
+            if (frame instanceof TextWebSocketFrame) {
+                String clientMsg = ((TextWebSocketFrame) frame).text();
+            } else if (frame instanceof BinaryWebSocketFrame) {
+                logger.info("Binary msg received");
+                ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
+            } else if (frame instanceof PingWebSocketFrame) {
+                logger.info("Ping msg received");
+                ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
+            } else if (frame instanceof CloseWebSocketFrame) {
+                try {
+                    ctx.channel().closeFuture().sync();
+                } catch (InterruptedException e) {
+                    logger.error(e.getMessage());
+                    e.printStackTrace();
                 }
-            } catch (Exception ex) {
-                logger.error(ex.getMessage());
+                logger.info("Ping msg received");
+            } else if (frame instanceof PongWebSocketFrame) {
+                logger.info("Pong msg received");
+                ctx.channel().writeAndFlush(new PingWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
+            } else {
+                logger.error(String.format("%s frame types not supported", frame.getClass().getName()));
+                throw new UnsupportedOperationException(String.format("%s frame types not supported", frame.getClass().getName()));
             }
-        } else if (frame instanceof BinaryWebSocketFrame) {
-            logger.info("Binary msg received");
-            ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
-        } else if (frame instanceof PingWebSocketFrame) {
-            logger.info("Ping msg received");
-            ctx.channel().writeAndFlush(new PongWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
-        } else if (frame instanceof CloseWebSocketFrame) {
-            try {
-                ctx.channel().closeFuture().sync();
-            } catch (InterruptedException e) {
-                logger.error(e.getMessage());
-                e.printStackTrace();
-            }
-            logger.info("Ping msg received");
-        } else if (frame instanceof PongWebSocketFrame) {
-            logger.info("Pong msg received");
-            ctx.channel().writeAndFlush(new PingWebSocketFrame(frame.isFinalFragment(), frame.rsv(), frame.copy().content()));
-        } else {
-            logger.error(String.format("%s frame types not supported", frame.getClass().getName()));
-            throw new UnsupportedOperationException(String.format("%s frame types not supported", frame.getClass().getName()));
+        } catch (Exception ex) {
+            logger.error(ex.getMessage());
         }
     }
 

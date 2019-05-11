@@ -1,6 +1,6 @@
 package chs.wechat.spy.context;
 
-import chs.wechat.spy.redis.RedisConnManager;
+import chs.wechat.spy.db.redis.RedisConnManager;
 import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.websocket.WebSocketClient;
 import chs.wechat.spy.websocket.WebSocketServerSingleton;

@@ -1,9 +1,9 @@
 package chs.wechat.spy.controller.user;
 
-import chs.wechat.spy.api_request.LoginRequest;
-import chs.wechat.spy.mybatis.mapper.WechatUserMapper;
-import chs.wechat.spy.redis.RedisClientOperation;
-import chs.wechat.spy.redis.RedisConnManager;
+import chs.wechat.spy.db.mybatis.mapper.WechatUserMapper;
+import chs.wechat.spy.db.redis.RedisClientOperation;
+import chs.wechat.spy.db.redis.RedisConnManager;
+import chs.wechat.spy.padsdk.api_request.LoginRequest;
 import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.utils.JSONUtil;
@@ -35,8 +35,8 @@ public class LoginController {
         uuid = GUID.getUUID();
         UserStatus new_user = new UserStatus();
         new_user.setId(uuid);
-        new_user.setCurrent_opt("LOGIN_START");
         new_user.setStart_time(String.valueOf(System.currentTimeMillis()));
+        new_user.setCurrent_opt("LOGIN_START");
         rco.setHashTable("uuid", JSONUtil.pojo2json(new_user), true);
         rcm.close(rco.getJedis_id());
         ConfigProperties.SetProperties("app_uid", uuid);

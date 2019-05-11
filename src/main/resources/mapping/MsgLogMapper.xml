@@ -1,197 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="chs.wechat.spy.mybatis.mapper.MsgLogMapper">
-    <resultMap id="BaseResultMap" type="chs.wechat.spy.mybatis.model.MsgLog">
-        <id column="id" jdbcType="VARCHAR" property="id"/>
-        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
-        <result column="msg_id" jdbcType="VARCHAR" property="msgId"/>
-        <result column="msg_time" jdbcType="TIMESTAMP" property="msgTime"/>
-        <result column="msg_type" jdbcType="INTEGER" property="msgType"/>
-        <result column="msg_subtype" jdbcType="INTEGER" property="msgSubtype"/>
-        <result column="from_user" jdbcType="VARCHAR" property="fromUser"/>
-        <result column="to_user" jdbcType="VARCHAR" property="toUser"/>
-        <result column="uin" jdbcType="VARCHAR" property="uin"/>
-        <result column="msg_status" jdbcType="INTEGER" property="msgStatus"/>
-        <result column="content_id" jdbcType="VARCHAR" property="contentId"/>
-    </resultMap>
-    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.mybatis.model.MsgLog">
-        <result column="msg_describe" jdbcType="LONGVARBINARY" property="msgDescribe"/>
-    </resultMap>
-    <sql id="Base_Column_List">
-        id, user_id, msg_id, msg_time, msg_type, msg_subtype, from_user, to_user, uin, msg_status,
-        content_id
-    </sql>
-    <sql id="Blob_Column_List">
-        msg_describe
-    </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-        select
-        <include refid="Base_Column_List"/>
-        ,
-        <include refid="Blob_Column_List"/>
-        from msg_log
-        where id = #{id,jdbcType=VARCHAR}
-    </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-        delete
-        from msg_log
-        where id = #{id,jdbcType=VARCHAR}
-    </delete>
-    <insert id="insert" parameterType="chs.wechat.spy.mybatis.model.MsgLog">
-        insert into msg_log (id, user_id, msg_id,
-                             msg_time, msg_type, msg_subtype,
-                             from_user, to_user, uin,
-                             msg_status, content_id, msg_describe)
-        values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgId,jdbcType=VARCHAR},
-                #{msgTime,jdbcType=TIMESTAMP}, #{msgType,jdbcType=INTEGER}, #{msgSubtype,jdbcType=INTEGER},
-                #{fromUser,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, #{uin,jdbcType=VARCHAR},
-                #{msgStatus,jdbcType=INTEGER}, #{contentId,jdbcType=VARCHAR}, #{msgDescribe,jdbcType=LONGVARBINARY})
-    </insert>
-    <insert id="insertSelective" parameterType="chs.wechat.spy.mybatis.model.MsgLog">
-        insert into msg_log
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
-            <if test="userId != null">
-                user_id,
-            </if>
-            <if test="msgId != null">
-                msg_id,
-            </if>
-            <if test="msgTime != null">
-                msg_time,
-            </if>
-            <if test="msgType != null">
-                msg_type,
-            </if>
-            <if test="msgSubtype != null">
-                msg_subtype,
-            </if>
-            <if test="fromUser != null">
-                from_user,
-            </if>
-            <if test="toUser != null">
-                to_user,
-            </if>
-            <if test="uin != null">
-                uin,
-            </if>
-            <if test="msgStatus != null">
-                msg_status,
-            </if>
-            <if test="contentId != null">
-                content_id,
-            </if>
-            <if test="msgDescribe != null">
-                msg_describe,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=VARCHAR},
-            </if>
-            <if test="userId != null">
-                #{userId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgId != null">
-                #{msgId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgTime != null">
-                #{msgTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="msgType != null">
-                #{msgType,jdbcType=INTEGER},
-            </if>
-            <if test="msgSubtype != null">
-                #{msgSubtype,jdbcType=INTEGER},
-            </if>
-            <if test="fromUser != null">
-                #{fromUser,jdbcType=VARCHAR},
-            </if>
-            <if test="toUser != null">
-                #{toUser,jdbcType=VARCHAR},
-            </if>
-            <if test="uin != null">
-                #{uin,jdbcType=VARCHAR},
-            </if>
-            <if test="msgStatus != null">
-                #{msgStatus,jdbcType=INTEGER},
-            </if>
-            <if test="contentId != null">
-                #{contentId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgDescribe != null">
-                #{msgDescribe,jdbcType=LONGVARBINARY},
-            </if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.mybatis.model.MsgLog">
-        update msg_log
-        <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgId != null">
-                msg_id = #{msgId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgTime != null">
-                msg_time = #{msgTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="msgType != null">
-                msg_type = #{msgType,jdbcType=INTEGER},
-            </if>
-            <if test="msgSubtype != null">
-                msg_subtype = #{msgSubtype,jdbcType=INTEGER},
-            </if>
-            <if test="fromUser != null">
-                from_user = #{fromUser,jdbcType=VARCHAR},
-            </if>
-            <if test="toUser != null">
-                to_user = #{toUser,jdbcType=VARCHAR},
-            </if>
-            <if test="uin != null">
-                uin = #{uin,jdbcType=VARCHAR},
-            </if>
-            <if test="msgStatus != null">
-                msg_status = #{msgStatus,jdbcType=INTEGER},
-            </if>
-            <if test="contentId != null">
-                content_id = #{contentId,jdbcType=VARCHAR},
-            </if>
-            <if test="msgDescribe != null">
-                msg_describe = #{msgDescribe,jdbcType=LONGVARBINARY},
-            </if>
-        </set>
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.mybatis.model.MsgLog">
-        update msg_log
-        set user_id      = #{userId,jdbcType=VARCHAR},
-            msg_id       = #{msgId,jdbcType=VARCHAR},
-            msg_time     = #{msgTime,jdbcType=TIMESTAMP},
-            msg_type     = #{msgType,jdbcType=INTEGER},
-            msg_subtype  = #{msgSubtype,jdbcType=INTEGER},
-            from_user    = #{fromUser,jdbcType=VARCHAR},
-            to_user      = #{toUser,jdbcType=VARCHAR},
-            uin          = #{uin,jdbcType=VARCHAR},
-            msg_status   = #{msgStatus,jdbcType=INTEGER},
-            content_id   = #{contentId,jdbcType=VARCHAR},
-            msg_describe = #{msgDescribe,jdbcType=LONGVARBINARY}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
-    <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.mybatis.model.MsgLog">
-        update msg_log
-        set user_id     = #{userId,jdbcType=VARCHAR},
-            msg_id      = #{msgId,jdbcType=VARCHAR},
-            msg_time    = #{msgTime,jdbcType=TIMESTAMP},
-            msg_type    = #{msgType,jdbcType=INTEGER},
-            msg_subtype = #{msgSubtype,jdbcType=INTEGER},
-            from_user   = #{fromUser,jdbcType=VARCHAR},
-            to_user     = #{toUser,jdbcType=VARCHAR},
-            uin         = #{uin,jdbcType=VARCHAR},
-            msg_status  = #{msgStatus,jdbcType=INTEGER},
-            content_id  = #{contentId,jdbcType=VARCHAR}
-        where id = #{id,jdbcType=VARCHAR}
-    </update>
+<mapper namespace="chs.wechat.spy.db.mybatis.mapper.MsgLogMapper">
+  <resultMap id="BaseResultMap" type="chs.wechat.spy.db.mybatis.model.MsgLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="msg_id" jdbcType="VARCHAR" property="msgId" />
+    <result column="msg_time" jdbcType="TIMESTAMP" property="msgTime" />
+    <result column="msg_type" jdbcType="INTEGER" property="msgType" />
+    <result column="msg_subtype" jdbcType="INTEGER" property="msgSubtype" />
+    <result column="from_user" jdbcType="VARCHAR" property="fromUser" />
+    <result column="to_user" jdbcType="VARCHAR" property="toUser" />
+    <result column="uin" jdbcType="VARCHAR" property="uin" />
+    <result column="msg_status" jdbcType="INTEGER" property="msgStatus" />
+    <result column="content_id" jdbcType="VARCHAR" property="contentId" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.db.mybatis.model.MsgLog">
+    <result column="msg_describe" jdbcType="LONGVARBINARY" property="msgDescribe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, msg_id, msg_time, msg_type, msg_subtype, from_user, to_user, uin, msg_status, 
+    content_id
+  </sql>
+  <sql id="Blob_Column_List">
+    msg_describe
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from msg_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from msg_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
+    insert into msg_log (id, user_id, msg_id, 
+      msg_time, msg_type, msg_subtype, 
+      from_user, to_user, uin, 
+      msg_status, content_id, msg_describe
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgId,jdbcType=VARCHAR}, 
+      #{msgTime,jdbcType=TIMESTAMP}, #{msgType,jdbcType=INTEGER}, #{msgSubtype,jdbcType=INTEGER}, 
+      #{fromUser,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, #{uin,jdbcType=VARCHAR}, 
+      #{msgStatus,jdbcType=INTEGER}, #{contentId,jdbcType=VARCHAR}, #{msgDescribe,jdbcType=LONGVARBINARY}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
+    insert into msg_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="msgId != null">
+        msg_id,
+      </if>
+      <if test="msgTime != null">
+        msg_time,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="msgSubtype != null">
+        msg_subtype,
+      </if>
+      <if test="fromUser != null">
+        from_user,
+      </if>
+      <if test="toUser != null">
+        to_user,
+      </if>
+      <if test="uin != null">
+        uin,
+      </if>
+      <if test="msgStatus != null">
+        msg_status,
+      </if>
+      <if test="contentId != null">
+        content_id,
+      </if>
+      <if test="msgDescribe != null">
+        msg_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgId != null">
+        #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        #{msgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="msgSubtype != null">
+        #{msgSubtype,jdbcType=INTEGER},
+      </if>
+      <if test="fromUser != null">
+        #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="toUser != null">
+        #{toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="uin != null">
+        #{uin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgStatus != null">
+        #{msgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null">
+        #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgDescribe != null">
+        #{msgDescribe,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
+    update msg_log
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgId != null">
+        msg_id = #{msgId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgTime != null">
+        msg_time = #{msgTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="msgSubtype != null">
+        msg_subtype = #{msgSubtype,jdbcType=INTEGER},
+      </if>
+      <if test="fromUser != null">
+        from_user = #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="toUser != null">
+        to_user = #{toUser,jdbcType=VARCHAR},
+      </if>
+      <if test="uin != null">
+        uin = #{uin,jdbcType=VARCHAR},
+      </if>
+      <if test="msgStatus != null">
+        msg_status = #{msgStatus,jdbcType=INTEGER},
+      </if>
+      <if test="contentId != null">
+        content_id = #{contentId,jdbcType=VARCHAR},
+      </if>
+      <if test="msgDescribe != null">
+        msg_describe = #{msgDescribe,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
+    update msg_log
+    set user_id = #{userId,jdbcType=VARCHAR},
+      msg_id = #{msgId,jdbcType=VARCHAR},
+      msg_time = #{msgTime,jdbcType=TIMESTAMP},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      msg_subtype = #{msgSubtype,jdbcType=INTEGER},
+      from_user = #{fromUser,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=VARCHAR},
+      uin = #{uin,jdbcType=VARCHAR},
+      msg_status = #{msgStatus,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=VARCHAR},
+      msg_describe = #{msgDescribe,jdbcType=LONGVARBINARY}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
+    update msg_log
+    set user_id = #{userId,jdbcType=VARCHAR},
+      msg_id = #{msgId,jdbcType=VARCHAR},
+      msg_time = #{msgTime,jdbcType=TIMESTAMP},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      msg_subtype = #{msgSubtype,jdbcType=INTEGER},
+      from_user = #{fromUser,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=VARCHAR},
+      uin = #{uin,jdbcType=VARCHAR},
+      msg_status = #{msgStatus,jdbcType=INTEGER},
+      content_id = #{contentId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
 </mapper>

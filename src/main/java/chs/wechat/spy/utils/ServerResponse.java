@@ -6,6 +6,15 @@ public class ServerResponse {
     private String type = "";
     private long timestamp = System.currentTimeMillis();
 
+    public ServerResponse() {
+    }
+
+    public ServerResponse(int success, String response, String type) {
+        this.success = success;
+        this.response = response;
+        this.type = type;
+    }
+
     public int getSuccess() {
         return success;
     }
