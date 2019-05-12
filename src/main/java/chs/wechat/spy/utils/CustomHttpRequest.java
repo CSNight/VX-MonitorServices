@@ -156,7 +156,7 @@ public class CustomHttpRequest {
         return "error"; // 自定义错误信息
     }
 
-    private static byte[] download(String urlList) {
+    public static byte[] download(String urlList) {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try {
             URL url = new URL(urlList);
