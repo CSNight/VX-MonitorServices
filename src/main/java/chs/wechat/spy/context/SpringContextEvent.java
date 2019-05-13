@@ -36,7 +36,6 @@ public class SpringContextEvent implements ApplicationListener {
             WebSocketServerSingleton.getInstance().shutdown();
             WebSocketClient.getInstance().close();
             RedisConnManager.getInstance().shutdown();
-            System.out.println("sss");
         }
     }
 }

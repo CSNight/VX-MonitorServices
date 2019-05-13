@@ -1,17 +1,19 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
+import chs.wechat.spy.controller.ReflectUtils;
 import chs.wechat.spy.controller.impl.ContactImpl;
 import chs.wechat.spy.db.mybatis.model.ContactWithBLOBs;
 import chs.wechat.spy.utils.CustomHttpRequest;
 import chs.wechat.spy.utils.GUID;
-import chs.wechat.spy.controller.ReflectUtils;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ContactToDB {
-    public void ContactCallBack(String uuid, JSONObject jo_contact) {
+    public void ContactCallBack(String user_id, JSONObject jo_contact) {
         ContactWithBLOBs contact = new ContactWithBLOBs();
-        contact.setId(GUID.getUUID());
-        contact.setUserId(uuid);
+        contact.setUserId(user_id);
         contact.setContactId(jo_contact.getString("user_name"));
         contact.setContactName(jo_contact.getString("nick_name"));
         contact.setRemark(jo_contact.getString("remark"));
@@ -25,6 +27,17 @@ public class ContactToDB {
         contact.setBigHeadUrl(jo_contact.getString("big_head"));
         contact.setSmallHead(CustomHttpRequest.download(contact.getSmallHeadUrl()));
         contact.setBigHead(CustomHttpRequest.download(contact.getBigHeadUrl()));
-        ReflectUtils.getBean(ContactImpl.class).insertSelective(contact);
+        ContactImpl contactImpl = ReflectUtils.getBean(ContactImpl.class);
+        Map<String, String> identify = new HashMap<>();
+        identify.put("user_id", user_id);
+        identify.put("contact_id", jo_contact.getString("user_name"));
+        String contact_unique = contactImpl.getContactById(identify);
+        if (contact_unique != null) {
+            contact.setId(contact_unique);
+            contactImpl.updateByPrimaryKeySelective(contact);
+        } else {
+            contact.setId(GUID.getUUID());
+            contactImpl.insertSelective(contact);
+        }
     }
 }

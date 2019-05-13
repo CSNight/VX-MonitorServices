@@ -102,7 +102,7 @@ public class LoginRequest {
      * @return java.lang.String
      * @since 2019/5/10 9:02
      */
-    public String GetToken(String str62, String token, String uuid) {
+    public String Reconnect(String str62, String token, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("str62", str62);
         params.put("token", token);

@@ -22,7 +22,7 @@ public class ApiMsgBus {
                 SendQR(evt.getString("context"));
                 break;
             case "getcontact"://获取联系人信息。会多次传输
-                ContactMsgProcess(evt.getString("context"));
+                ContactMsgProcess(evt.getString("context"), rco);
                 break;
             case "getgroup"://获取群组信息。会多次传输
                 break;
@@ -77,11 +77,12 @@ public class ApiMsgBus {
         wss.sendAll(JSONUtil.pojo2json(sr));
     }
 
-    private void ContactMsgProcess(String context) {
+    private void ContactMsgProcess(String context, RedisClientOperation rco) {
         String uuid = ConfigProperties.GetProperties("app_uid");
+        String user_id = rco.getHashField(uuid, "id");
         JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
         ContactToDB contactToDB = new ContactToDB();
-        contactToDB.ContactCallBack(uuid, jo_contact);
+        contactToDB.ContactCallBack(user_id, jo_contact);
     }
 
     private String trimMsg(String source) {

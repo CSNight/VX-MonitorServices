@@ -153,10 +153,13 @@ public class CustomHttpRequest {
         } catch (IOException e) {
             System.out.println(e);
         }
-        return "error"; // 自定义错误信息
+        return "{\"Success\":\"error\"}"; // 自定义错误信息
     }
 
     public static byte[] download(String urlList) {
+        if (urlList.equals("")) {
+            return null;
+        }
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         try {
             URL url = new URL(urlList);
