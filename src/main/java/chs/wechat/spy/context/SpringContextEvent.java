@@ -4,7 +4,7 @@ import chs.wechat.spy.db.redis.RedisConnManager;
 import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.websocket.WebSocketClient;
 import chs.wechat.spy.websocket.WebSocketServerSingleton;
-import org.springframework.boot.context.event.ApplicationStartingEvent;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
@@ -12,7 +12,7 @@ import org.springframework.context.event.ContextClosedEvent;
 public class SpringContextEvent implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
-        if (applicationEvent instanceof ApplicationStartingEvent) {
+        if (applicationEvent instanceof ApplicationStartedEvent) {
             RedisConnManager rcm = RedisConnManager.getInstance();
             rcm.setServerIp(ConfigProperties.GetProperties("status_redis_server.host"));
             rcm.setPort(Integer.parseInt(ConfigProperties.GetProperties("status_redis_server.port")));

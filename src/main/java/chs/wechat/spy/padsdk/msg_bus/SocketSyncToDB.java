@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContactToDB {
+public class SocketSyncToDB {
     public void ContactCallBack(String user_id, JSONObject jo_contact) {
         ContactWithBLOBs contact = new ContactWithBLOBs();
         contact.setUserId(user_id);

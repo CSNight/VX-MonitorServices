@@ -13,6 +13,8 @@ public class ApiMsgBus {
 
     public void ApiMsgDispatch(String json_msg) {
         rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
+        String uuid = ConfigProperties.GetProperties("app_uid");
+        String user_id = rco.getHashField(uuid, "id");
         JSONObject evt = JSONObject.parseObject(json_msg);
         switch (evt.getString("action")) {
             case "log"://log信息
@@ -22,7 +24,7 @@ public class ApiMsgBus {
                 SendQR(evt.getString("context"));
                 break;
             case "getcontact"://获取联系人信息。会多次传输
-                ContactMsgProcess(evt.getString("context"), rco);
+                ContactMsgProcess(evt.getString("context"), user_id);
                 break;
             case "getgroup"://获取群组信息。会多次传输
                 break;
@@ -77,11 +79,9 @@ public class ApiMsgBus {
         wss.sendAll(JSONUtil.pojo2json(sr));
     }
 
-    private void ContactMsgProcess(String context, RedisClientOperation rco) {
-        String uuid = ConfigProperties.GetProperties("app_uid");
-        String user_id = rco.getHashField(uuid, "id");
+    private void ContactMsgProcess(String context, String user_id) {
         JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
-        ContactToDB contactToDB = new ContactToDB();
+        SocketSyncToDB contactToDB = new SocketSyncToDB();
         contactToDB.ContactCallBack(user_id, jo_contact);
     }
 

@@ -6,8 +6,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@MapperScan(basePackages = "chs.wechat.spy.db.mybatis.mapper")
+
 @SpringBootApplication
+@MapperScan(basePackages = "chs.wechat.spy.db.mybatis.mapper")
 @ComponentScan(basePackages = {"chs.wechat.spy.controller"})
 public class VxMonitorServicesApplication {
 
