@@ -106,6 +106,9 @@ public class PadLoginController {
     private String StartInstance(String user_id) {
         RedisConnManager rcm = RedisConnManager.getInstance();
         rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
+        if (ConfigProperties.GetProperties("app_uid") != null) {
+            rco.deleteKey(ConfigProperties.GetProperties("app_uid"));
+        }
         String uuid = GUID.getUUID();
         UserStatus new_user = new UserStatus();
         new_user.setId(user_id);

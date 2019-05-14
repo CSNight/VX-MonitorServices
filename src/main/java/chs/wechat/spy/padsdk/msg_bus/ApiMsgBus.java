@@ -97,7 +97,6 @@ public class ApiMsgBus {
         syncCallbackToDB.PublicCTCallBack(user_id, jo_contact);
     }
 
-
     private String trimMsg(String source) {
         return source.replaceAll("\t*\n*\\s*", "");
     }
