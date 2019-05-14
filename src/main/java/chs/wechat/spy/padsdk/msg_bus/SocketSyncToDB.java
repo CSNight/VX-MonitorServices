@@ -103,7 +103,7 @@ public class SocketSyncToDB {
         chatRooms.setRoomNick(jo_group.getString("nick_name").equals("") ? "群聊" : jo_group.getString("nick_name"));
         chatRooms.setRoomCode(jo_group.getString("chatroom_id"));
         chatRooms.setSmallHeadUrl(jo_group.getString("small_head"));
-        DownloadItem smallHead = new DownloadItem("", "public", jo_group.getString("small_head"), "small");
+        DownloadItem smallHead = new DownloadItem("", "chat_room", jo_group.getString("small_head"), "small");
         Map<String, String> identify = new HashMap<>();
         identify.put("user_id", user_id);
         identify.put("room_id", jo_group.getString("user_name"));

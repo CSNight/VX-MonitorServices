@@ -1,10 +1,10 @@
 package chs.wechat.spy.utils;
 
 public class DownloadItem {
-    private String url = "";
-    private String table = "";
-    private String field = "";
-    private String id = "";
+    private String url;
+    private String table;
+    private String field;
+    private String id;
 
     public DownloadItem(String id, String table, String url, String field) {
         this.url = url;
