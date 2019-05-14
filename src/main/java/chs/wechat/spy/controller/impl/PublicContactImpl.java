@@ -6,6 +6,7 @@ import chs.wechat.spy.db.mybatis.model.PublicContactWithBLOBs;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Service
 public class PublicContactImpl {
@@ -38,5 +39,9 @@ public class PublicContactImpl {
 
     public int updateByPrimaryKey(PublicContact record) {
         return publicContactMapper.updateByPrimaryKey(record);
+    }
+
+    public String getPublicCtById(Map<String, String> identify) {
+        return publicContactMapper.getPublicCtById(identify);
     }
 }

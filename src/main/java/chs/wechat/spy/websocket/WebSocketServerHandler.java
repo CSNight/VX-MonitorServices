@@ -53,7 +53,9 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         channels.remove(ctx.channel());
         RedisClientOperation rco = new RedisClientOperation();
         rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
-        rco.deleteKey(ConfigProperties.GetProperties("app_uid"));
+        if (ConfigProperties.GetProperties("app_uid") != null) {
+            rco.deleteKey(ConfigProperties.GetProperties("app_uid"));
+        }
         RedisConnManager.getInstance().close(rco.getJedis_id());
         ctx.close();
     }
@@ -139,7 +141,6 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<Object> 
         channels.remove(ctx.channel());
         ctx.channel().close();
         super.exceptionCaught(ctx, cause);
-        cause.printStackTrace();
     }
 
 }

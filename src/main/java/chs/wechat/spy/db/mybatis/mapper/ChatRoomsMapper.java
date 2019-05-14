@@ -2,6 +2,8 @@ package chs.wechat.spy.db.mybatis.mapper;
 
 import chs.wechat.spy.db.mybatis.model.ChatRooms;
 
+import java.util.Map;
+
 public interface ChatRoomsMapper {
     int deleteByPrimaryKey(String id);
 
@@ -16,4 +18,6 @@ public interface ChatRoomsMapper {
     int updateByPrimaryKeyWithBLOBs(ChatRooms record);
 
     int updateByPrimaryKey(ChatRooms record);
+
+    String getRoomById(Map<String, String> identify);
 }

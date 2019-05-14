@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public class ApiMsgBus {
     private RedisClientOperation rco = new RedisClientOperation();
+    private SocketSyncToDB syncCallbackToDB = new SocketSyncToDB();
 
     public void ApiMsgDispatch(String json_msg) {
         rco.setJedisClient(RedisConnManager.getInstance().getJedis(rco.getJedis_id()));
@@ -27,8 +28,10 @@ public class ApiMsgBus {
                 ContactMsgProcess(evt.getString("context"), user_id);
                 break;
             case "getgroup"://获取群组信息。会多次传输
+                GroupMsgProcess(evt.getString("context"), user_id);
                 break;
             case "getgzh"://获取公众号信息。会多次传输
+                PublicCTMsgProcess(evt.getString("context"), user_id);
                 break;
             case "msgcallback"://微信消息回调事件
                 break;
@@ -81,9 +84,19 @@ public class ApiMsgBus {
 
     private void ContactMsgProcess(String context, String user_id) {
         JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
-        SocketSyncToDB contactToDB = new SocketSyncToDB();
-        contactToDB.ContactCallBack(user_id, jo_contact);
+        syncCallbackToDB.ContactCallBack(user_id, jo_contact);
     }
+
+    private void GroupMsgProcess(String context, String user_id) {
+        JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
+        syncCallbackToDB.GroupCallBack(user_id, jo_contact);
+    }
+
+    private void PublicCTMsgProcess(String context, String user_id) {
+        JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
+        syncCallbackToDB.PublicCTCallBack(user_id, jo_contact);
+    }
+
 
     private String trimMsg(String source) {
         return source.replaceAll("\t*\n*\\s*", "");

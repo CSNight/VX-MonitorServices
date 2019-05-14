@@ -5,6 +5,7 @@ import chs.wechat.spy.db.mybatis.model.ChatRooms;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 @Service
 public class ChatRoomsImpl {
@@ -37,5 +38,9 @@ public class ChatRoomsImpl {
 
     public int updateByPrimaryKey(ChatRooms record) {
         return chatRoomsMapper.updateByPrimaryKey(record);
+    }
+
+    public String getRoomById(Map<String, String> identify) {
+        return chatRoomsMapper.getRoomById(identify);
     }
 }

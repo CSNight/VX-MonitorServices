@@ -111,7 +111,7 @@ public class PadLoginController {
         new_user.setId(user_id);
         new_user.setStart_time(String.valueOf(System.currentTimeMillis()));
         new_user.setCurrent_opt("LOGIN_START");
-        rco.setHashTable("uuid", JSONUtil.pojo2json(new_user), true);
+        rco.setHashTable(uuid, JSONUtil.pojo2json(new_user), true);
         rcm.close(rco.getJedis_id());
         ConfigProperties.SetProperties("app_uid", uuid);
         WebSocketClient ws = WebSocketClient.getInstance();

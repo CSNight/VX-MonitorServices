@@ -13,6 +13,8 @@ public class PublicContact {
 
     private String sign;
 
+    private String intro;
+
     private String stranger;
 
     private Integer addSource;
@@ -67,6 +69,14 @@ public class PublicContact {
 
     public void setSign(String sign) {
         this.sign = sign == null ? null : sign.trim();
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro == null ? null : intro.trim();
     }
 
     public String getStranger() {
