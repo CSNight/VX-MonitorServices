@@ -129,7 +129,7 @@ public class CustomHttpRequest {
             out.flush();
             out.close();
             int code = connection.getResponseCode();
-            InputStream is = null;
+            InputStream is;
             if (code == 200) {
                 is = connection.getInputStream();
             } else {
@@ -137,7 +137,7 @@ public class CustomHttpRequest {
             }
 
             // 读取响应
-            int length = (int) connection.getContentLength();// 获取长度
+            int length = connection.getContentLength();// 获取长度
             if (length != -1) {
                 byte[] data = new byte[length];
                 byte[] temp = new byte[512];

@@ -62,7 +62,7 @@ public class PadLoginController {
     public String get62Hex(@PathParam(value = "user_id") String user_id) {
         String res = lr.Get62Hex(ConfigProperties.GetProperties("app_uid"));
         JSONObject res_json = JSONObject.parseObject(res);
-        if (!res_json.getString("Success").equals("error")) {
+        if (res_json.getString("Success").equals("true")) {
             WechatUserWithBLOBs userWithBLOBs = new WechatUserWithBLOBs();
             userWithBLOBs.setId(user_id);
             userWithBLOBs.setStr62(res_json.getString("Context"));

@@ -25,13 +25,13 @@ public class ApiMsgBus {
                 SendQR(evt.getString("context"));
                 break;
             case "getcontact"://获取联系人信息。会多次传输
-                ContactMsgProcess(evt.getString("context"), user_id);
+                ContactMsgProcess(evt.getString("context"), user_id, rco);
                 break;
             case "getgroup"://获取群组信息。会多次传输
-                GroupMsgProcess(evt.getString("context"), user_id);
+                GroupMsgProcess(evt.getString("context"), user_id, rco);
                 break;
             case "getgzh"://获取公众号信息。会多次传输
-                PublicCTMsgProcess(evt.getString("context"), user_id);
+                PublicCTMsgProcess(evt.getString("context"), user_id, rco);
                 break;
             case "msgcallback"://微信消息回调事件
                 break;
@@ -82,19 +82,25 @@ public class ApiMsgBus {
         wss.sendAll(JSONUtil.pojo2json(sr));
     }
 
-    private void ContactMsgProcess(String context, String user_id) {
+    private void ContactMsgProcess(String context, String user_id, RedisClientOperation rco) {
         JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
-        syncCallbackToDB.ContactCallBack(user_id, jo_contact);
+        syncCallbackToDB.ContactCallBack(user_id, jo_contact, rco);
     }
 
-    private void GroupMsgProcess(String context, String user_id) {
-        JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
-        syncCallbackToDB.GroupCallBack(user_id, jo_contact);
+    private void GroupMsgProcess(String context, String user_id, RedisClientOperation rco) {
+        JSONObject jo_group = JSONObject.parseObject(trimMsg(context));
+        syncCallbackToDB.GroupCallBack(user_id, jo_group, rco);
     }
 
-    private void PublicCTMsgProcess(String context, String user_id) {
-        JSONObject jo_contact = JSONObject.parseObject(trimMsg(context));
-        syncCallbackToDB.PublicCTCallBack(user_id, jo_contact);
+    private void PublicCTMsgProcess(String context, String user_id, RedisClientOperation rco) {
+        JSONObject jo_public = JSONObject.parseObject(trimMsg(context));
+        syncCallbackToDB.PublicCTCallBack(user_id, jo_public, rco);
+    }
+
+    public void MsgCallBackProcess(String context, String user_id, RedisClientOperation rco) {
+        JSONObject jo_msg = JSONObject.parseObject(trimMsg(context));
+        int msg_type = jo_msg.getInteger("");
+        int msg_subtype = jo_msg.getInteger("");
     }
 
     private String trimMsg(String source) {

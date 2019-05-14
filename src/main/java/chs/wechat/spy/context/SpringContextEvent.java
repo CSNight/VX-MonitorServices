@@ -2,6 +2,7 @@ package chs.wechat.spy.context;
 
 import chs.wechat.spy.db.redis.RedisConnManager;
 import chs.wechat.spy.utils.ConfigProperties;
+import chs.wechat.spy.utils.DownloadPool;
 import chs.wechat.spy.websocket.WebSocketClient;
 import chs.wechat.spy.websocket.WebSocketServerSingleton;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -32,6 +33,9 @@ public class SpringContextEvent implements ApplicationListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            DownloadPool downloadPool = DownloadPool.getInstance();
+            downloadPool.StartDownloadPool();
+            System.out.println("Start Complete!");
         } else if (applicationEvent instanceof ContextClosedEvent) {
             WebSocketServerSingleton.getInstance().shutdown();
             WebSocketClient.getInstance().close();
