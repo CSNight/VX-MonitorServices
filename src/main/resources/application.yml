@@ -6,7 +6,7 @@ server:
     context-path: /
 spring:
   datasource:
-    url: jdbc:mysql://47.92.211.200:10024/wechat?serverTimezone=UTC
+    url: jdbc:mysql://47.92.211.200:10024/wechat?serverTimezone=Asia/Shanghai
     username: csnight
     password: night@123456
     driver-class-name: com.mysql.cj.jdbc.Driver

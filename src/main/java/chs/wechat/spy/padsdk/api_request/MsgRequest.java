@@ -152,6 +152,11 @@ public class MsgRequest {
         Map<String, Object> params = new HashMap<>();
         params.put("msg", msg);
         params.put("uuid", uuid);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return CustomHttpRequest.jsonPost(GET_IMG, params);
     }
 

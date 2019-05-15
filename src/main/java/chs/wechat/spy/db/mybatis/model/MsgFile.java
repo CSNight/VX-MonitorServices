@@ -16,7 +16,7 @@ public class MsgFile {
 
     private String ext;
 
-    private Timestamp fileTime;
+    private Date fileTime;
 
     private byte[] fileBlob;
 
@@ -68,11 +68,11 @@ public class MsgFile {
         this.ext = ext == null ? null : ext.trim();
     }
 
-    public Timestamp getFileTime() {
+    public Date getFileTime() {
         return fileTime;
     }
 
-    public void setFileTime(Timestamp fileTime) {
+    public void setFileTime(Date fileTime) {
         this.fileTime = fileTime;
     }
 

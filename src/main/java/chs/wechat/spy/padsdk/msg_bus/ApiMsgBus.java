@@ -9,8 +9,6 @@ import chs.wechat.spy.utils.ServerResponse;
 import chs.wechat.spy.websocket.WebSocketServerSingleton;
 import com.alibaba.fastjson.JSONObject;
 
-import java.nio.charset.Charset;
-
 public class ApiMsgBus {
     private RedisClientOperation rco = new RedisClientOperation();
     private SocketSyncToDB syncCallbackToDB = new SocketSyncToDB();
@@ -106,12 +104,8 @@ public class ApiMsgBus {
         int msg_type = jo_msg.getInteger("msg_type");
         int msg_subtype = jo_msg.getInteger("sub_type");
         MsgLog msgComm = syncCallbackToDB.MsgTextProcess(user_id, jo_msg, rco);
-        switch (msg_type) {
-            case 5:
-
-                break;
-            case 6:
-                break;
+        if (msg_type == 5) {
+            syncCallbackToDB.StToDB(msgComm, jo_msg, msg_subtype);
         }
     }
 

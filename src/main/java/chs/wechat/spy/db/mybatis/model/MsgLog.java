@@ -10,7 +10,7 @@ public class MsgLog {
 
     private String msgId;
 
-    private Timestamp msgTime;
+    private Date msgTime;
 
     private Integer msgType;
 
@@ -62,11 +62,11 @@ public class MsgLog {
         this.msgId = msgId == null ? null : msgId.trim();
     }
 
-    public Timestamp getMsgTime() {
+    public Date getMsgTime() {
         return msgTime;
     }
 
-    public void setMsgTime(Timestamp msgTime) {
+    public void setMsgTime(Date msgTime) {
         this.msgTime = msgTime;
     }
 

@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 
@@ -120,11 +121,10 @@ public class CustomHttpRequest {
             connection.setDoInput(true);
             connection.setUseCaches(false);
             connection.setInstanceFollowRedirects(true);
-            connection.setRequestMethod("POST"); // 设置请求方式
-            connection.setRequestProperty("Accept", "application/json"); // 设置接收数据的格式
+            connection.setRequestMethod("POST"); // 设置请求方式// 设置接收数据的格式
             connection.setRequestProperty("Content-Type", "application/json"); // 设置发送数据的格式
             connection.connect();
-            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), "UTF-8"); // utf-8编码
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream(), StandardCharsets.UTF_8); // utf-8编码
             out.append(JSONUtil.map2json(params));
             out.flush();
             out.close();
@@ -147,7 +147,7 @@ public class CustomHttpRequest {
                     System.arraycopy(temp, 0, data, destPos, readLen);
                     destPos += readLen;
                 }
-                return new String(data, "UTF-8");
+                return new String(data, StandardCharsets.UTF_8);
             }
 
         } catch (IOException e) {

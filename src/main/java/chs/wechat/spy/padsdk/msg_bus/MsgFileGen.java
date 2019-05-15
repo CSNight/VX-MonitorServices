@@ -1,17 +1,19 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
+import chs.wechat.spy.controller.ReflectUtils;
+import chs.wechat.spy.controller.impl.MsgFileImpl;
+import chs.wechat.spy.controller.impl.MsgLogImpl;
 import chs.wechat.spy.db.mybatis.model.MsgFile;
 import chs.wechat.spy.db.mybatis.model.MsgLog;
 import chs.wechat.spy.padsdk.api_request.MsgRequest;
 import chs.wechat.spy.utils.ConfigProperties;
+import chs.wechat.spy.utils.CustomHttpRequest;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.utils.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Decoder;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Map;
 
 public class MsgFileGen {
@@ -28,88 +30,101 @@ public class MsgFileGen {
         return msgFile;
     }
 
-    public MsgFile imgFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
+    public void imgFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
         String uuid = ConfigProperties.GetProperties("app_uid");
         MsgFile msgFile = BuildComm(msgLog, meta);
-        msgFile.setFileName("image" + System.currentTimeMillis());
+        msgFile.setFileName("image_" + System.currentTimeMillis());
         try {
             JSONObject res = JSONObject.parseObject(mr.GetImg((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid));
             if (res.getString("Success").equals("true")) {
-                msgFile.setFileBlob(res.getString("Context").getBytes(Charset.forName("utf-8")));
+                msgFile.setFileBlob(Base64ToByte(res.getJSONObject("Context"), "image"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         msgFile.setExt(".png");
-        return msgFile;
+        MsgFileInsert(msgFile, msgLog);
     }
 
-    public MsgFile voiceFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
+    public void voiceFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
         String uuid = ConfigProperties.GetProperties("app_uid");
         MsgFile msgFile = BuildComm(msgLog, meta);
-        msgFile.setFileName("voice" + System.currentTimeMillis());
+        msgFile.setFileName("voice_" + System.currentTimeMillis());
         try {
             JSONObject res = JSONObject.parseObject(mr.GetVoice((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid));
             if (res.getString("Success").equals("true")) {
-                msgFile.setFileBlob(res.getString("Context").getBytes(Charset.forName("utf-8")));
+                msgFile.setFileBlob(Base64ToByte(res.getJSONObject("Context"), "voice"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         msgFile.setExt(".mp3");
-        return msgFile;
+        MsgFileInsert(msgFile, msgLog);
     }
 
-    public MsgFile videoFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
+    public void videoFile(MsgLog msgLog, Map<String, Object> meta, String msg) {
         String uuid = ConfigProperties.GetProperties("app_uid");
         MsgFile msgFile = BuildComm(msgLog, meta);
-        msgFile.setFileName("video" + System.currentTimeMillis());
+        msgFile.setFileName("video_" + System.currentTimeMillis());
         try {
             JSONObject res = JSONObject.parseObject(mr.GetVideo((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid));
             if (res.getString("Success").equals("true")) {
-                msgFile.setFileBlob(res.getString("Context").getBytes(Charset.forName("utf-8")));
+                msgFile.setFileBlob(Base64ToByte(res.getJSONObject("Context"), "video"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         msgFile.setExt(".mp4");
-        return msgFile;
+        MsgFileInsert(msgFile, msgLog);
     }
 
-    public MsgFile redPack(MsgLog msgLog, Map<String, Object> meta, String msg) {
+    public void redPack(MsgLog msgLog, Map<String, Object> meta, String msg) {
         String uuid = ConfigProperties.GetProperties("app_uid");
         MsgFile msgFile = BuildComm(msgLog, meta);
-        msgFile.setFileName("redPack" + System.currentTimeMillis());
+        msgFile.setFileName("red_pack_" + System.currentTimeMillis());
         try {
-            JSONObject res = JSONObject.parseObject(mr.GetRedPack((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid));
-            if (res.getString("Success").equals("true")) {
-                msgFile.setFileBlob(res.getString("Context").getBytes(Charset.forName("utf-8")));
-            }
+            String res = mr.GetRedPack((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         msgFile.setExt("");
-        return msgFile;
+        MsgFileInsert(msgFile, msgLog);
     }
 
-    public static void main(String[] args) {
-        MsgRequest mr = new MsgRequest();
-        String s = "{\"content\":\"<?xml version=\\\"1.0\\\"?>\\n<msg>\\n\\t<img aeskey=\\\"d38328e6bbb8c6ddcb3e41bc8ee3fa1f\\\" encryver=\\\"1\\\" cdnthumbaeskey=\\\"d38328e6bbb8c6ddcb3e41bc8ee3fa1f\\\" cdnthumburl=\\\"3053020100044c304a0201000204dd1ba52202033d0af70204208e1e6f02045cdb841b0425617570696d675f323238336338333761333535373735645f313535373839303037343634300204010438010201000400\\\" cdnthumblength=\\\"3855\\\" cdnthumbheight=\\\"67\\\" cdnthumbwidth=\\\"144\\\" cdnmidheight=\\\"0\\\" cdnmidwidth=\\\"0\\\" cdnhdheight=\\\"0\\\" cdnhdwidth=\\\"0\\\" cdnmidimgurl=\\\"3053020100044c304a0201000204dd1ba52202033d0af70204208e1e6f02045cdb841b0425617570696d675f323238336338333761333535373735645f313535373839303037343634300204010438010201000400\\\" length=\\\"3855\\\" cdnbigimgurl=\\\"3053020100044c304a0201000204dd1ba52202033d0af70204208e1e6f02045cdb841b0425617570696d675f323238336338333761333535373735645f313535373839303037343634300204010438010201000400\\\" hdlength=\\\"577328\\\" md5=\\\"2d0b7be815522c4f5aaed003214a4619\\\" />\\n</msg>\\n\",\"continue\":0,\"description\":\"\",\"from_user\":\"chensi199100\",\"msg_id\":\"2682852943451080697\",\"msg_source\":\"<msgsource />\\n\",\"msg_type\":5,\"status\":1,\"sub_type\":3,\"timestamp\":1557913413,\"to_user\":\"filehelper\",\"uin\":1207650860,\"mywxid\":\"chensi199100\"}";
-        String ss = mr.GetImg((Map<String, Object>) JSONObject.parseObject(s, Map.class), ConfigProperties.GetProperties("app_uid"));
-        BASE64Decoder D=new BASE64Decoder();
-        byte[] sss = new byte[0];
+    public void emojiFile(MsgLog msgLog, Map<String, Object> meta) {
+        MsgFile msgFile = BuildComm(msgLog, meta);
+        msgFile.setFileName("emoji_" + System.currentTimeMillis());
+        msgFile.setFileBlob(CustomHttpRequest.download(meta.get("cdnurl").toString()));
+        msgFile.setExt(".gif");
+        MsgFileInsert(msgFile, msgLog);
+    }
+
+    public void MsgFileCommon(MsgLog msgLog, Map<String, Object> meta, String t) {
+        MsgFile msgFile = BuildComm(msgLog, meta);
+        msgFile.setFileName(t + "_" + System.currentTimeMillis());
+        if (meta.get("type").equals("6")) {
+            msgFile.setFileName(meta.get("title").toString());
+            msgFile.setExt("." + meta.get("ext").toString());
+        }
+        msgFile.setFileBlob(msgLog.getMsgDescribe());
+        MsgFileInsert(msgFile, msgLog);
+    }
+
+    private void MsgFileInsert(MsgFile msgFile, MsgLog msgLog) {
+        MsgFileImpl msgFileImpl = ReflectUtils.getBean(MsgFileImpl.class);
+        msgFileImpl.insertSelective(msgFile);
+        MsgLogImpl msgLogImpl = ReflectUtils.getBean(MsgLogImpl.class);
+        msgLog.setContentId(msgFile.getId());
+        msgLogImpl.insertSelective(msgLog);
+    }
+
+    private byte[] Base64ToByte(JSONObject Context, String field) {
+        BASE64Decoder decoder = new BASE64Decoder();
         try {
-            sss = D.decodeBuffer(JSONObject.parseObject(ss).getJSONObject("Context").getString("image"));
+            return decoder.decodeBuffer(Context.getString(field));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            FileOutputStream fs = new FileOutputStream("f:\\a.jpg");
-            fs.write(sss);
-            fs.flush();
-            fs.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 }

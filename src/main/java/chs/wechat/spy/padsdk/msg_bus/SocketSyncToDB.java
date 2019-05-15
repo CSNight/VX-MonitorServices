@@ -11,11 +11,13 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SocketSyncToDB {
     private XmlMsgParser xmlMsgParser = new XmlMsgParser();
+    private MsgFileGen msgFileGen = new MsgFileGen();
 
     public void ContactCallBack(String user_id, JSONObject jo_contact, RedisClientOperation rco) {
         ContactWithBLOBs contact = new ContactWithBLOBs();
@@ -125,11 +127,11 @@ public class SocketSyncToDB {
         msgLog.setUserId(user_id);
         msgLog.setMsgType(jo_msg.getInteger("msg_type"));
         msgLog.setMsgSubtype(jo_msg.getInteger("sub_type"));
-        msgLog.setMsgTime(new Timestamp(jo_msg.getLong("timestamp") * 1000));
+        msgLog.setMsgTime(new Date(jo_msg.getLong("timestamp") * 1000));
         msgLog.setFromUser(jo_msg.getString("from_user"));
         msgLog.setFromType(getUserType(jo_msg.getString("from_user")));
         msgLog.setToUser(jo_msg.getString("to_user"));
-        msgLog.setToType(jo_msg.getString("to_user"));
+        msgLog.setToType(getUserType(jo_msg.getString("from_user")));
         msgLog.setUin(jo_msg.getString("uin"));
         msgLog.setMsgId(jo_msg.getString("msg_id"));
         msgLog.setMsgStatus(jo_msg.getInteger("status"));
@@ -156,29 +158,48 @@ public class SocketSyncToDB {
                 break;
             case 3://图片
                 prop = xmlMsgParser.ImageParser(content);
+                msgFileGen.imgFile(msgLog, prop, jo_msg.toString());
                 break;
             case 34://语音
                 prop = xmlMsgParser.VoiceParser(content);
+                msgFileGen.voiceFile(msgLog, prop, jo_msg.toString());
                 break;
             case 35://邮件推送
                 prop = xmlMsgParser.mailParser(content);
+                msgFileGen.MsgFileCommon(msgLog, prop, "email");
                 break;
             case 42://名片
                 prop = xmlMsgParser.CardParser(content);
+                msgFileGen.MsgFileCommon(msgLog, prop, "card");
                 break;
             case 43://视频
                 prop = xmlMsgParser.VideoParser(content);
+                msgFileGen.videoFile(msgLog, prop, jo_msg.toString());
                 break;
             case 47://大表情
                 prop = xmlMsgParser.emojiParser(content);
+                msgFileGen.emojiFile(msgLog, prop);
                 break;
             case 48://位置
                 prop = xmlMsgParser.PosParser(content);
+                msgFileGen.MsgFileCommon(msgLog, prop, "pos");
                 break;
             case 49://链接、文件、卡券、红包
                 prop = xmlMsgParser.AppDispatch(content);
+                if (prop.get("type").equals("2001")) {
+                    msgFileGen.redPack(msgLog, prop, jo_msg.toString());
+                } else if (prop.get("type").equals("5")) {
+                    msgFileGen.MsgFileCommon(msgLog, prop, "link");
+                } else if (prop.get("type").equals("33")) {
+                    msgFileGen.MsgFileCommon(msgLog, prop, "app");
+                } else if (prop.get("type").equals("6")) {
+                    msgFileGen.MsgFileCommon(msgLog, prop, "file");
+                } else {
+                    msgFileGen.MsgFileCommon(msgLog, prop, "unknown");
+                }
                 break;
             case 50://语音、视频通话
+                LogToDB(msgLog);
                 //prop = xmlMsgParser.ImageParser(jo_msg.getString("content"));
                 break;
 
