@@ -1,5 +1,6 @@
 package chs.wechat.spy.db.mybatis.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class Collections {
@@ -11,7 +12,7 @@ public class Collections {
 
     private String seq;
 
-    private Date times;
+    private Timestamp times;
 
     private Integer type;
 
@@ -49,11 +50,11 @@ public class Collections {
         this.seq = seq == null ? null : seq.trim();
     }
 
-    public Date getTimes() {
+    public Timestamp getTimes() {
         return times;
     }
 
-    public void setTimes(Date times) {
+    public void setTimes(Timestamp times) {
         this.times = times;
     }
 

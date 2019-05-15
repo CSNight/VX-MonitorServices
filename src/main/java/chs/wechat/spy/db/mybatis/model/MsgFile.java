@@ -1,5 +1,6 @@
 package chs.wechat.spy.db.mybatis.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class MsgFile {
@@ -9,11 +10,13 @@ public class MsgFile {
 
     private String fromId;
 
+    private String meta;
+
     private String fileName;
 
     private String ext;
 
-    private Date fileTime;
+    private Timestamp fileTime;
 
     private byte[] fileBlob;
 
@@ -41,6 +44,14 @@ public class MsgFile {
         this.fromId = fromId == null ? null : fromId.trim();
     }
 
+    public String getMeta() {
+        return meta;
+    }
+
+    public void setMeta(String meta) {
+        this.meta = meta == null ? null : meta.trim();
+    }
+
     public String getFileName() {
         return fileName;
     }
@@ -57,11 +68,11 @@ public class MsgFile {
         this.ext = ext == null ? null : ext.trim();
     }
 
-    public Date getFileTime() {
+    public Timestamp getFileTime() {
         return fileTime;
     }
 
-    public void setFileTime(Date fileTime) {
+    public void setFileTime(Timestamp fileTime) {
         this.fileTime = fileTime;
     }
 

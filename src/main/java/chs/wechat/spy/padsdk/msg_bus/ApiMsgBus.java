@@ -1,5 +1,6 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
+import chs.wechat.spy.db.mybatis.model.MsgLog;
 import chs.wechat.spy.db.redis.RedisClientOperation;
 import chs.wechat.spy.db.redis.RedisConnManager;
 import chs.wechat.spy.utils.ConfigProperties;
@@ -7,6 +8,8 @@ import chs.wechat.spy.utils.JSONUtil;
 import chs.wechat.spy.utils.ServerResponse;
 import chs.wechat.spy.websocket.WebSocketServerSingleton;
 import com.alibaba.fastjson.JSONObject;
+
+import java.nio.charset.Charset;
 
 public class ApiMsgBus {
     private RedisClientOperation rco = new RedisClientOperation();
@@ -34,6 +37,7 @@ public class ApiMsgBus {
                 PublicCTMsgProcess(evt.getString("context"), user_id, rco);
                 break;
             case "msgcallback"://微信消息回调事件
+                MsgCallBackProcess(evt.getString("context"), user_id, rco);
                 break;
         }
         RedisConnManager.getInstance().close(rco.getJedis_id());
@@ -99,12 +103,20 @@ public class ApiMsgBus {
 
     public void MsgCallBackProcess(String context, String user_id, RedisClientOperation rco) {
         JSONObject jo_msg = JSONObject.parseObject(trimMsg(context));
-        int msg_type = jo_msg.getInteger("");
-        int msg_subtype = jo_msg.getInteger("");
+        int msg_type = jo_msg.getInteger("msg_type");
+        int msg_subtype = jo_msg.getInteger("sub_type");
+        MsgLog msgComm = syncCallbackToDB.MsgTextProcess(user_id, jo_msg, rco);
+        switch (msg_type) {
+            case 5:
+
+                break;
+            case 6:
+                break;
+        }
     }
 
     private String trimMsg(String source) {
-        return source.replaceAll("\t*\n*\\s*", "");
+        return source.replaceAll("\\\\t|\\\\r|\\\\n", "");
     }
 
 }

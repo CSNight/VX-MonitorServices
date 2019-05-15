@@ -8,18 +8,23 @@
     <result column="msg_time" jdbcType="TIMESTAMP" property="msgTime" />
     <result column="msg_type" jdbcType="INTEGER" property="msgType" />
     <result column="msg_subtype" jdbcType="INTEGER" property="msgSubtype" />
-    <result column="from_user" jdbcType="VARCHAR" property="fromUser" />
-    <result column="to_user" jdbcType="VARCHAR" property="toUser" />
-    <result column="uin" jdbcType="VARCHAR" property="uin" />
+    <result column="continues" jdbcType="INTEGER" property="continues" />
     <result column="msg_status" jdbcType="INTEGER" property="msgStatus" />
+    <result column="from_user" jdbcType="VARCHAR" property="fromUser" />
+    <result column="from_type" jdbcType="VARCHAR" property="fromType" />
+    <result column="to_user" jdbcType="VARCHAR" property="toUser" />
+    <result column="to_type" jdbcType="VARCHAR" property="toType" />
+    <result column="uin" jdbcType="VARCHAR" property="uin" />
+    <result column="msg_source" jdbcType="VARCHAR" property="msgSource" />
+    <result column="descriptions" jdbcType="VARCHAR" property="descriptions" />
     <result column="content_id" jdbcType="VARCHAR" property="contentId" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="chs.wechat.spy.db.mybatis.model.MsgLog">
     <result column="msg_describe" jdbcType="LONGVARBINARY" property="msgDescribe" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, msg_id, msg_time, msg_type, msg_subtype, from_user, to_user, uin, msg_status, 
-    content_id
+    id, user_id, msg_id, msg_time, msg_type, msg_subtype, continues, msg_status, from_user, 
+    from_type, to_user, to_type, uin, msg_source, descriptions, content_id
   </sql>
   <sql id="Blob_Column_List">
     msg_describe
@@ -39,14 +44,16 @@
   <insert id="insert" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
     insert into msg_log (id, user_id, msg_id, 
       msg_time, msg_type, msg_subtype, 
-      from_user, to_user, uin, 
-      msg_status, content_id, msg_describe
-      )
+      continues, msg_status, from_user, 
+      from_type, to_user, to_type, 
+      uin, msg_source, descriptions, 
+      content_id, msg_describe)
     values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgId,jdbcType=VARCHAR}, 
       #{msgTime,jdbcType=TIMESTAMP}, #{msgType,jdbcType=INTEGER}, #{msgSubtype,jdbcType=INTEGER}, 
-      #{fromUser,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, #{uin,jdbcType=VARCHAR}, 
-      #{msgStatus,jdbcType=INTEGER}, #{contentId,jdbcType=VARCHAR}, #{msgDescribe,jdbcType=LONGVARBINARY}
-      )
+      #{continues,jdbcType=INTEGER}, #{msgStatus,jdbcType=INTEGER}, #{fromUser,jdbcType=VARCHAR}, 
+      #{fromType,jdbcType=VARCHAR}, #{toUser,jdbcType=VARCHAR}, #{toType,jdbcType=VARCHAR}, 
+      #{uin,jdbcType=VARCHAR}, #{msgSource,jdbcType=VARCHAR}, #{descriptions,jdbcType=VARCHAR}, 
+      #{contentId,jdbcType=VARCHAR}, #{msgDescribe,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgLog">
     insert into msg_log
@@ -69,17 +76,32 @@
       <if test="msgSubtype != null">
         msg_subtype,
       </if>
+      <if test="continues != null">
+        continues,
+      </if>
+      <if test="msgStatus != null">
+        msg_status,
+      </if>
       <if test="fromUser != null">
         from_user,
+      </if>
+      <if test="fromType != null">
+        from_type,
       </if>
       <if test="toUser != null">
         to_user,
       </if>
+      <if test="toType != null">
+        to_type,
+      </if>
       <if test="uin != null">
         uin,
       </if>
-      <if test="msgStatus != null">
-        msg_status,
+      <if test="msgSource != null">
+        msg_source,
+      </if>
+      <if test="descriptions != null">
+        descriptions,
       </if>
       <if test="contentId != null">
         content_id,
@@ -107,17 +129,32 @@
       <if test="msgSubtype != null">
         #{msgSubtype,jdbcType=INTEGER},
       </if>
+      <if test="continues != null">
+        #{continues,jdbcType=INTEGER},
+      </if>
+      <if test="msgStatus != null">
+        #{msgStatus,jdbcType=INTEGER},
+      </if>
       <if test="fromUser != null">
         #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fromType != null">
+        #{fromType,jdbcType=VARCHAR},
       </if>
       <if test="toUser != null">
         #{toUser,jdbcType=VARCHAR},
       </if>
+      <if test="toType != null">
+        #{toType,jdbcType=VARCHAR},
+      </if>
       <if test="uin != null">
         #{uin,jdbcType=VARCHAR},
       </if>
-      <if test="msgStatus != null">
-        #{msgStatus,jdbcType=INTEGER},
+      <if test="msgSource != null">
+        #{msgSource,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptions != null">
+        #{descriptions,jdbcType=VARCHAR},
       </if>
       <if test="contentId != null">
         #{contentId,jdbcType=VARCHAR},
@@ -145,17 +182,32 @@
       <if test="msgSubtype != null">
         msg_subtype = #{msgSubtype,jdbcType=INTEGER},
       </if>
+      <if test="continues != null">
+        continues = #{continues,jdbcType=INTEGER},
+      </if>
+      <if test="msgStatus != null">
+        msg_status = #{msgStatus,jdbcType=INTEGER},
+      </if>
       <if test="fromUser != null">
         from_user = #{fromUser,jdbcType=VARCHAR},
+      </if>
+      <if test="fromType != null">
+        from_type = #{fromType,jdbcType=VARCHAR},
       </if>
       <if test="toUser != null">
         to_user = #{toUser,jdbcType=VARCHAR},
       </if>
+      <if test="toType != null">
+        to_type = #{toType,jdbcType=VARCHAR},
+      </if>
       <if test="uin != null">
         uin = #{uin,jdbcType=VARCHAR},
       </if>
-      <if test="msgStatus != null">
-        msg_status = #{msgStatus,jdbcType=INTEGER},
+      <if test="msgSource != null">
+        msg_source = #{msgSource,jdbcType=VARCHAR},
+      </if>
+      <if test="descriptions != null">
+        descriptions = #{descriptions,jdbcType=VARCHAR},
       </if>
       <if test="contentId != null">
         content_id = #{contentId,jdbcType=VARCHAR},
@@ -173,10 +225,15 @@
       msg_time = #{msgTime,jdbcType=TIMESTAMP},
       msg_type = #{msgType,jdbcType=INTEGER},
       msg_subtype = #{msgSubtype,jdbcType=INTEGER},
-      from_user = #{fromUser,jdbcType=VARCHAR},
-      to_user = #{toUser,jdbcType=VARCHAR},
-      uin = #{uin,jdbcType=VARCHAR},
+      continues = #{continues,jdbcType=INTEGER},
       msg_status = #{msgStatus,jdbcType=INTEGER},
+      from_user = #{fromUser,jdbcType=VARCHAR},
+      from_type = #{fromType,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=VARCHAR},
+      to_type = #{toType,jdbcType=VARCHAR},
+      uin = #{uin,jdbcType=VARCHAR},
+      msg_source = #{msgSource,jdbcType=VARCHAR},
+      descriptions = #{descriptions,jdbcType=VARCHAR},
       content_id = #{contentId,jdbcType=VARCHAR},
       msg_describe = #{msgDescribe,jdbcType=LONGVARBINARY}
     where id = #{id,jdbcType=VARCHAR}
@@ -188,10 +245,15 @@
       msg_time = #{msgTime,jdbcType=TIMESTAMP},
       msg_type = #{msgType,jdbcType=INTEGER},
       msg_subtype = #{msgSubtype,jdbcType=INTEGER},
-      from_user = #{fromUser,jdbcType=VARCHAR},
-      to_user = #{toUser,jdbcType=VARCHAR},
-      uin = #{uin,jdbcType=VARCHAR},
+      continues = #{continues,jdbcType=INTEGER},
       msg_status = #{msgStatus,jdbcType=INTEGER},
+      from_user = #{fromUser,jdbcType=VARCHAR},
+      from_type = #{fromType,jdbcType=VARCHAR},
+      to_user = #{toUser,jdbcType=VARCHAR},
+      to_type = #{toType,jdbcType=VARCHAR},
+      uin = #{uin,jdbcType=VARCHAR},
+      msg_source = #{msgSource,jdbcType=VARCHAR},
+      descriptions = #{descriptions,jdbcType=VARCHAR},
       content_id = #{contentId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>

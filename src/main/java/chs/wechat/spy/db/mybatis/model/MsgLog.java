@@ -1,5 +1,6 @@
 package chs.wechat.spy.db.mybatis.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class MsgLog {
@@ -9,19 +10,29 @@ public class MsgLog {
 
     private String msgId;
 
-    private Date msgTime;
+    private Timestamp msgTime;
 
     private Integer msgType;
 
     private Integer msgSubtype;
 
+    private Integer continues;
+
+    private Integer msgStatus;
+
     private String fromUser;
+
+    private String fromType;
 
     private String toUser;
 
+    private String toType;
+
     private String uin;
 
-    private Integer msgStatus;
+    private String msgSource;
+
+    private String descriptions;
 
     private String contentId;
 
@@ -51,11 +62,11 @@ public class MsgLog {
         this.msgId = msgId == null ? null : msgId.trim();
     }
 
-    public Date getMsgTime() {
+    public Timestamp getMsgTime() {
         return msgTime;
     }
 
-    public void setMsgTime(Date msgTime) {
+    public void setMsgTime(Timestamp msgTime) {
         this.msgTime = msgTime;
     }
 
@@ -75,12 +86,36 @@ public class MsgLog {
         this.msgSubtype = msgSubtype;
     }
 
+    public Integer getContinues() {
+        return continues;
+    }
+
+    public void setContinues(Integer continues) {
+        this.continues = continues;
+    }
+
+    public Integer getMsgStatus() {
+        return msgStatus;
+    }
+
+    public void setMsgStatus(Integer msgStatus) {
+        this.msgStatus = msgStatus;
+    }
+
     public String getFromUser() {
         return fromUser;
     }
 
     public void setFromUser(String fromUser) {
         this.fromUser = fromUser == null ? null : fromUser.trim();
+    }
+
+    public String getFromType() {
+        return fromType;
+    }
+
+    public void setFromType(String fromType) {
+        this.fromType = fromType == null ? null : fromType.trim();
     }
 
     public String getToUser() {
@@ -91,6 +126,14 @@ public class MsgLog {
         this.toUser = toUser == null ? null : toUser.trim();
     }
 
+    public String getToType() {
+        return toType;
+    }
+
+    public void setToType(String toType) {
+        this.toType = toType == null ? null : toType.trim();
+    }
+
     public String getUin() {
         return uin;
     }
@@ -99,12 +142,20 @@ public class MsgLog {
         this.uin = uin == null ? null : uin.trim();
     }
 
-    public Integer getMsgStatus() {
-        return msgStatus;
+    public String getMsgSource() {
+        return msgSource;
     }
 
-    public void setMsgStatus(Integer msgStatus) {
-        this.msgStatus = msgStatus;
+    public void setMsgSource(String msgSource) {
+        this.msgSource = msgSource == null ? null : msgSource.trim();
+    }
+
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions == null ? null : descriptions.trim();
     }
 
     public String getContentId() {

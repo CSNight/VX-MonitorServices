@@ -5,6 +5,7 @@
     <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="meta" jdbcType="VARCHAR" property="meta" />
     <result column="file_name" jdbcType="VARCHAR" property="fileName" />
     <result column="ext" jdbcType="VARCHAR" property="ext" />
     <result column="file_time" jdbcType="TIMESTAMP" property="fileTime" />
@@ -13,7 +14,7 @@
     <result column="file_blob" jdbcType="LONGVARBINARY" property="fileBlob" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_id, from_id, file_name, ext, file_time
+    id, user_id, from_id, meta, file_name, ext, file_time
   </sql>
   <sql id="Blob_Column_List">
     file_blob
@@ -32,11 +33,11 @@
   </delete>
   <insert id="insert" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
     insert into msg_file (id, user_id, from_id, 
-      file_name, ext, file_time, 
-      file_blob)
+      meta, file_name, ext, 
+      file_time, file_blob)
     values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{fromId,jdbcType=VARCHAR}, 
-      #{fileName,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, #{fileTime,jdbcType=TIMESTAMP}, 
-      #{fileBlob,jdbcType=LONGVARBINARY})
+      #{meta,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, #{ext,jdbcType=VARCHAR}, 
+      #{fileTime,jdbcType=TIMESTAMP}, #{fileBlob,jdbcType=LONGVARBINARY})
   </insert>
   <insert id="insertSelective" parameterType="chs.wechat.spy.db.mybatis.model.MsgFile">
     insert into msg_file
@@ -49,6 +50,9 @@
       </if>
       <if test="fromId != null">
         from_id,
+      </if>
+      <if test="meta != null">
+        meta,
       </if>
       <if test="fileName != null">
         file_name,
@@ -73,6 +77,9 @@
       <if test="fromId != null">
         #{fromId,jdbcType=VARCHAR},
       </if>
+      <if test="meta != null">
+        #{meta,jdbcType=VARCHAR},
+      </if>
       <if test="fileName != null">
         #{fileName,jdbcType=VARCHAR},
       </if>
@@ -96,6 +103,9 @@
       <if test="fromId != null">
         from_id = #{fromId,jdbcType=VARCHAR},
       </if>
+      <if test="meta != null">
+        meta = #{meta,jdbcType=VARCHAR},
+      </if>
       <if test="fileName != null">
         file_name = #{fileName,jdbcType=VARCHAR},
       </if>
@@ -115,6 +125,7 @@
     update msg_file
     set user_id = #{userId,jdbcType=VARCHAR},
       from_id = #{fromId,jdbcType=VARCHAR},
+      meta = #{meta,jdbcType=VARCHAR},
       file_name = #{fileName,jdbcType=VARCHAR},
       ext = #{ext,jdbcType=VARCHAR},
       file_time = #{fileTime,jdbcType=TIMESTAMP},
@@ -125,6 +136,7 @@
     update msg_file
     set user_id = #{userId,jdbcType=VARCHAR},
       from_id = #{fromId,jdbcType=VARCHAR},
+      meta = #{meta,jdbcType=VARCHAR},
       file_name = #{fileName,jdbcType=VARCHAR},
       ext = #{ext,jdbcType=VARCHAR},
       file_time = #{fileTime,jdbcType=TIMESTAMP}

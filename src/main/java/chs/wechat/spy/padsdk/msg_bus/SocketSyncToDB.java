@@ -1,24 +1,22 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
 import chs.wechat.spy.controller.ReflectUtils;
-import chs.wechat.spy.controller.impl.ChatRoomsImpl;
-import chs.wechat.spy.controller.impl.ContactImpl;
-import chs.wechat.spy.controller.impl.PublicContactImpl;
-import chs.wechat.spy.controller.impl.WechatUserImpl;
-import chs.wechat.spy.db.mybatis.model.ChatRooms;
-import chs.wechat.spy.db.mybatis.model.ContactWithBLOBs;
-import chs.wechat.spy.db.mybatis.model.PublicContactWithBLOBs;
-import chs.wechat.spy.db.mybatis.model.WechatUserWithBLOBs;
+import chs.wechat.spy.controller.impl.*;
+import chs.wechat.spy.db.mybatis.model.*;
 import chs.wechat.spy.db.redis.RedisClientOperation;
 import chs.wechat.spy.utils.DownloadItem;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.utils.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 
+import java.nio.charset.Charset;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SocketSyncToDB {
+    private XmlMsgParser xmlMsgParser = new XmlMsgParser();
+
     public void ContactCallBack(String user_id, JSONObject jo_contact, RedisClientOperation rco) {
         ContactWithBLOBs contact = new ContactWithBLOBs();
         contact.setUserId(user_id);
@@ -119,5 +117,81 @@ public class SocketSyncToDB {
             chatRoomsImpl.insertSelective(chatRooms);
         }
         rco.getJedisClient().rpush("downloadQueue", JSONUtil.pojo2json(smallHead));
+    }
+
+    public MsgLog MsgTextProcess(String user_id, JSONObject jo_msg, RedisClientOperation rco) {
+        MsgLog msgLog = new MsgLog();
+        msgLog.setId(GUID.getUUID());
+        msgLog.setUserId(user_id);
+        msgLog.setMsgType(jo_msg.getInteger("msg_type"));
+        msgLog.setMsgSubtype(jo_msg.getInteger("sub_type"));
+        msgLog.setMsgTime(new Timestamp(jo_msg.getLong("timestamp") * 1000));
+        msgLog.setFromUser(jo_msg.getString("from_user"));
+        msgLog.setFromType(getUserType(jo_msg.getString("from_user")));
+        msgLog.setToUser(jo_msg.getString("to_user"));
+        msgLog.setToType(jo_msg.getString("to_user"));
+        msgLog.setUin(jo_msg.getString("uin"));
+        msgLog.setMsgId(jo_msg.getString("msg_id"));
+        msgLog.setMsgStatus(jo_msg.getInteger("status"));
+        msgLog.setContinues(jo_msg.getInteger("continue"));
+        msgLog.setMsgDescribe(jo_msg.getString("content").getBytes(Charset.forName("utf-8")));
+        msgLog.setDescriptions(jo_msg.getString("description"));
+        msgLog.setMsgSource(jo_msg.getString("msg_source").replaceAll("\\\\t|\\\\n", ""));
+        return msgLog;
+    }
+
+    public void LogToDB(MsgLog msgLog) {
+        MsgLogImpl msgLogImpl = ReflectUtils.getBean(MsgLogImpl.class);
+        msgLogImpl.insertSelective(msgLog);
+    }
+
+    public void StToDB(MsgLog msgLog, JSONObject jo_msg, int msg_subtype) {
+        Map<String, Object> prop = null;
+        String content = jo_msg.getString("content");
+        switch (msg_subtype) {
+            case 1://文字
+            case 10000://系统消息 群聊拉人进群退群消息等
+            case 51://好友focus op id =2 进入聊天、公号 op id =5 退出(公号）
+                LogToDB(msgLog);
+                break;
+            case 3://图片
+                prop = xmlMsgParser.ImageParser(content);
+                break;
+            case 34://语音
+                prop = xmlMsgParser.VoiceParser(content);
+                break;
+            case 35://邮件推送
+                prop = xmlMsgParser.mailParser(content);
+                break;
+            case 42://名片
+                prop = xmlMsgParser.CardParser(content);
+                break;
+            case 43://视频
+                prop = xmlMsgParser.VideoParser(content);
+                break;
+            case 47://大表情
+                prop = xmlMsgParser.emojiParser(content);
+                break;
+            case 48://位置
+                prop = xmlMsgParser.PosParser(content);
+                break;
+            case 49://链接、文件、卡券、红包
+                prop = xmlMsgParser.AppDispatch(content);
+                break;
+            case 50://语音、视频通话
+                //prop = xmlMsgParser.ImageParser(jo_msg.getString("content"));
+                break;
+
+        }
+    }
+
+    private String getUserType(String contact) {
+        if (contact.contains("@charroom")) {
+            return "group";
+        } else if (contact.contains("gh_")) {
+            return "public";
+        } else {
+            return "private";
+        }
     }
 }

@@ -9,23 +9,36 @@ import chs.wechat.spy.padsdk.api_request.UserRequest;
 import chs.wechat.spy.utils.*;
 import chs.wechat.spy.websocket.WebSocketClient;
 import com.alibaba.fastjson.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
 @RestController
 public class PadLoginController {
     private final String device_name = "ipad";
+    private final Logger logger = LoggerFactory.getLogger(PadLoginController.class);
     private RedisClientOperation rco = new RedisClientOperation();
     @Resource
     private WechatUserMapper userMapper;
     private LoginRequest lr = new LoginRequest();
 
     @RequestMapping("/auth")
-    public String auth() {
+    public String auth(HttpServletRequest request, HttpServletResponse response) {
+        logger.info(request.getQueryString());
+        if (request.getQueryString().contains("action=getip")) {
+            response.setHeader("Server", "Microsoft-IIS/10.0");
+            response.setHeader("X-AspNet-Version", "4.0.30319");
+            response.setHeader("X-Powered-By", "ASP.NET");
+            return "ShQH1WGOxZHtBv9NFIqeevBur28RP2sdSVNPXbsn6GLeAtfQJW54bOpm6bHF39skZ2F7+d/4WypSTmb5rEuUgH5Mowa0P" +
+                    "Kzpg6XW2i7lReH2RARJLXMG/VN6E2j9cb6tanLe0RBS95I=";
+        }
         return "true";
     }
 
