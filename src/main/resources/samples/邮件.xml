@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<msg>
+  <pushmail>
+    <content>
+      <subject><![CDATA[eqweqe ]]></subject>
+      <attach>false</attach>
+      <sender><![CDATA[陈思]]></sender>
+      <digest><![CDATA[weqeqeq 陈思 大客户一中心 ______________________________________________________________ 北京超  ]]></digest>
+      <date>2019-05-15 11:05:37</date>
+      <fromlist count="1">
+        <item>
+          <name><![CDATA[陈思]]></name>
+          <addr>chensi@supermap.com</addr>
+        </item>
+      </fromlist>
+      <tolist count="1">
+        <item>
+          <name><![CDATA[923739637]]></name>
+          <addr>923739637@qq.com</addr>
+        </item>
+      </tolist>
+      <cclist count="0"/>
+    </content>
+    <mailid>ZC3215-VKGgNRCSdXqhGC9zhejsC95</mailid>
+    <waplink><![CDATA[https://w.mail.qq.com/cgi-bin/login?fun=mautologin&mailid=ZC3215-VKGgNRCSdXqhGC9zhejsC95&mpwd=29f98885fee69e7MTU1ODQ5NDMzOQ@923739637@4&fwd=weixin]]></waplink>
+  </pushmail>
+</msg>

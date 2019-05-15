@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<msg>
+  <appmsg appid="" sdkver="">
+    <des><![CDATA[我给你发了一个红包，赶紧去拆!]]></des>
+    <url><![CDATA[https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039501201905157003651081880&ver=6&sign=e42429504c528e37735255d89a04db8329397048fbf5df14775d5f6d72b242846319bd2f37f1622fd12fc97fb378766a3df49360419e6fc3727aa3cca1240c3872c38d211625423c1c569b3f06e765e5]]></url>
+    <type><![CDATA[2001]]></type>
+    <title><![CDATA[微信红包]]></title>
+    <thumburl><![CDATA[https://wx.gtimg.com/hongbao/1800/hb.png]]></thumburl>
+    <wcpayinfo>
+      <templateid><![CDATA[7a2a165d31da7fce6dd77e05c300028a]]></templateid>
+      <url><![CDATA[https://wxapp.tenpay.com/mmpayhb/wxhb_personalreceive?showwxpaytitle=1&msgtype=1&channelid=1&sendid=1000039501201905157003651081880&ver=6&sign=e42429504c528e37735255d89a04db8329397048fbf5df14775d5f6d72b242846319bd2f37f1622fd12fc97fb378766a3df49360419e6fc3727aa3cca1240c3872c38d211625423c1c569b3f06e765e5]]></url>
+      <iconurl><![CDATA[https://wx.gtimg.com/hongbao/1800/hb.png]]></iconurl>
+      <receivertitle><![CDATA[恭喜发财，大吉大利]]></receivertitle>
+      <sendertitle><![CDATA[恭喜发财，大吉大利]]></sendertitle>
+      <scenetext><![CDATA[微信红包]]></scenetext>
+      <senderdes><![CDATA[查看红包]]></senderdes>
+      <receiverdes><![CDATA[领取红包]]></receiverdes>
+      <nativeurl><![CDATA[wxpay://c2cbizmessagehandler/hongbao/receivehongbao?msgtype=1&channelid=1&sendid=1000039501201905157003651081880&sendusername=chensi199100&ver=6&sign=e42429504c528e37735255d89a04db8329397048fbf5df14775d5f6d72b242846319bd2f37f1622fd12fc97fb378766a3df49360419e6fc3727aa3cca1240c3872c38d211625423c1c569b3f06e765e5]]></nativeurl>
+      <sceneid><![CDATA[1002]]></sceneid>
+      <innertype><![CDATA[0]]></innertype>
+      <paymsgid><![CDATA[1000039501201905157003651081880]]></paymsgid>
+      <scenetext>微信红包</scenetext>
+      <locallogoicon><![CDATA[c2c_hongbao_icon_cn]]></locallogoicon>
+      <invalidtime><![CDATA[1557973036]]></invalidtime>
+      <broaden/>
+    </wcpayinfo>
+  </appmsg>
+  <fromusername><![CDATA[chensi199100]]></fromusername>
+</msg>
