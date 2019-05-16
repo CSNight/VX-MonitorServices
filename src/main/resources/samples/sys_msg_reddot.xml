@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sysmsg type="functionmsg">
+    <functionmsg>
+        <cgi>/cgi-bin/micromsg-bin/pullfunctionmsg</cgi>
+        <cmdid>614</cmdid>
+        <functionmsgid>MMKANYIKAN_REDDOT_1557468300</functionmsgid>
+        <retryinterval>150</retryinterval>
+        <retrycount>3</retrycount>
+        <custombuff>YImkAXIKMTU1NzQ2ODMwMHoGd2VpeGluigEcTU1LQU5ZSUtBTl9SRURET1RfMTU1NzQ2ODMwMKoBWEdhVm8zVzRVWWRXRysvdzJnUmFEbnpQUmNaUEZFRHFJMUk4aTdjTjhBWEI2cEJodkNnMGJCWjhBZ1ZBQjMxSVg0WTJ4YWI4eEZtSXZ3Y3BIZkVuMktRPT0=</custombuff>
+        <businessid>21001</businessid>
+        <actiontime>1557468002</actiontime>
+        <functionmsgversion>2</functionmsgversion>
+    </functionmsg>
+</sysmsg>

@@ -99,6 +99,12 @@ public class MsgFileGen {
         MsgFileInsert(msgFile, msgLog);
     }
 
+    public void callFile(MsgLog msgLog, Map<String, Object> meta) {
+        MsgFile msgFile = BuildComm(msgLog, meta);
+        msgFile.setFileName(meta.get("invite_type").toString());
+        MsgFileInsert(msgFile, msgLog);
+    }
+
     public void MsgFileCommon(MsgLog msgLog, Map<String, Object> meta, String t) {
         MsgFile msgFile = BuildComm(msgLog, meta);
         msgFile.setFileName(t + "_" + System.currentTimeMillis());
@@ -119,7 +125,7 @@ public class MsgFileGen {
     }
 
     private byte[] Base64ToByte(JSONObject Context, String field) {
-        if (Context==null) {
+        if (Context == null) {
             return null;
         }
         BASE64Decoder decoder = new BASE64Decoder();

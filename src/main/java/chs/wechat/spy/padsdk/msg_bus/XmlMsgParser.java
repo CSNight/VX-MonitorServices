@@ -147,4 +147,51 @@ public class XmlMsgParser {
         properties.put("thumburl", redNode.selectSingleNode("thumburl").getText());
         return properties;
     }
+
+    public Map<String, Object> CallParser(String content) {
+        Map<String, Object> properties = new HashMap<>();
+        Node voiceCall = getNode(content, "/voipinvitemsg");
+        String invite_t = voiceCall.selectSingleNode("invitetype").getText();
+        String status = voiceCall.selectSingleNode("status").getText();
+        switch (invite_t) {
+            case "0":
+                properties.put("invite_type", "video_call");
+                break;
+            case "1":
+                properties.put("invite_type", "voice_call");
+                break;
+        }
+        switch (status) {
+            case "1":
+                properties.put("status", "call_in");
+                break;
+            case "2":
+                properties.put("status", "cancel_in");
+                break;
+        }
+        properties.put("room_id", voiceCall.selectSingleNode("roomid").getText());
+        properties.put("key", voiceCall.selectSingleNode("key").getText());
+        return properties;
+    }
+
+    public Map<String, Object> sysParser(String content) {
+        Map<String, Object> properties = new HashMap<>();
+        Node sys_msg = getNode(content, "/sysmsg");
+        String msg_t = sys_msg.valueOf("@type");
+        switch (msg_t) {
+            case "revokemsg":
+                properties.put("revoke_from", sys_msg.selectSingleNode("revokemsg/session").getText());
+                properties.put("revoke_msgid", sys_msg.selectSingleNode("revokemsg/newmsgid").getText());
+                properties.put("msg_scope", sys_msg.selectSingleNode("revokemsg/msgid").getText());
+                properties.put("replace_by", sys_msg.selectSingleNode("revokemsg/replacemsg").getText());
+                break;
+            case "functionmsg":
+                break;
+            case "dynacfg":
+                break;
+            case "ClientCheckGetExtInfo":
+                break;
+        }
+        return properties;
+    }
 }

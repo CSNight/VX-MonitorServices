@@ -10,7 +10,6 @@ import chs.wechat.spy.utils.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 
 import java.nio.charset.Charset;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +32,7 @@ public class SocketSyncToDB {
         contact.setSignature(jo_contact.getString("signature"));
         contact.setSmallHeadUrl(jo_contact.getString("small_head"));
         contact.setBigHeadUrl(jo_contact.getString("big_head"));
+        contact.setUin(jo_contact.getString("uin"));
         DownloadItem smallHead = new DownloadItem("", "contact", jo_contact.getString("small_head"), "small");
         DownloadItem bigHead = new DownloadItem("", "contact", jo_contact.getString("big_head"), "big");
         ContactImpl contactImpl = ReflectUtils.getBean(ContactImpl.class);
@@ -68,6 +68,7 @@ public class SocketSyncToDB {
         pc.setAddSource(jo_public_ct.getInteger("source"));
         pc.setSmallHeadUrl(jo_public_ct.getString("small_head"));
         pc.setBigHeadUrl(jo_public_ct.getString("big_head"));
+        pc.setUin(jo_public_ct.getString("uin"));
         DownloadItem smallHead = new DownloadItem("", "public", jo_public_ct.getString("small_head"), "small");
         DownloadItem bigHead = new DownloadItem("", "public", jo_public_ct.getString("big_head"), "big");
         PublicContactImpl publicContactImpl = ReflectUtils.getBean(PublicContactImpl.class);
@@ -103,6 +104,7 @@ public class SocketSyncToDB {
         chatRooms.setRoomNick(jo_group.getString("nick_name").equals("") ? "群聊" : jo_group.getString("nick_name"));
         chatRooms.setRoomCode(jo_group.getString("chatroom_id"));
         chatRooms.setSmallHeadUrl(jo_group.getString("small_head"));
+        chatRooms.setUin(jo_group.getString("uin"));
         DownloadItem smallHead = new DownloadItem("", "chat_room", jo_group.getString("small_head"), "small");
         Map<String, String> identify = new HashMap<>();
         identify.put("user_id", user_id);
@@ -152,6 +154,7 @@ public class SocketSyncToDB {
         String content = jo_msg.getString("content");
         switch (msg_subtype) {
             case 1://文字
+            case 9999://新消息同步数量
             case 10000://系统消息 群聊拉人进群退群消息等
             case 51://好友focus op id =2 进入聊天、公号 op id =5 退出(公号）
                 LogToDB(msgLog);
@@ -199,10 +202,12 @@ public class SocketSyncToDB {
                 }
                 break;
             case 50://语音、视频通话
-                LogToDB(msgLog);
-                //prop = xmlMsgParser.ImageParser(jo_msg.getString("content"));
+                prop = xmlMsgParser.CallParser(content);
+                msgFileGen.callFile(msgLog, prop);
                 break;
-
+            case 10002://系统消息 dynacfg、红点、撤回、客户端check
+                prop = xmlMsgParser.sysParser(content);
+                break;
         }
     }
 

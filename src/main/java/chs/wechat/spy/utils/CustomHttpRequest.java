@@ -135,7 +135,6 @@ public class CustomHttpRequest {
             } else {
                 is = connection.getErrorStream();
             }
-
             // 读取响应
             int length = connection.getContentLength();// 获取长度
             if (length != -1) {
@@ -149,7 +148,6 @@ public class CustomHttpRequest {
                 }
                 return new String(data, StandardCharsets.UTF_8);
             }
-
         } catch (IOException e) {
             System.out.println(e);
         }

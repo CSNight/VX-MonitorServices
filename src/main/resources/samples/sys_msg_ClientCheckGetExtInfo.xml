@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<sysmsg type="ClientCheckGetExtInfo">
+    <ClientCheckGetExtInfo>
+        <ReportContext>539033600</ReportContext>
+        <Basic>0</Basic>
+    </ClientCheckGetExtInfo>
+</sysmsg>
