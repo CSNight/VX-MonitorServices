@@ -36,8 +36,7 @@ public class PadLoginController {
             response.setHeader("Server", "Microsoft-IIS/10.0");
             response.setHeader("X-AspNet-Version", "4.0.30319");
             response.setHeader("X-Powered-By", "ASP.NET");
-            return "ShQH1WGOxZHtBv9NFIqeevBur28RP2sdSVNPXbsn6GLeAtfQJW54bOpm6bHF39skZ2F7+d/4WypSTmb5rEuUgH5Mowa0P" +
-                    "Kzpg6XW2i7lReH2RARJLXMG/VN6E2j9cb6tanLe0RBS95I=";
+            return "DLmTv3bSuvr3+77r5vykqwuddWwDVP2ZsevTDZY1temoHoWHzuK39iYQg9+iPQJ0l6c0PH3+oMCno71MUnLYmNSerO3Q+Vy/dKItGIdl23L+EANv/u9/tOSpdtJIO4cC";
         }
         return "true";
     }

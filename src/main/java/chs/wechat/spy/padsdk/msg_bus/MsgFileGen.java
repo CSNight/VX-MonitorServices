@@ -119,6 +119,9 @@ public class MsgFileGen {
     }
 
     private byte[] Base64ToByte(JSONObject Context, String field) {
+        if (Context==null) {
+            return null;
+        }
         BASE64Decoder decoder = new BASE64Decoder();
         try {
             return decoder.decodeBuffer(Context.getString(field));

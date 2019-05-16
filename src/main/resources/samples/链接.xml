@@ -2,8 +2,8 @@
 
 <msg>
   <appmsg appid="" sdkver="0">
-    <title>ʵ��ƪ-�޴����ڵ�Location</title>
-    <des>location������nginxģ�黯���������ɫ��һ����ƣ���������nginx��ҵ�񳡾���Ҫͨ����д���location������˳Ӧҵ����Ҫ���﷨���ú�ִ�й�����ԱȽϼ򵥣���ȫ�����������Ժ�֮�С�</des>
+    <title>实用篇-无处不在的Location</title>
+    <des>location配置是nginx模块化配置中最出色的一个设计，几乎所有nginx的业务场景都要通过书写多个location配置来顺应业务需要。语法配置和执行规则都相对比较简单，完全可以掌握在脑海之中。</des>
     <username/>
     <action>view</action>
     <type>5</type>
