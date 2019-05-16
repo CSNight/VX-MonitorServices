@@ -12,6 +12,7 @@
         <result column="stranger" jdbcType="VARCHAR" property="stranger"/>
         <result column="signature" jdbcType="VARCHAR" property="signature"/>
         <result column="add_source" jdbcType="VARCHAR" property="addSource"/>
+        <result column="uin" jdbcType="VARCHAR" property="uin"/>
         <result column="small_head_url" jdbcType="VARCHAR" property="smallHeadUrl"/>
         <result column="big_head_url" jdbcType="VARCHAR" property="bigHeadUrl"/>
     </resultMap>
@@ -20,8 +21,8 @@
         <result column="big_head" jdbcType="LONGVARBINARY" property="bigHead"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, contact_id, contact_name, remark, loc, sex, stranger, signature, add_source,
-        small_head_url, big_head_url
+        id, user_id, contact_id, contact_name, remark, loc, sex, stranger, signature, add_source, 
+    uin, small_head_url, big_head_url
     </sql>
     <sql id="Blob_Column_List">
         small_head, big_head
@@ -49,13 +50,13 @@
         insert into contact (id, user_id, contact_id,
                              contact_name, remark, loc,
                              sex, stranger, signature,
-                             add_source, small_head_url, big_head_url,
-                             small_head, big_head)
+                             add_source, uin, small_head_url,
+                             big_head_url, small_head, big_head)
         values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{contactId,jdbcType=VARCHAR},
                 #{contactName,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{loc,jdbcType=VARCHAR},
                 #{sex,jdbcType=INTEGER}, #{stranger,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR},
-                #{addSource,jdbcType=VARCHAR}, #{smallHeadUrl,jdbcType=VARCHAR}, #{bigHeadUrl,jdbcType=VARCHAR},
-                #{smallHead,jdbcType=LONGVARBINARY}, #{bigHead,jdbcType=LONGVARBINARY})
+                #{addSource,jdbcType=VARCHAR}, #{uin,jdbcType=VARCHAR}, #{smallHeadUrl,jdbcType=VARCHAR},
+                #{bigHeadUrl,jdbcType=VARCHAR}, #{smallHead,jdbcType=LONGVARBINARY}, #{bigHead,jdbcType=LONGVARBINARY})
     </insert>
     <insert id="insertSelective" parameterType="chs.wechat.spy.db.mybatis.model.ContactWithBLOBs">
         insert into contact
@@ -89,6 +90,9 @@
             </if>
             <if test="addSource != null">
                 add_source,
+            </if>
+            <if test="uin != null">
+                uin,
             </if>
             <if test="smallHeadUrl != null">
                 small_head_url,
@@ -134,6 +138,9 @@
             <if test="addSource != null">
                 #{addSource,jdbcType=VARCHAR},
             </if>
+            <if test="uin != null">
+                #{uin,jdbcType=VARCHAR},
+            </if>
             <if test="smallHeadUrl != null">
                 #{smallHeadUrl,jdbcType=VARCHAR},
             </if>
@@ -178,6 +185,9 @@
             <if test="addSource != null">
                 add_source = #{addSource,jdbcType=VARCHAR},
             </if>
+            <if test="uin != null">
+                uin = #{uin,jdbcType=VARCHAR},
+            </if>
             <if test="smallHeadUrl != null">
                 small_head_url = #{smallHeadUrl,jdbcType=VARCHAR},
             </if>
@@ -204,6 +214,7 @@
             stranger       = #{stranger,jdbcType=VARCHAR},
             signature      = #{signature,jdbcType=VARCHAR},
             add_source     = #{addSource,jdbcType=VARCHAR},
+            uin            = #{uin,jdbcType=VARCHAR},
             small_head_url = #{smallHeadUrl,jdbcType=VARCHAR},
             big_head_url   = #{bigHeadUrl,jdbcType=VARCHAR},
             small_head     = #{smallHead,jdbcType=LONGVARBINARY},
@@ -221,6 +232,7 @@
             stranger       = #{stranger,jdbcType=VARCHAR},
             signature      = #{signature,jdbcType=VARCHAR},
             add_source     = #{addSource,jdbcType=VARCHAR},
+            uin            = #{uin,jdbcType=VARCHAR},
             small_head_url = #{smallHeadUrl,jdbcType=VARCHAR},
             big_head_url   = #{bigHeadUrl,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}

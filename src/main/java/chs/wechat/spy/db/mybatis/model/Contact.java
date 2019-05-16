@@ -21,6 +21,8 @@ public class Contact {
 
     private String addSource;
 
+    private String uin;
+
     private String smallHeadUrl;
 
     private String bigHeadUrl;
@@ -103,6 +105,14 @@ public class Contact {
 
     public void setAddSource(String addSource) {
         this.addSource = addSource == null ? null : addSource.trim();
+    }
+
+    public String getUin() {
+        return uin;
+    }
+
+    public void setUin(String uin) {
+        this.uin = uin == null ? null : uin.trim();
     }
 
     public String getSmallHeadUrl() {

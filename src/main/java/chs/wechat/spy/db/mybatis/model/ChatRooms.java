@@ -17,6 +17,8 @@ public class ChatRooms {
 
     private Boolean isOwner;
 
+    private String uin;
+
     private String smallHeadUrl;
 
     private byte[] smallHead;
@@ -83,6 +85,14 @@ public class ChatRooms {
 
     public void setIsOwner(Boolean isOwner) {
         this.isOwner = isOwner;
+    }
+
+    public String getUin() {
+        return uin;
+    }
+
+    public void setUin(String uin) {
+        this.uin = uin == null ? null : uin.trim();
     }
 
     public String getSmallHeadUrl() {

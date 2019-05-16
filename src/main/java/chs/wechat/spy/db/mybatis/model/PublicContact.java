@@ -19,6 +19,8 @@ public class PublicContact {
 
     private Integer addSource;
 
+    private String uin;
+
     private String smallHeadUrl;
 
     private String bigHeadUrl;
@@ -93,6 +95,14 @@ public class PublicContact {
 
     public void setAddSource(Integer addSource) {
         this.addSource = addSource;
+    }
+
+    public String getUin() {
+        return uin;
+    }
+
+    public void setUin(String uin) {
+        this.uin = uin == null ? null : uin.trim();
     }
 
     public String getSmallHeadUrl() {
