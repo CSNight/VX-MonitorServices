@@ -16,7 +16,7 @@ public class XmlMsgParser {
         Node node = null;
         try {
             SAXReader sax = new SAXReader();// 创建一个SAXReader对象
-            InputStream in = new ByteArrayInputStream(content.getBytes());
+            InputStream in = new ByteArrayInputStream(trimMsg(content).getBytes());
             Document doc = sax.read(in);
             node = doc.selectSingleNode(path);
             in.close();
@@ -24,6 +24,10 @@ public class XmlMsgParser {
             e.printStackTrace();
         }
         return node;
+    }
+
+    private String trimMsg(String source) {
+        return source.replaceAll("\\\\t|\\\\r|\\\\n", "");
     }
 
     public Map<String, Object> ImageParser(String content) {
@@ -180,16 +184,26 @@ public class XmlMsgParser {
         String msg_t = sys_msg.valueOf("@type");
         switch (msg_t) {
             case "revokemsg":
+                properties.put("type", "revokemsg");
                 properties.put("revoke_from", sys_msg.selectSingleNode("revokemsg/session").getText());
                 properties.put("revoke_msgid", sys_msg.selectSingleNode("revokemsg/newmsgid").getText());
                 properties.put("msg_scope", sys_msg.selectSingleNode("revokemsg/msgid").getText());
                 properties.put("replace_by", sys_msg.selectSingleNode("revokemsg/replacemsg").getText());
                 break;
             case "functionmsg":
+                properties.put("type", "functionmsg");
+                properties.put("cgi", sys_msg.selectSingleNode("functionmsg/cgi").getText());
+                properties.put("cmdid", sys_msg.selectSingleNode("functionmsg/cmdid").getText());
+                properties.put("functionmsgid", sys_msg.selectSingleNode("functionmsg/functionmsgid").getText());
+                properties.put("custombuff", sys_msg.selectSingleNode("functionmsg/custombuff").getText());
+                properties.put("businessid", sys_msg.selectSingleNode("functionmsg/businessid").getText());
+                properties.put("actiontime", sys_msg.selectSingleNode("functionmsg/actiontime").getText());
                 break;
             case "dynacfg":
+                properties.put("type", "dynacfg");
                 break;
             case "ClientCheckGetExtInfo":
+                properties.put("type", "client_check");
                 break;
         }
         return properties;

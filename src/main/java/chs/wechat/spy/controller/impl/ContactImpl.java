@@ -45,4 +45,8 @@ public class ContactImpl {
     public String getContactById(Map<String, String> identify) {
         return contactMapper.getContactById(identify);
     }
+
+    public int truncate() {
+        return contactMapper.truncate();
+    }
 }

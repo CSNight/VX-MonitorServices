@@ -39,4 +39,8 @@ public class RoomMembersImpl {
     public int updateByPrimaryKey(RoomMembers record) {
         return roomMembersMapper.updateByPrimaryKey(record);
     }
+
+    public int truncate() {
+        return roomMembersMapper.truncate();
+    }
 }

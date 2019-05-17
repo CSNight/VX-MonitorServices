@@ -21,8 +21,8 @@
         <result column="big_head" jdbcType="LONGVARBINARY" property="bigHead"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, pct_id, pct_name, loc, sign, intro, stranger, add_source, uin, small_head_url, 
-    big_head_url
+        id, user_id, pct_id, pct_name, loc, sign, intro, stranger, add_source, uin, small_head_url,
+        big_head_url
     </sql>
     <sql id="Blob_Column_List">
         small_head, big_head
@@ -41,6 +41,9 @@
         where pct_id = '${pct_id}'
           AND user_id = '${user_id}'
     </select>
+    <delete id="truncate">
+        truncate table public_ct
+    </delete>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from public_ct

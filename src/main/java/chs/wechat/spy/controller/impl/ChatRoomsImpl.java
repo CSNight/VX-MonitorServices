@@ -43,4 +43,8 @@ public class ChatRoomsImpl {
     public String getRoomById(Map<String, String> identify) {
         return chatRoomsMapper.getRoomById(identify);
     }
+
+    public int truncate() {
+        return chatRoomsMapper.truncate();
+    }
 }

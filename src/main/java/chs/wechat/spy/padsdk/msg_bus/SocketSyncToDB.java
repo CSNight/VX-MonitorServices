@@ -4,9 +4,12 @@ import chs.wechat.spy.controller.ReflectUtils;
 import chs.wechat.spy.controller.impl.*;
 import chs.wechat.spy.db.mybatis.model.*;
 import chs.wechat.spy.db.redis.RedisClientOperation;
+import chs.wechat.spy.padsdk.api_request.GroupRequest;
+import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.utils.DownloadItem;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.utils.JSONUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.nio.charset.Charset;
@@ -121,6 +124,37 @@ public class SocketSyncToDB {
             chatRoomsImpl.insertSelective(chatRooms);
         }
         rco.getJedisClient().rpush("downloadQueue", JSONUtil.pojo2json(smallHead));
+        RoomMembersProcess(chatRooms, rco);
+    }
+
+    private void RoomMembersProcess(ChatRooms room, RedisClientOperation rco) {
+        RoomMembersImpl roomMembersImpl = ReflectUtils.getBean(RoomMembersImpl.class);
+        String uuid = ConfigProperties.GetProperties("app_uid");
+        GroupRequest gr = new GroupRequest();
+        JSONObject res_json = JSONObject.parseObject(gr.GetMembers(room.getRoomId(), uuid));
+        if (res_json.getString("Success").equals("true") && res_json.getString("Context") != (null)) {
+            JSONObject context = res_json.getJSONObject("Context");
+            JSONArray members = context.getJSONArray("member");
+            for (int i = 0; i < members.size(); i++) {
+                JSONObject member = members.getJSONObject(i);
+                RoomMembersWithBLOBs roomMembers = new RoomMembersWithBLOBs();
+                String gid = GUID.getUUID();
+                roomMembers.setId(gid);
+                roomMembers.setUserId(room.getUserId());
+                roomMembers.setRoomId(room.getRoomId());
+                roomMembers.setMemberId(member.getString("user_name"));
+                roomMembers.setMemberName(member.getString("nick_name"));
+                roomMembers.setMemberNick(member.getString("chatroom_nick_name"));
+                roomMembers.setBigHeadUrl(member.getString("big_head"));
+                roomMembers.setSmallHeadUrl(member.getString("small_head"));
+                roomMembers.setInvitedBy(member.getString("invited_by"));
+                roomMembersImpl.insertSelective(roomMembers);
+                DownloadItem smallHead = new DownloadItem(gid, "member", member.getString("small_head"), "small");
+                DownloadItem bigHead = new DownloadItem(gid, "member", member.getString("big_head"), "big");
+                rco.getJedisClient().rpush("downloadQueue", JSONUtil.pojo2json(smallHead));
+                rco.getJedisClient().rpush("downloadQueue", JSONUtil.pojo2json(bigHead));
+            }
+        }
     }
 
     public MsgLog MsgTextProcess(String user_id, JSONObject jo_msg, RedisClientOperation rco) {
@@ -207,6 +241,7 @@ public class SocketSyncToDB {
                 break;
             case 10002://系统消息 dynacfg、红点、撤回、客户端check
                 prop = xmlMsgParser.sysParser(content);
+                msgFileGen.sysFile(msgLog, prop, content);
                 break;
         }
     }

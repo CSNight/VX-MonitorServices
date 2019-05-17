@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Decoder;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Map;
 
 public class MsgFileGen {
@@ -87,7 +88,7 @@ public class MsgFileGen {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        msgFile.setExt("");
+        msgFile.setExt("red_pack");
         MsgFileInsert(msgFile, msgLog);
     }
 
@@ -101,7 +102,35 @@ public class MsgFileGen {
 
     public void callFile(MsgLog msgLog, Map<String, Object> meta) {
         MsgFile msgFile = BuildComm(msgLog, meta);
-        msgFile.setFileName(meta.get("invite_type").toString());
+        msgFile.setFileName(meta.get("status").toString() + "_" + System.currentTimeMillis());
+        msgFile.setExt(meta.get("invite_type").toString());
+        msgFile.setFileBlob(meta.get("room_id").toString().getBytes(Charset.forName("utf-8")));
+        MsgFileInsert(msgFile, msgLog);
+    }
+
+    public void sysFile(MsgLog msgLog, Map<String, Object> meta, String content) {
+        String type = meta.get("type").toString();
+        MsgFile msgFile = BuildComm(msgLog, meta);
+        switch (type) {
+            case "revokemsg":
+                msgFile.setExt(type);
+                msgFile.setFileName("revokemsg_" + System.currentTimeMillis());
+                break;
+            case "functionmsg":
+                msgFile.setExt("red_dot");
+                msgFile.setFileName("red_dot_" + System.currentTimeMillis());
+                break;
+            case "dynacfg":
+                msgFile.setExt("dynacfg");
+                msgFile.setFileName("dynacfg_" + System.currentTimeMillis());
+                break;
+            case "ClientCheckGetExtInfo":
+                msgFile.setExt(type);
+                msgFile.setFileName(type + "_" + System.currentTimeMillis());
+                break;
+        }
+        msgFile.setFileBlob(content.getBytes(Charset.forName("utf-8")));
+        msgLog.setMsgDescribe(null);
         MsgFileInsert(msgFile, msgLog);
     }
 

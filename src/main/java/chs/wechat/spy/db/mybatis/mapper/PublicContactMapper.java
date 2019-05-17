@@ -21,4 +21,6 @@ public interface PublicContactMapper {
     int updateByPrimaryKey(PublicContact record);
 
     String getPublicCtById(Map<String, String> identify);
+
+    int truncate();
 }

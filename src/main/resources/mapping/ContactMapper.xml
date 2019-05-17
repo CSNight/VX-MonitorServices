@@ -21,8 +21,8 @@
         <result column="big_head" jdbcType="LONGVARBINARY" property="bigHead"/>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, contact_id, contact_name, remark, loc, sex, stranger, signature, add_source, 
-    uin, small_head_url, big_head_url
+        id, user_id, contact_id, contact_name, remark, loc, sex, stranger, signature, add_source,
+        uin, small_head_url, big_head_url
     </sql>
     <sql id="Blob_Column_List">
         small_head, big_head
@@ -35,6 +35,9 @@
         from contact
         where id = #{id,jdbcType=VARCHAR}
     </select>
+    <delete id="truncate">
+        truncate table contact
+    </delete>
     <select id="getContactById" parameterType="Map" resultType="java.lang.String">
         select id
         from contact

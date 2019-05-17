@@ -17,4 +17,6 @@ public interface RoomMembersMapper {
     int updateByPrimaryKeyWithBLOBs(RoomMembersWithBLOBs record);
 
     int updateByPrimaryKey(RoomMembers record);
+
+    int truncate();
 }

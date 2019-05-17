@@ -20,4 +20,6 @@ public interface ChatRoomsMapper {
     int updateByPrimaryKey(ChatRooms record);
 
     String getRoomById(Map<String, String> identify);
+
+    int truncate();
 }

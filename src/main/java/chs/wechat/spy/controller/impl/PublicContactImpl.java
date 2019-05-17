@@ -44,4 +44,8 @@ public class PublicContactImpl {
     public String getPublicCtById(Map<String, String> identify) {
         return publicContactMapper.getPublicCtById(identify);
     }
+
+    public int truncate() {
+        return publicContactMapper.truncate();
+    }
 }

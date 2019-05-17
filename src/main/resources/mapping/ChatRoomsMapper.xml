@@ -37,6 +37,9 @@
         where room_id = '${room_id}'
           AND user_id = '${user_id}'
     </select>
+    <delete id="truncate">
+        truncate table chat_rooms
+    </delete>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
         delete
         from chat_rooms

@@ -24,9 +24,9 @@ public class PadContactController {
         String uuid = ConfigProperties.GetProperties("app_uid");
         JSONObject jo_res = JSONObject.parseObject(cr.GetContact(wxid, uuid));
         if (jo_res.getString("Success").equals("true")) {
-            return JSONUtil.pojo2json(new ServerResponse(1, jo_res.getString("Context"), "GET62"));
+            return JSONUtil.pojo2json(new ServerResponse(1, jo_res.getString("Context"), "GetDetail"));
         }
-        return JSONUtil.pojo2json(new ServerResponse(0, "error", "GET62"));
+        return JSONUtil.pojo2json(new ServerResponse(0, "error", "GetDetail"));
     }
 
 }

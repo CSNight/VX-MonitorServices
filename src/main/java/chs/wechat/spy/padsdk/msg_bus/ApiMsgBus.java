@@ -1,5 +1,10 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
+import chs.wechat.spy.controller.ReflectUtils;
+import chs.wechat.spy.controller.impl.ChatRoomsImpl;
+import chs.wechat.spy.controller.impl.ContactImpl;
+import chs.wechat.spy.controller.impl.PublicContactImpl;
+import chs.wechat.spy.controller.impl.RoomMembersImpl;
 import chs.wechat.spy.db.mybatis.model.MsgLog;
 import chs.wechat.spy.db.redis.RedisClientOperation;
 import chs.wechat.spy.db.redis.RedisConnManager;
@@ -62,6 +67,7 @@ public class ApiMsgBus {
             rco.setHashField(uuid, "current_opt", "LOGIN_SUCCESS");
             rco.setHashField(uuid, "login_status", "login");
             rco.setHashField(uuid, "login_time", String.valueOf(System.currentTimeMillis()));
+            truncateContact();
         } else if (context.contains("已下线")) {
             rco.setHashField(uuid, "current_opt", "LOGOUT");
             rco.setHashField(uuid, "login_status", "logout");
@@ -111,6 +117,17 @@ public class ApiMsgBus {
 
     private String trimMsg(String source) {
         return source.replaceAll("\\\\t|\\\\r|\\\\n", "");
+    }
+
+    private void truncateContact() {
+        ContactImpl contactImpl = ReflectUtils.getBean(ContactImpl.class);
+        contactImpl.truncate();
+        ChatRoomsImpl chatRoomsImpl = ReflectUtils.getBean(ChatRoomsImpl.class);
+        chatRoomsImpl.truncate();
+        RoomMembersImpl roomMembersImpl = ReflectUtils.getBean(RoomMembersImpl.class);
+        roomMembersImpl.truncate();
+        PublicContactImpl publicContactImpl = ReflectUtils.getBean(PublicContactImpl.class);
+        publicContactImpl.truncate();
     }
 
 }
