@@ -14,7 +14,7 @@ public class UserRequest {
     private final String BIND_EMAIL = baseHost + "/user/bindemail";//POST /api/user/bindemail
     private final String BIND_QQ = baseHost + "/user/bindqq";//POST /api/user/bindqq
     private final String GET_USERINFO = baseHost + "/user/get";//POST /api/user/get
-    private final String USER_LOGOUT = baseHost + "/user/del";//POST /api/user/logout
+
 
     public String SetImageHead(String base64, String uuid) {
         Map<String, Object> params = new HashMap<>();
@@ -62,9 +62,5 @@ public class UserRequest {
         return CustomHttpRequest.jsonPost(GET_USERINFO, params);
     }
 
-    public String UserLogout(String uuid) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("uuid", uuid);
-        return CustomHttpRequest.jsonPost(USER_LOGOUT, params);
-    }
+
 }

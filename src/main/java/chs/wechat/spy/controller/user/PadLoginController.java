@@ -5,7 +5,6 @@ import chs.wechat.spy.db.mybatis.model.WechatUserWithBLOBs;
 import chs.wechat.spy.db.redis.RedisClientOperation;
 import chs.wechat.spy.db.redis.RedisConnManager;
 import chs.wechat.spy.padsdk.api_request.LoginRequest;
-import chs.wechat.spy.padsdk.api_request.UserRequest;
 import chs.wechat.spy.utils.*;
 import chs.wechat.spy.websocket.WebSocketClient;
 import com.alibaba.fastjson.JSONObject;
@@ -101,8 +100,7 @@ public class PadLoginController {
     @RequestMapping(value = "/pad/login/logout")
     public String logout() {
         String uuid = ConfigProperties.GetProperties("app_uid");
-        UserRequest userRequest = new UserRequest();
-        String rec_res = JSONObject.parseObject(userRequest.UserLogout(uuid)).getString("Success");
+        String rec_res = JSONObject.parseObject(lr.UserLogout(uuid)).getString("Success");
         if (rec_res.equals("true")) {
             WebSocketClient ws = WebSocketClient.getInstance();
             ws.close();

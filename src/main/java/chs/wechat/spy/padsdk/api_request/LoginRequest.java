@@ -15,12 +15,14 @@ public class LoginRequest {
     private final String GET_TOKEN = baseHost + "/login/gettopken";
     private final String AGAIN_LOGIN = baseHost + "/login/againlogin";
     private final String RECONNECT = baseHost + "/login/reconnect";
+    private final String USER_LOGOUT = baseHost + "/login/logout";//POST /api/user/logout
+
     /**
      * @param uuid:
      * @param device_name:
      * @return java.lang.String
      * @since 2019/5/10 9:03
-    */
+     */
     public String GetQRCode(String uuid, String device_name) {
         Map<String, Object> params = new HashMap<>();
         params.put("devicename", device_name);
@@ -108,5 +110,11 @@ public class LoginRequest {
         params.put("token", token);
         params.put("uuid", uuid);
         return CustomHttpRequest.jsonPost(RECONNECT, params);
+    }
+
+    public String UserLogout(String uuid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("uuid", uuid);
+        return CustomHttpRequest.jsonPost(USER_LOGOUT, params);
     }
 }

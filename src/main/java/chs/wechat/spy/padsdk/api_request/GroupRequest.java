@@ -10,7 +10,7 @@ import java.util.Map;
 public class GroupRequest {
     private String baseHost = ConfigProperties.GetProperties("api_host");
     private final String CREATE_GROUP = baseHost + "/group/creat";//POST /api/group/creat 加群
-    private final String QUIT_GROUP = baseHost + "/group/quick";//POST /api/group/quick 退群
+    private final String QUIT_GROUP = baseHost + "/group/quit";//POST /api/group/quick 退群
     private final String GET_INFO = baseHost + "/group/getinfo";//POST /api/group/getinfo 获取群信息
     private final String GET_MEMBER = baseHost + "/group/getmember";//POST /api/group/getmember 获取群成员
     private final String ADD_MEMBER = baseHost + "/group/addmember";//POST /api/group/addmember 添加群成员

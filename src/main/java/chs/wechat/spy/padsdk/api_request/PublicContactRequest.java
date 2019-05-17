@@ -8,10 +8,23 @@ import java.util.Map;
 
 public class PublicContactRequest {
     private String baseHost = ConfigProperties.GetProperties("api_host");
+    private final String GET_CONTENT = baseHost + "/gh/get";//POST /api/gh/get
     private final String FOLLOW = baseHost + "/gh/follow";//POST /api/gh/follow
     private final String SEARCH = baseHost + "/gh/search";//POST /api/gh/search
     private final String REQUEST_URL = baseHost + "/gh/requesturl";//POST /api/gh/requesturl
     private final String GET_TOKEN = baseHost + "/gh/getrquesttoken";//POST /api/gh/getrquesttoken
+
+    /**
+     * @param ghid:
+     * @param uuid:
+     * @return java.lang.String
+     */
+    public String GetPublicCT(String ghid, String uuid) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("ghid", ghid);
+        params.put("uuid", uuid);
+        return CustomHttpRequest.jsonPost(GET_CONTENT, params);
+    }
 
     /**
      * @param ghid:
