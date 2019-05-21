@@ -247,7 +247,7 @@ public class SocketSyncToDB {
     }
 
     private String getUserType(String contact) {
-        if (contact.contains("@charroom")) {
+        if (contact.contains("@chatroom")) {
             return "group";
         } else if (contact.contains("gh_")) {
             return "public";
