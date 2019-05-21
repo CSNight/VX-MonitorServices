@@ -10,9 +10,15 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 
+import java.awt.event.KeyEvent;
+import java.io.*;
+
 public class SpringContextEvent implements ApplicationListener {
+    private Process p = null;
+
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
+        Runtime runtime = Runtime.getRuntime();
         if (applicationEvent instanceof ApplicationStartedEvent) {
             RedisConnManager rcm = RedisConnManager.getInstance();
             rcm.setServerIp(ConfigProperties.GetProperties("status_redis_server.host"));
@@ -35,11 +41,25 @@ public class SpringContextEvent implements ApplicationListener {
             }
             DownloadPool downloadPool = DownloadPool.getInstance();
             downloadPool.StartDownloadPool();
+            try {
+                p = runtime.exec("E:\\VS_Project_Workspace\\WechatServer\\WechatServer\\bin\\Debug\\WechatServer.exe");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             System.out.println("Start Complete!");
         } else if (applicationEvent instanceof ContextClosedEvent) {
             WebSocketServerSingleton.getInstance().shutdown();
             WebSocketClient.getInstance().close();
+            DownloadPool.getInstance().StopDownloadPool();
             RedisConnManager.getInstance().shutdown();
+            try {
+                BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+                bw.write("exit");
+                bw.flush();
+                bw.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

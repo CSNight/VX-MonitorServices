@@ -15,8 +15,12 @@ public class XmlMsgParser {
     private Node getNode(String content, String path) {
         Node node = null;
         try {
+            content = trimMsg(content.replaceAll(">\\s*<", "><"));
             SAXReader sax = new SAXReader();// 创建一个SAXReader对象
-            InputStream in = new ByteArrayInputStream(trimMsg(content).getBytes());
+            if (content.contains(":<?xml")) {
+                content = content.replaceAll("^\\S*:<\\?xml","<\\?xml");
+            }
+            InputStream in = new ByteArrayInputStream(content.getBytes());
             Document doc = sax.read(in);
             node = doc.selectSingleNode(path);
             in.close();

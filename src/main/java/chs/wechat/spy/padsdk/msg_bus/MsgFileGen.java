@@ -6,12 +6,14 @@ import chs.wechat.spy.controller.impl.MsgLogImpl;
 import chs.wechat.spy.db.mybatis.model.MsgFile;
 import chs.wechat.spy.db.mybatis.model.MsgLog;
 import chs.wechat.spy.padsdk.api_request.MsgRequest;
+import chs.wechat.spy.padsdk.api_request.UtilsRequest;
 import chs.wechat.spy.utils.ConfigProperties;
 import chs.wechat.spy.utils.CustomHttpRequest;
 import chs.wechat.spy.utils.GUID;
 import chs.wechat.spy.utils.JSONUtil;
 import com.alibaba.fastjson.JSONObject;
 import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -54,7 +56,11 @@ public class MsgFileGen {
         try {
             JSONObject res = JSONObject.parseObject(mr.GetVoice((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid));
             if (res.getString("Success").equals("true")) {
-                msgFile.setFileBlob(Base64ToByte(res.getJSONObject("Context"), "voice"));
+                UtilsRequest ur = new UtilsRequest();
+                BASE64Encoder base64Encoder = new BASE64Encoder();
+                BASE64Decoder base64Decoder = new BASE64Decoder();
+                String mp3_str = ur.AmrToMp3(base64Encoder.encode(Base64ToByte(res.getJSONObject("Context"), "voice")));
+                msgFile.setFileBlob(base64Decoder.decodeBuffer(mp3_str));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
