@@ -8,7 +8,7 @@ Through the api support by wechat/mac or wechat/web this service provide <b>simp
 (like android,webbrowser,computer) that support web request and websocket</br>
 
 We can use this server to do something that wechat can not provide.Like:</br>
-&nbsp<b>1.logging your msg into database</b></br>
+>><b>1.logging your msg into database</b></br>
 >><b>2.analysis your contact</b></br>
 >><b>3.prevent the garbage msg</b></br>
 >><b>4.auto receive redpack</b></br>
