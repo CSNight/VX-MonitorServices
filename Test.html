@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jquery-2.2.4.min.js"></script>
+    <script>
+        var uuid = uuid();
+        // websocket 地址
+        var host = "localhost:13253";
+        // api地址 都是在App.config里面配置
+        var apihost = "localhost:9001";
+        if ("WebSocket" in window) {
+            // 打开一个 web socket
+            //扫码登录,devicename 是设备名称，不传默认xzy-ipad
+		    //isreset 为进程重置，如果==false 会复用之前的微信进程，如果传true 会重置该进程，等同于重新登录。
+            var ws = new WebSocket("ws://" + host +"/websocket");//+"?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true"
+            //62登录
+            //var username = '';
+            //var password = '';
+            //var str62 = ''
+            //var isreset='true' //如果为true则覆盖之前线程，如果为false则继续使用之前线程
+            //var ws = new WebSocket("ws://" + host + "/?action=62&uuid=" + uuid + "&username=" + username + "&password=" + password + "&str62=" + str62+"&isreset=false");
+            ws.onopen = function () {
+                heartCheck.start();
+            };
+            ws.onmessage = function (evt) {
+                heartCheck.reset();
+				console.log(evt.data);
+                var msg = JSON.parse( evt.data);
+                switch (msg.type) {
+                    case "log"://log信息
+                        console.log(msg.context);
+                        break;console.log(evt.data)
+                    case "QR_CODE"://返回二维码数据
+                        $("#qrCode").attr("src",  msg.response);
+                        break;
+                    case "getcontact":
+					console.log(msg.context);//获取联系人信息。会多次传输
+                        break;
+                    case "getgroup":
+					console.log(msg.context);//获取群组信息。会多次传输
+                        break;
+                    case "getgzh":
+					console.log(msg.context);//获取公众号信息。会多次传输
+                        break;
+                    case "msgcallback":
+					console.log(msg.context);//微信消息回调事件
+                        break;
+                }
+            };
+            ws.onerror = function (evt) {
+                console.log(evt);
+                ws.onopen();
+            };
+            ws.onclose = function () {
+                // 断线重连
+                ws.onopen();
+            };
+        }
+        else {
+            // 浏览器不支持 WebSocket
+        }
+
+        //websocket心跳
+        var heartCheck = {
+            timeout: 60000, //60ms
+            timeoutObj: null,
+            serverTimeoutObj: null,
+            reset: function () {
+                clearTimeout(this.timeoutObj);
+                clearTimeout(this.serverTimeoutObj);
+                this.start();
+            },
+            start: function () {
+                var self = this;
+                this.timeoutObj = setTimeout(function () {
+                    try {
+                        ws.send("HeartBeat");
+                    } catch (e) {
+                        ws.onopen();
+                    }
+                }, this.timeout)
+            },
+        }
+
+        //生成uuid
+        function uuid() {
+            var s = [];
+            var hexDigits = "0123456789abcdef";
+            for (var i = 0; i < 36; i++) {
+                s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+            }
+            s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+            s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+            s[8] = s[13] = s[18] = s[23] = "-";
+
+            var uuid = s.join("");
+            return uuid;
+        }
+
+        //测试接口
+        function test() {
+           window.open("http://localhost:9001/swagger");
+        }
+    </script>
+</head>
+<body>
+    <div class="content-frame" >
+        <div>
+            <img id="qrCode" src="">
+        </div>
+        <button onclick="test()">测试接口</button>
+    </div>
+</body>
+</html>

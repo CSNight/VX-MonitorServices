@@ -10,8 +10,8 @@ import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextClosedEvent;
 
-import java.awt.event.KeyEvent;
 import java.io.*;
+import java.util.Objects;
 
 public class SpringContextEvent implements ApplicationListener {
     private Process p = null;
@@ -42,7 +42,7 @@ public class SpringContextEvent implements ApplicationListener {
             DownloadPool downloadPool = DownloadPool.getInstance();
             downloadPool.StartDownloadPool();
             try {
-                p = runtime.exec("E:\\VS_Project_Workspace\\WechatServer\\WechatServer\\bin\\Debug\\WechatServer.exe");
+                p = runtime.exec(Objects.requireNonNull(SpringContextEvent.class.getClassLoader().getResource("")).getPath() + "wechat_server\\WechatServer.exe");
             } catch (IOException e) {
                 e.printStackTrace();
             }
