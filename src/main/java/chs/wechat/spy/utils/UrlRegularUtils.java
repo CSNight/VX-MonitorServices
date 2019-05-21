@@ -23,4 +23,15 @@ public class UrlRegularUtils {
         }
         return "";
     }
+
+    public static String getCodeCheck(String source) {
+        String pattern = "window.code=(\\d+)";
+        Pattern p = Pattern.compile(pattern);
+        Matcher matcher = p.matcher(source);
+        if (matcher.matches()) {
+            return matcher.group(1);
+        }
+        return "";
+
+    }
 }

@@ -43,6 +43,28 @@ public class LoginModel {
         return "false";
     }
 
+    public String check_login() {
+        String url = String.format("%s/cgi-bin/mmwebwx-bin/login", ConfigProperties.GetProperties("BASE_URL"));
+        long localTime = System.currentTimeMillis();
+        Map<String, String> headers = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
+        params.put("loginicon", true);
+        params.put("uuid", uuid);
+        params.put("tip", 1);
+        params.put("r", (-localTime / 1579));
+        params.put("_", localTime);
+        headers.put("User-Agent", ConfigProperties.GetProperties("USER_AGENT"));
+        String res = HttpRequestBus.getInstance().sendGet(url, new HashMap<>(), true, headers);
+        String code = UrlRegularUtils.getCodeCheck(res);
+        if (code.equals("200")) {
+            return code;
+        } else if (code.equals("400")) {
+            return code;
+        } else {
+            return "400";
+        }
+    }
+
     public String get_QRuuid() {
         String url = String.format("%s/jslogin", ConfigProperties.GetProperties("BASE_URL"));
         Map<String, String> headers = new HashMap<>();
