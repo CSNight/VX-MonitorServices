@@ -20,18 +20,18 @@ public class LoginSession implements Serializable {
     private String userName;
     private String nickName;
 
-    private String      url;
-    private String      fileUrl;
-    private String      syncUrl;
-    private String      deviceId;
-    private String      sKey;
-    private String      wxSid;
-    private String      wxUin;
-    private String      passTicket;
-    private String      syncKeyStr;
-    private Integer     inviteStartCount;
+    private String url;
+    private String fileUrl;
+    private String syncUrl;
+    private String deviceId;
+    private String sKey;
+    private String wxSid;
+    private String wxUin;
+    private String passTicket;
+    private String syncKeyStr;
+    private Integer inviteStartCount;
     private BaseRequest baseRequest;
-    private SyncKey     syncKey;
+    private SyncKey syncKey;
 
     public String getSyncOrUrl() {
         if (StringUtils.isNotEmpty(this.syncUrl)) {

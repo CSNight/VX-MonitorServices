@@ -17,7 +17,7 @@ import java.util.Map;
 @Data
 public class HotReload {
 
-    private LoginSession              session;
+    private LoginSession session;
     private Map<String, List<Cookie>> cookieStore;
 
     public static HotReload build(LoginSession session) {

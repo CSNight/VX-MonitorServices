@@ -1,7 +1,6 @@
 package chs.wechat.spy.db.mybatis.model;
 
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class Collections {
     private String id;

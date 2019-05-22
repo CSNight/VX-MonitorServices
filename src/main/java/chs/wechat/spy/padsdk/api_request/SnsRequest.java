@@ -20,11 +20,11 @@ public class SnsRequest {
     private final String SYNC_SNS = baseHost + "/sns/sync";//POST /api/sns/sync 同步朋友圈评论、点赞
 
     /**
-    * @param text:
-      * @param uuid:
+     * @param text:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:39
-    */
+     */
     public String SendText(String text, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("text", text);
@@ -33,12 +33,12 @@ public class SnsRequest {
     }
 
     /**
-    * @param base64list:
-      * @param text:
-      * @param uuid:
+     * @param base64list:
+     * @param text:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:39
-    */
+     */
     public String SendImgText(List<String> base64list, String text, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("base64list", base64list);
@@ -48,13 +48,13 @@ public class SnsRequest {
     }
 
     /**
-    * @param title:
-      * @param url:
-      * @param text:
-      * @param uuid:
+     * @param title:
+     * @param url:
+     * @param text:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:39
-    */
+     */
     public String SendLink(String title, String url, String text, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("title", title);
@@ -65,11 +65,11 @@ public class SnsRequest {
     }
 
     /**
-    * @param snsid:
-      * @param uuid:
+     * @param snsid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:39
-    */
+     */
     public String GetTimeLine(String snsid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("snsid", snsid);
@@ -78,12 +78,12 @@ public class SnsRequest {
     }
 
     /**
-    * @param wxid:
-      * @param snsid:
-      * @param uuid:
+     * @param wxid:
+     * @param snsid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:39
-    */
+     */
     public String GetUserPage(String wxid, String snsid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("wxid", wxid);
@@ -93,11 +93,11 @@ public class SnsRequest {
     }
 
     /**
-    * @param snsid:
-      * @param uuid:
+     * @param snsid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:40
-    */
+     */
     public String GetObjectDetail(String snsid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("snsid", snsid);
@@ -106,13 +106,13 @@ public class SnsRequest {
     }
 
     /**
-    * @param context:
-      * @param replyid:
-      * @param snsid:
-      * @param uuid:
+     * @param context:
+     * @param replyid:
+     * @param snsid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:40
-    */
+     */
     public String GetComment(String context, String replyid, String snsid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("context", context);
@@ -123,14 +123,14 @@ public class SnsRequest {
     }
 
     /**
-    * @param id:
-      * @param type:
-      * @param comment:
-      * @param comment_type:
-      * @param uuid:
+     * @param id:
+     * @param type:
+     * @param comment:
+     * @param comment_type:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:40
-    */
+     */
     public String SnsOp(String id, String type, String comment, String comment_type, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
@@ -146,7 +146,7 @@ public class SnsRequest {
      * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 17:40
-    */
+     */
     public String SyncSns(String key, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("key", key);

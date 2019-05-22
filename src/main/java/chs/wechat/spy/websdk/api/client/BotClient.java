@@ -1,20 +1,17 @@
 package chs.wechat.spy.websdk.api.client;
 
-import  chs.wechat.spy.websdk.api.constant.Constant;
-import  chs.wechat.spy.websdk.api.request.ApiRequest;
-import  chs.wechat.spy.websdk.api.response.ApiResponse;
-import  chs.wechat.spy.websdk.api.response.FileResponse;
-import  chs.wechat.spy.websdk.exception.WeChatException;
-import  chs.wechat.spy.websdk.utils.WeChatUtils;
-import lombok.extern.slf4j.Slf4j;
+import chs.wechat.spy.websdk.api.constant.Constant;
+import chs.wechat.spy.websdk.api.request.ApiRequest;
+import chs.wechat.spy.websdk.api.response.ApiResponse;
+import chs.wechat.spy.websdk.api.response.FileResponse;
+import chs.wechat.spy.websdk.exception.WeChatException;
+import chs.wechat.spy.websdk.utils.WeChatUtils;
 import okhttp3.*;
-import okhttp3.Callback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.SocketTimeoutException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -56,13 +53,12 @@ public class BotClient {
     }
 
 
-
     public <T extends ApiRequest, R extends ApiResponse> R send(final ApiRequest<T, R> request) {
         try {
-            OkHttpClient client        = getOkHttpClient(request);
-            Request      okHttpRequest = createRequest(request);
-            Response     response      = client.newCall(okHttpRequest).execute();
-            String       body          = response.body().string();
+            OkHttpClient client = getOkHttpClient(request);
+            Request okHttpRequest = createRequest(request);
+            Response response = client.newCall(okHttpRequest).execute();
+            String body = response.body().string();
 
             if (log.isDebugEnabled()) {
                 log.debug("Response :\r\n{}", body);
@@ -103,8 +99,8 @@ public class BotClient {
 
     public <T extends ApiRequest, R extends ApiResponse> R download(final ApiRequest<T, R> request) {
         try {
-            OkHttpClient client   = getOkHttpClient(request);
-            Response     response = client.newCall(createRequest(request)).execute();
+            OkHttpClient client = getOkHttpClient(request);
+            Response response = client.newCall(createRequest(request)).execute();
             return (R) new FileResponse(response.body().byteStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -152,8 +148,8 @@ public class BotClient {
     }
 
     public List<Cookie> cookies() {
-        List<Cookie>             cookies = new ArrayList<Cookie>();
-        Collection<List<Cookie>> values  = cookieStore.values();
+        List<Cookie> cookies = new ArrayList<Cookie>();
+        Collection<List<Cookie>> values = cookieStore.values();
         for (List<Cookie> value : values) {
             cookies.addAll(value);
         }
@@ -174,7 +170,7 @@ public class BotClient {
         if (Constant.GET.equalsIgnoreCase(request.getMethod())) {
             builder.get();
             if (null != request.getParameters() && request.getParameters().size() > 0) {
-                Set<String>   keys = request.getParameters().keySet();
+                Set<String> keys = request.getParameters().keySet();
                 StringBuilder sbuf = new StringBuilder(request.getUrl());
                 if (request.getUrl().contains("=")) {
                     sbuf.append("&");
@@ -201,11 +197,11 @@ public class BotClient {
 
     private RequestBody createRequestBody(ApiRequest<?, ?> request) {
         if (request.isMultipart()) {
-            MediaType             contentType = MediaType.parse(request.getContentType());
-            MultipartBody.Builder builder     = new MultipartBody.Builder().setType(MultipartBody.FORM);
+            MediaType contentType = MediaType.parse(request.getContentType());
+            MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
             for (Map.Entry<String, Object> parameter : request.getParameters().entrySet()) {
-                String name  = parameter.getKey();
+                String name = parameter.getKey();
                 Object value = parameter.getValue();
                 if (value instanceof byte[]) {
                     builder.addFormDataPart(name, request.getFileName(), RequestBody.create(contentType, (byte[]) value));

@@ -1,7 +1,7 @@
 package chs.wechat.spy.websdk.api.annotation;
 
-import  chs.wechat.spy.websdk.api.enums.AccountType;
-import  chs.wechat.spy.websdk.api.enums.MsgType;
+import chs.wechat.spy.websdk.api.enums.AccountType;
+import chs.wechat.spy.websdk.api.enums.MsgType;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

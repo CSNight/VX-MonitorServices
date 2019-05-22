@@ -1,6 +1,6 @@
 package chs.wechat.spy.websdk.api.request;
 
-import  chs.wechat.spy.websdk.api.response.ApiResponse;
+import chs.wechat.spy.websdk.api.response.ApiResponse;
 
 /**
  * @author biezhi

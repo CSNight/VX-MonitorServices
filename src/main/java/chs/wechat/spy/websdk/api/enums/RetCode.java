@@ -14,7 +14,7 @@ public enum RetCode {
     MOBILE_LOGIN_OUT(1102, "移动端退出"),
     UNKNOWN(9999, "未知");
 
-    private int    code;
+    private int code;
     private String type;
 
     public int getCode() {

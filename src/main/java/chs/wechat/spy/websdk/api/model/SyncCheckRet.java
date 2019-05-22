@@ -15,6 +15,6 @@ import lombok.Data;
 public class SyncCheckRet {
 
     private RetCode retCode;
-    private int     selector;
+    private int selector;
 
 }

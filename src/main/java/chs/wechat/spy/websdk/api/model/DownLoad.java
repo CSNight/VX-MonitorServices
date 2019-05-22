@@ -13,11 +13,11 @@ import lombok.Data;
 @Data
 public class DownLoad {
 
-    private ApiURL   apiURL;
-    private String   suffix;
-    private String   msgId;
+    private ApiURL apiURL;
+    private String suffix;
+    private String msgId;
     private Object[] params;
-    private boolean  saveByDay;
+    private boolean saveByDay;
 
     public DownLoad(ApiURL apiURL, String... params) {
         this.apiURL = apiURL;

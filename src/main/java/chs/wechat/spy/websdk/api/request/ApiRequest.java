@@ -1,8 +1,7 @@
-
 package chs.wechat.spy.websdk.api.request;
 
-import  chs.wechat.spy.websdk.api.constant.Constant;
-import  chs.wechat.spy.websdk.api.response.ApiResponse;
+import chs.wechat.spy.websdk.api.constant.Constant;
+import chs.wechat.spy.websdk.api.response.ApiResponse;
 import lombok.Getter;
 import okhttp3.Headers;
 
@@ -30,7 +29,7 @@ public abstract class ApiRequest<T extends ApiRequest, R extends ApiResponse> {
     protected Headers headers;
     @SuppressWarnings("unchecked")
     protected final T thisAsT = (T) this;
-    private final Class<? extends R>  responseClass;
+    private final Class<? extends R> responseClass;
     private final Map<String, Object> parameters;
 
     public ApiRequest(String url, Class<? extends R> responseClass) {

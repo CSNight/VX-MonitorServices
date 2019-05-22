@@ -2,7 +2,7 @@ package chs.wechat.spy.websdk.utils;
 
 import com.google.zxing.LuminanceSource;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -20,8 +20,8 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
     private static final double MINUS_45_IN_RADIANS = -0.7853981633974483;
 
     private final BufferedImage image;
-    private final int           left;
-    private final int           top;
+    private final int left;
+    private final int top;
 
     public BufferedImageLuminanceSource(BufferedImage image) {
         this(image, 0, 0, image.getWidth(), image.getHeight());
@@ -33,7 +33,7 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
         if (image.getType() == BufferedImage.TYPE_BYTE_GRAY) {
             this.image = image;
         } else {
-            int sourceWidth  = image.getWidth();
+            int sourceWidth = image.getWidth();
             int sourceHeight = image.getHeight();
             if (left + width > sourceWidth || top + height > sourceHeight) {
                 throw new IllegalArgumentException("Crop rectangle does not fit within image data.");
@@ -42,7 +42,7 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
             this.image = new BufferedImage(sourceWidth, sourceHeight, BufferedImage.TYPE_BYTE_GRAY);
 
             WritableRaster raster = this.image.getRaster();
-            int[]          buffer = new int[width];
+            int[] buffer = new int[width];
             for (int y = top; y < top + height; y++) {
                 image.getRGB(left, y, width, 1, buffer, 0, sourceWidth);
                 for (int x = 0; x < width; x++) {
@@ -88,9 +88,9 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
 
     @Override
     public byte[] getMatrix() {
-        int    width  = getWidth();
-        int    height = getHeight();
-        int    area   = width * height;
+        int width = getWidth();
+        int height = getHeight();
+        int area = width * height;
         byte[] matrix = new byte[area];
         // The underlying raster of image consists of area bytes with the luminance values
         image.getRaster().getDataElements(left, top, width, height, matrix);
@@ -119,7 +119,7 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
 
     @Override
     public LuminanceSource rotateCounterClockwise() {
-        int sourceWidth  = image.getWidth();
+        int sourceWidth = image.getWidth();
         int sourceHeight = image.getHeight();
 
         // Rotate 90 degrees counterclockwise.
@@ -140,7 +140,7 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
 
     @Override
     public LuminanceSource rotateCounterClockwise45() {
-        int width  = getWidth();
+        int width = getWidth();
         int height = getHeight();
 
         int oldCenterX = left + width / 2;
@@ -149,8 +149,8 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
         // Rotate 45 degrees counterclockwise.
         AffineTransform transform = AffineTransform.getRotateInstance(MINUS_45_IN_RADIANS, oldCenterX, oldCenterY);
 
-        int           sourceDimension = Math.max(image.getWidth(), image.getHeight());
-        BufferedImage rotatedImage    = new BufferedImage(sourceDimension, sourceDimension, BufferedImage.TYPE_BYTE_GRAY);
+        int sourceDimension = Math.max(image.getWidth(), image.getHeight());
+        BufferedImage rotatedImage = new BufferedImage(sourceDimension, sourceDimension, BufferedImage.TYPE_BYTE_GRAY);
 
         // Draw the original image into rotated, via transformation
         Graphics2D g = rotatedImage.createGraphics();
@@ -158,10 +158,10 @@ public final class BufferedImageLuminanceSource extends LuminanceSource {
         g.dispose();
 
         int halfDimension = Math.max(width, height) / 2;
-        int newLeft       = Math.max(0, oldCenterX - halfDimension);
-        int newTop        = Math.max(0, oldCenterY - halfDimension);
-        int newRight      = Math.min(sourceDimension - 1, oldCenterX + halfDimension);
-        int newBottom     = Math.min(sourceDimension - 1, oldCenterY + halfDimension);
+        int newLeft = Math.max(0, oldCenterX - halfDimension);
+        int newTop = Math.max(0, oldCenterY - halfDimension);
+        int newRight = Math.min(sourceDimension - 1, oldCenterX + halfDimension);
+        int newBottom = Math.min(sourceDimension - 1, oldCenterY + halfDimension);
 
         return new BufferedImageLuminanceSource(rotatedImage, newLeft, newTop, newRight - newLeft, newBottom - newTop);
     }

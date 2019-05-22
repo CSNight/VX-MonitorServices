@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title></title>
     <script src="jquery-2.2.4.min.js"></script>
     <script>
@@ -13,8 +13,8 @@
         if ("WebSocket" in window) {
             // 打开一个 web socket
             //扫码登录,devicename 是设备名称，不传默认xzy-ipad
-		    //isreset 为进程重置，如果==false 会复用之前的微信进程，如果传true 会重置该进程，等同于重新登录。
-            var ws = new WebSocket("ws://" + host +"/websocket");//+"?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true"
+            //isreset 为进程重置，如果==false 会复用之前的微信进程，如果传true 会重置该进程，等同于重新登录。
+            var ws = new WebSocket("ws://" + host + "/websocket");//+"?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true"
             //62登录
             //var username = '';
             //var password = '';
@@ -26,26 +26,27 @@
             };
             ws.onmessage = function (evt) {
                 heartCheck.reset();
-				console.log(evt.data);
-                var msg = JSON.parse( evt.data);
+                console.log(evt.data);
+                var msg = JSON.parse(evt.data);
                 switch (msg.type) {
                     case "log"://log信息
                         console.log(msg.context);
-                        break;console.log(evt.data)
+                        break;
+                        console.log(evt.data)
                     case "QR_CODE"://返回二维码数据
-                        $("#qrCode").attr("src",  msg.response);
+                        $("#qrCode").attr("src", msg.response);
                         break;
                     case "getcontact":
-					console.log(msg.context);//获取联系人信息。会多次传输
+                        console.log(msg.context);//获取联系人信息。会多次传输
                         break;
                     case "getgroup":
-					console.log(msg.context);//获取群组信息。会多次传输
+                        console.log(msg.context);//获取群组信息。会多次传输
                         break;
                     case "getgzh":
-					console.log(msg.context);//获取公众号信息。会多次传输
+                        console.log(msg.context);//获取公众号信息。会多次传输
                         break;
                     case "msgcallback":
-					console.log(msg.context);//微信消息回调事件
+                        console.log(msg.context);//微信消息回调事件
                         break;
                 }
             };
@@ -57,8 +58,7 @@
                 // 断线重连
                 ws.onopen();
             };
-        }
-        else {
+        } else {
             // 浏览器不支持 WebSocket
         }
 
@@ -101,16 +101,16 @@
 
         //测试接口
         function test() {
-           window.open("http://localhost:9001/swagger");
+            window.open("http://localhost:9001/swagger");
         }
     </script>
 </head>
 <body>
-    <div class="content-frame" >
-        <div>
-            <img id="qrCode" src="">
-        </div>
-        <button onclick="test()">测试接口</button>
+<div class="content-frame">
+    <div>
+        <img id="qrCode" src="">
     </div>
+    <button onclick="test()">测试接口</button>
+</div>
 </body>
 </html>

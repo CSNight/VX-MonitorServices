@@ -48,9 +48,9 @@ public class QRCodeUtils {
         hintMap.put(EncodeHintType.MARGIN, 1);
         hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
 
-        String       qrContent    = QRCodeUtils.readQRCode(qrCode, hintMap);
+        String qrContent = QRCodeUtils.readQRCode(qrCode, hintMap);
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        BitMatrix    bitMatrix;
+        BitMatrix bitMatrix;
         bitMatrix = qrCodeWriter.encode(qrContent, BarcodeFormat.QR_CODE, 10, 10, hintMap);
         System.out.println(toAscii(bitMatrix));
     }

@@ -14,10 +14,10 @@ public class LabelRequest {
     private final String DELETE_LABEL = baseHost + "/label/delete";//POST /api/label/delete
 
     /**
-    * @param uuid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:40
-    */
+     */
     public String GetLabel(String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", uuid);
@@ -25,12 +25,12 @@ public class LabelRequest {
     }
 
     /**
-    * @param wxid:
-      * @param labelid:
-      * @param uuid:
+     * @param wxid:
+     * @param labelid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:40
-    */
+     */
     public String SetLabel(String wxid, String labelid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("wxid", wxid);
@@ -40,11 +40,11 @@ public class LabelRequest {
     }
 
     /**
-    * @param name:
-      * @param uuid:
+     * @param name:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:40
-    */
+     */
     public String AddLabel(String name, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
@@ -57,7 +57,7 @@ public class LabelRequest {
      * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:40
-    */
+     */
     public String DeleteLabel(String labelid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("labelid", labelid);

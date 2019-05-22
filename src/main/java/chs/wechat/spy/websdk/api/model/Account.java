@@ -1,14 +1,14 @@
 package chs.wechat.spy.websdk.api.model;
 
+import chs.wechat.spy.websdk.api.enums.AccountType;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import  chs.wechat.spy.websdk.api.enums.AccountType;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
-import static  chs.wechat.spy.websdk.api.constant.Constant.API_SPECIAL_USER;
+import static chs.wechat.spy.websdk.api.constant.Constant.API_SPECIAL_USER;
 
 /**
  * 微信用户

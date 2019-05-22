@@ -1,7 +1,6 @@
 package chs.wechat.spy.websdk.api.enums;
 
 
-
 /**
  * API URL
  *

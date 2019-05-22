@@ -40,7 +40,7 @@ public class GroupRequest {
      * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:07
-    */
+     */
     public String QUIT(String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("chatroomid", chatroomid);
@@ -49,11 +49,11 @@ public class GroupRequest {
     }
 
     /**
-    * @param chatroomid:
-      * @param uuid:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:07
-    */
+     */
     public String GetInfo(String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("chatroomid", chatroomid);
@@ -62,11 +62,11 @@ public class GroupRequest {
     }
 
     /**
-    * @param chatroomid:
-      * @param uuid:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String GetMembers(String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("chatroomid", chatroomid);
@@ -75,12 +75,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param user:
-      * @param chatroomid:
-      * @param uuid:
+     * @param user:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String AddMember(String user, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
@@ -90,12 +90,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param user:
-      * @param chatroomid:
-      * @param uuid:
+     * @param user:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String InviteMember(String user, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
@@ -105,12 +105,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param user:
-      * @param chatroomid:
-      * @param uuid:
+     * @param user:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String DeleteMember(String user, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("user", user);
@@ -120,12 +120,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param name:
-      * @param chatroomid:
-      * @param uuid:
+     * @param name:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String UpdateName(String name, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
@@ -135,12 +135,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param name:
-      * @param chatroomid:
-      * @param uuid:
+     * @param name:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String UpdateNickName(String name, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("name", name);
@@ -150,12 +150,12 @@ public class GroupRequest {
     }
 
     /**
-    * @param context:
-      * @param chatroomid:
-      * @param uuid:
+     * @param context:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String UpdateAnnounce(String context, String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("context", context);
@@ -165,11 +165,11 @@ public class GroupRequest {
     }
 
     /**
-    * @param chatroomid:
-      * @param uuid:
+     * @param chatroomid:
+     * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String GetQRCode(String chatroomid, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("chatroomid", chatroomid);
@@ -182,7 +182,7 @@ public class GroupRequest {
      * @param uuid:
      * @return java.lang.String
      * @since 2019/5/13 16:08
-    */
+     */
     public String ScanIn(String url, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("url", url);

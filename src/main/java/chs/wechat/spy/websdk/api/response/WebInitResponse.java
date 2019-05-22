@@ -1,8 +1,8 @@
 package chs.wechat.spy.websdk.api.response;
 
+import chs.wechat.spy.websdk.api.model.Account;
+import chs.wechat.spy.websdk.api.model.SyncKey;
 import com.google.gson.annotations.SerializedName;
-import  chs.wechat.spy.websdk.api.model.SyncKey;
-import  chs.wechat.spy.websdk.api.model.Account;
 import lombok.Data;
 
 import java.util.List;

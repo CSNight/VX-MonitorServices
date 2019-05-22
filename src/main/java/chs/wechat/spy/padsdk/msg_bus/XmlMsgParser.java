@@ -18,7 +18,7 @@ public class XmlMsgParser {
             content = trimMsg(content.replaceAll(">\\s*<", "><"));
             SAXReader sax = new SAXReader();// 创建一个SAXReader对象
             if (content.contains(":<?xml")) {
-                content = content.replaceAll("^\\S*:<\\?xml","<\\?xml");
+                content = content.replaceAll("^\\S*:<\\?xml", "<\\?xml");
             }
             InputStream in = new ByteArrayInputStream(content.getBytes());
             Document doc = sax.read(in);

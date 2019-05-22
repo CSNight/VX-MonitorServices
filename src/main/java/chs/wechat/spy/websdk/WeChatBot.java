@@ -1,17 +1,17 @@
 package chs.wechat.spy.websdk;
 
-import  chs.wechat.spy.websdk.api.WeChatApi;
-import  chs.wechat.spy.websdk.api.WeChatApiImpl;
-import  chs.wechat.spy.websdk.api.annotation.Bind;
-import  chs.wechat.spy.websdk.api.client.BotClient;
-import  chs.wechat.spy.websdk.api.constant.Config;
-import  chs.wechat.spy.websdk.api.constant.Constant;
-import  chs.wechat.spy.websdk.api.enums.MsgType;
-import  chs.wechat.spy.websdk.api.model.*;
-import  chs.wechat.spy.websdk.exception.WeChatException;
-import  chs.wechat.spy.websdk.utils.DateUtils;
-import  chs.wechat.spy.websdk.utils.OkHttpUtils;
-import  chs.wechat.spy.websdk.utils.WeChatUtils;
+import chs.wechat.spy.websdk.api.WeChatApi;
+import chs.wechat.spy.websdk.api.WeChatApiImpl;
+import chs.wechat.spy.websdk.api.annotation.Bind;
+import chs.wechat.spy.websdk.api.client.BotClient;
+import chs.wechat.spy.websdk.api.constant.Config;
+import chs.wechat.spy.websdk.api.constant.Constant;
+import chs.wechat.spy.websdk.api.enums.MsgType;
+import chs.wechat.spy.websdk.api.model.*;
+import chs.wechat.spy.websdk.exception.WeChatException;
+import chs.wechat.spy.websdk.utils.DateUtils;
+import chs.wechat.spy.websdk.utils.OkHttpUtils;
+import chs.wechat.spy.websdk.utils.WeChatUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -327,7 +327,7 @@ public class WeChatBot {
     public static final class Builder {
 
         private Config config = Config.me();
-        private BotClient    botClient;
+        private BotClient botClient;
         private OkHttpClient okHttpClient;
 
         public Builder() {

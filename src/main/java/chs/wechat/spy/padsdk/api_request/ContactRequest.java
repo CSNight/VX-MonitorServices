@@ -18,8 +18,8 @@ public class ContactRequest {
     private final String SYNC_CONTACTS = baseHost + "/contact/synccontacts";//POST /api/contact/synccontacts
 
     /**
-     * @param wx_id: 
-     * @param uuid: 
+     * @param wx_id:
+     * @param uuid:
      * @return java.lang.String
      */
     public String GetContact(String wx_id, String uuid) {
@@ -55,12 +55,13 @@ public class ContactRequest {
         params.put("uuid", uuid);
         return CustomHttpRequest.jsonPost(DELETE_CONTACT, params);
     }
+
     /**
-     * @param stranger: 
-     * @param ticket: 
-     * @param uuid: 
+     * @param stranger:
+     * @param ticket:
+     * @param uuid:
      * @return java.lang.String
-    */
+     */
     public String AcceptContact(String stranger, String ticket, String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("stranger", stranger);
@@ -70,36 +71,39 @@ public class ContactRequest {
     }
 
     /**
-    * @param uuid: 
+     * @param uuid:
      * @return java.lang.String
-    */
+     */
     public String GetFriends(String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", uuid);
         return CustomHttpRequest.jsonPost(GET_FRIENDS, params);
     }
+
     /**
-    * @param uuid: 
+     * @param uuid:
      * @return java.lang.String
-    */
+     */
     public String GetRooms(String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", uuid);
         return CustomHttpRequest.jsonPost(GET_ROOMS, params);
     }
+
     /**
-    * @param uuid: 
+     * @param uuid:
      * @return java.lang.String
-    */
+     */
     public String GetPublicContact(String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", uuid);
         return CustomHttpRequest.jsonPost(GET_PUBLIC_CONTACT, params);
     }
+
     /**
-     * @param uuid: 
+     * @param uuid:
      * @return java.lang.String
-    */
+     */
     public String SyncContacts(String uuid) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", uuid);

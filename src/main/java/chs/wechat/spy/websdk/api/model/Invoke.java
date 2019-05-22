@@ -3,7 +3,6 @@ package chs.wechat.spy.websdk.api.model;
 import chs.wechat.spy.websdk.WeChatBot;
 import chs.wechat.spy.websdk.api.enums.AccountType;
 import chs.wechat.spy.websdk.api.enums.MsgType;
-import chs.wechat.spy.websdk.exception.WeChatException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -12,8 +11,6 @@ import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * 消息执行器
@@ -28,9 +25,9 @@ public class Invoke {
 
     private static final Set<String> INVOKED_MSG = new HashSet<>();
 
-    private Method            method;
+    private Method method;
     private List<AccountType> accountTypes;
-    private MsgType           msgType;
+    private MsgType msgType;
 
     /**
      * 回调给客户端

@@ -1,6 +1,6 @@
 package chs.wechat.spy.websdk.api.request;
 
-import  chs.wechat.spy.websdk.api.response.JsonResponse;
+import chs.wechat.spy.websdk.api.response.JsonResponse;
 
 /**
  * JSON请求

@@ -1,10 +1,10 @@
 package chs.wechat.spy.websdk.utils;
 
+import chs.wechat.spy.websdk.exception.WeChatException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.vdurmont.emoji.EmojiParser;
-import chs.wechat.spy.websdk.exception.WeChatException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 @Slf4j
 public class WeChatUtils {
 
-    private static final Gson GSON        = new Gson();
+    private static final Gson GSON = new Gson();
     private static final Gson PRETTY_GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /**
@@ -36,7 +36,7 @@ public class WeChatUtils {
      */
     public static String match(String reg, String text) {
         Pattern pattern = Pattern.compile(reg);
-        Matcher m       = pattern.matcher(text);
+        Matcher m = pattern.matcher(text);
         if (m.find()) {
             return m.group(1);
         }
@@ -71,14 +71,14 @@ public class WeChatUtils {
      */
     public static String getMimeType(String fileUrl) {
         FileNameMap fileNameMap = URLConnection.getFileNameMap();
-        String      type        = fileNameMap.getContentTypeFor(fileUrl);
+        String type = fileNameMap.getContentTypeFor(fileUrl);
         return type;
     }
 
     public static String emojiParse(String text) {
-        Matcher       m         = matcher("<span class=\"emoji emoji(.{1,10})\"></span>", text);
-        StringBuilder sb        = new StringBuilder();
-        int           lastStart = 0;
+        Matcher m = matcher("<span class=\"emoji emoji(.{1,10})\"></span>", text);
+        StringBuilder sb = new StringBuilder();
+        int lastStart = 0;
         while (m.find()) {
             String str = m.group(1);
             if (str.length() == 6) {
@@ -146,7 +146,7 @@ public class WeChatUtils {
             outputStream = new FileOutputStream(path);
 
             byte[] buffer = new byte[1024];
-            int    len    = 0;
+            int len = 0;
             while ((len = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, len);
             }

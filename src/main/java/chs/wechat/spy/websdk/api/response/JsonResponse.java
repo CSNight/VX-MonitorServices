@@ -1,9 +1,9 @@
 package chs.wechat.spy.websdk.api.response;
 
+import chs.wechat.spy.websdk.utils.WeChatUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
-import  chs.wechat.spy.websdk.utils.WeChatUtils;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -33,7 +33,8 @@ public class JsonResponse extends ApiResponse {
 
     public Object get(String key) {
         if (null == map) {
-            map = WeChatUtils.fromJson(rawBody, new TypeToken<Map<String, Object>>() {});
+            map = WeChatUtils.fromJson(rawBody, new TypeToken<Map<String, Object>>() {
+            });
         }
         return map.get(key);
     }

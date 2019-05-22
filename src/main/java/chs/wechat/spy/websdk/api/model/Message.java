@@ -1,7 +1,7 @@
 package chs.wechat.spy.websdk.api.model;
 
-import com.google.gson.annotations.SerializedName;
 import chs.wechat.spy.websdk.api.enums.MsgType;
+import com.google.gson.annotations.SerializedName;
 import lombok.Data;
 
 /**

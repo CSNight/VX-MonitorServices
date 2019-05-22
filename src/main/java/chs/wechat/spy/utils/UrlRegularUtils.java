@@ -33,6 +33,7 @@ public class UrlRegularUtils {
         }
         return "";
     }
+
     public static String getRedictUrl(String source) {
         String pattern = "window.redirect_uri=\"(\\S+)\";";
         Pattern p = Pattern.compile(pattern);
