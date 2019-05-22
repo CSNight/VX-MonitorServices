@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class UrlRegularUtils {
     public static String getCode(String source) {
-        String pattern = "window.QRLogin.code = (\\d+); window.QRLogin.uuid = \"(\\S+?)\"";
+        String pattern = "window\\.QRLogin\\.code = (\\d+); window\\.QRLogin\\.uuid = \"(\\S+?)\";";
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(source);
         if (matcher.matches()) {
@@ -15,7 +15,7 @@ public class UrlRegularUtils {
     }
 
     public static String getUUID(String source) {
-        String pattern = "window.QRLogin.code = (\\d+); window.QRLogin.uuid = \"(\\S+?)\"";
+        String pattern = "window.QRLogin.code = (\\d+); window.QRLogin.uuid = \"(\\S+?)\";";
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(source);
         if (matcher.matches()) {
@@ -25,13 +25,21 @@ public class UrlRegularUtils {
     }
 
     public static String getCodeCheck(String source) {
-        String pattern = "window.code=(\\d+)";
+        String pattern = "window.code=(\\d+);";
         Pattern p = Pattern.compile(pattern);
         Matcher matcher = p.matcher(source);
-        if (matcher.matches()) {
+        if (matcher.find()) {
             return matcher.group(1);
         }
         return "";
-
+    }
+    public static String getRedictUrl(String source) {
+        String pattern = "window.redirect_uri=\"(\\S+)\";";
+        Pattern p = Pattern.compile(pattern);
+        Matcher matcher = p.matcher(source);
+        if (matcher.find()) {
+            return matcher.group(1);
+        }
+        return "";
     }
 }

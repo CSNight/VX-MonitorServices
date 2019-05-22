@@ -1,14 +1,20 @@
 package chs.wechat.spy.websdk.core;
 
 
+import chs.wechat.spy.utils.JSONUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.CookieStore;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.cookie.Cookie;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -56,7 +62,8 @@ public class HttpRequestBus {
      */
     public String sendGet(String url, Map<String, Object> param, boolean save_cookies, Map<String, String> headers) {
         StringBuilder result = new StringBuilder();
-        DefaultHttpClient httpClient = new DefaultHttpClient();
+        RequestConfig config = RequestConfig.custom().setRedirectsEnabled(false).build();
+        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).build();
         try {
             URIBuilder uriBuilder = new URIBuilder(url);
             for (String key : param.keySet()) {
@@ -64,6 +71,7 @@ public class HttpRequestBus {
             }
             URI urls = uriBuilder.build();
             HttpGet httpGet = new HttpGet(urls);
+            HttpClientContext context = HttpClientContext.create();
             if (headers != null) {
                 for (String key : headers.keySet()) {
                     uriBuilder.setParameter(key, headers.get(key));
@@ -72,9 +80,9 @@ public class HttpRequestBus {
             InputStream inputStream = null;
             CloseableHttpResponse httpResponse = null;
             try {
-                httpResponse = httpClient.execute(httpGet);
+                httpResponse = httpClient.execute(httpGet, context);
                 if (save_cookies) {
-                    cookieStore = httpClient.getCookieStore();
+                    cookieStore = context.getCookieStore();
                     List<Cookie> cookies = cookieStore.getCookies();
                     for (Cookie cookie : cookies) {
                         cookieDict.put(cookie.getName(), cookie.getValue());
@@ -107,13 +115,13 @@ public class HttpRequestBus {
                 }
                 httpClient.close();
             }
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
         return result.toString();
     }
 
-    public String sendPost(String url, Map<String, Object> param, boolean save_cookies, Map<String, String> headers) {
+    public String sendPost(String url, Map<String, Object> param, boolean save_cookies, Map<String, String> headers, Map<String, Object> data) {
         StringBuilder result = new StringBuilder();
         DefaultHttpClient httpClient = new DefaultHttpClient();
         try {
@@ -123,6 +131,7 @@ public class HttpRequestBus {
             }
             URI urls = uriBuilder.build();
             HttpPost httpPost = new HttpPost(urls);
+            httpPost.setEntity(new StringEntity(JSONUtil.map2json(data), "utf-8"));
             if (headers != null) {
                 for (String key : headers.keySet()) {
                     uriBuilder.setParameter(key, headers.get(key));

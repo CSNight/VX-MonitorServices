@@ -2,12 +2,14 @@ package chs.wechat.spy.utils;
 
 public class UserStatus {
     private String id = "";
+    private String web_uid = "";
     private String start_time = "";
     private String current_opt = "";
     private String init_status = "false";
     private String login_status = "logout";
     private String login_time = "";
     private String logout_time = "";
+    private String cookies = "";
 
     public String getId() {
         return id;
@@ -63,5 +65,21 @@ public class UserStatus {
 
     public void setCurrent_opt(String current_opt) {
         this.current_opt = current_opt;
+    }
+
+    public String getWeb_uid() {
+        return web_uid;
+    }
+
+    public void setWeb_uid(String web_uid) {
+        this.web_uid = web_uid;
+    }
+
+    public String getCookies() {
+        return cookies;
+    }
+
+    public void setCookies(String cookies) {
+        this.cookies = cookies;
     }
 }
