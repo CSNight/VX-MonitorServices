@@ -225,6 +225,7 @@ public class SocketSyncToDB {
                 prop = xmlMsgParser.AppDispatch(content);
                 if (prop.get("type").equals("2001")) {
                     msgFileGen.redPack(msgLog, prop, jo_msg.toString());
+
                 } else if (prop.get("type").equals("5")) {
                     msgFileGen.MsgFileCommon(msgLog, prop, "link");
                 } else if (prop.get("type").equals("33")) {

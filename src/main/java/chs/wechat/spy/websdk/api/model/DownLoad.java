@@ -44,7 +44,7 @@ public class DownLoad {
     }
 
     public String getDir(WeChatBot bot) {
-        return bot.config().assetsDir() + "/" + apiURL.getDir();
+        return this.getClass().getClassLoader().getResource("").getPath() + "download/" + apiURL.getDir();
     }
 
 }

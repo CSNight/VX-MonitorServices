@@ -54,7 +54,7 @@ public class WebSocketClient {
     }
 
     public void setUri(String uuid) {
-        WebSocketClient.uri = URI.create("ws://" + host + ":" + port + "?action=scan&uuid=" + uuid + "&devicename=xzy-ipad&isreset=true");
+        WebSocketClient.uri = URI.create("ws://" + host + ":" + port + "?action=scan&uuid=" + uuid + "&devicename=mac&isreset=true");
     }
 
     public URI getUri() {

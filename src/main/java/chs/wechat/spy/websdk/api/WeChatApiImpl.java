@@ -100,13 +100,14 @@ public class WeChatApiImpl implements WeChatApi {
     /**
      * 自动登录
      */
-    private void autoLogin() {
+    private boolean autoLogin() {
         String file = bot.config().assetsDir() + "/login.json";
         try {
             HotReload hotReload = WeChatUtils.fromJson(new FileReader(file), HotReload.class);
             hotReload.reLogin(bot);
+            return true;
         } catch (FileNotFoundException e) {
-            this.login(false);
+            return false;
         }
     }
 
@@ -116,9 +117,11 @@ public class WeChatApiImpl implements WeChatApi {
             log.warn("微信已经登录");
             return;
         }
+        boolean success = false;
         if (autoLogin) {
-            this.autoLogin();
-        } else {
+            success = this.autoLogin();
+        }
+        if (!success) {
             this.logging = true;
             while (logging) {
                 this.uuid = pushLogin();
@@ -169,7 +172,7 @@ public class WeChatApiImpl implements WeChatApi {
         this.loadGroupList();
         log.info("[{}] 登录成功.", bot.session().getNickName());
         this.startRevive();
-        this.logging = false;
+        this.logging = true;
     }
 
     /**
@@ -339,15 +342,11 @@ public class WeChatApiImpl implements WeChatApi {
 
         JsonResponse response = this.client.send(new JsonRequest(url).post().jsonBody()
                 .add("BaseRequest", bot.session().getBaseRequest()));
-
         WebInitResponse webInitResponse = response.parse(WebInitResponse.class);
-
         List<Account> contactList = webInitResponse.getContactList();
         this.syncRecentContact(contactList);
-
         Account account = webInitResponse.getAccount();
         SyncKey syncKey = webInitResponse.getSyncKey();
-
         bot.session().setInviteStartCount(webInitResponse.getInviteStartCount());
         bot.session().setAccount(account);
         bot.session().setUserName(account.getUserName());
@@ -472,7 +471,6 @@ public class WeChatApiImpl implements WeChatApi {
                 break;
             }
         }
-
         this.contactList = new ArrayList<>(this.getAccountByType(AccountType.TYPE_FRIEND));
         this.publicUsersList = new ArrayList<>(this.getAccountByType(AccountType.TYPE_MP));
         this.specialUsersList = new ArrayList<>(this.getAccountByType(AccountType.TYPE_SPECIAL));
@@ -555,7 +553,6 @@ public class WeChatApiImpl implements WeChatApi {
     public boolean verify(Recommend recommend) {
         String url = String.format("%s/webwxverifyuser?r=%s&lang=zh_CN&pass_ticket=%s",
                 bot.session().getUrl(), System.currentTimeMillis() / 1000, bot.session().getPassTicket());
-
         List<Map<String, Object>> verifyUserList = new ArrayList<>();
         Map<String, Object> verifyUser = new HashMap<>(2);
         verifyUser.put("Value", recommend.getUserName());
@@ -608,7 +605,6 @@ public class WeChatApiImpl implements WeChatApi {
             m.put("UserName", member);
             memberList.add(m);
         }
-
         JsonResponse response = client.send(new JsonRequest(url).post().jsonBody()
                 .add("MemberCount", members.size())
                 .add("MemberList", memberList)
@@ -728,16 +724,11 @@ public class WeChatApiImpl implements WeChatApi {
     public List<WeChatMessage> handleMsg(List<Message> messages) {
         if (null != messages && messages.size() > 0) {
             List<WeChatMessage> weChatMessages = new ArrayList<>(messages.size());
-            boolean hashNewMsg = false;
             for (Message message : messages) {
                 WeChatMessage weChatMessage = this.processMsg(message);
                 if (null != weChatMessage) {
                     weChatMessages.add(weChatMessage);
-                    hashNewMsg = true;
                 }
-            }
-            if (hashNewMsg) {
-                log.info("你有新的消息");
             }
             return weChatMessages;
         }
@@ -765,7 +756,6 @@ public class WeChatApiImpl implements WeChatApi {
         }
 
         content = WeChatUtils.formatMsg(content);
-
         WeChatMessage.WeChatMessageBuilder weChatMessageBuilder = WeChatMessage.builder()
                 .raw(message)
                 .id(message.getId())
@@ -824,7 +814,7 @@ public class WeChatApiImpl implements WeChatApi {
                 return weChatMessageBuilder.text(shareUrl).build();
             // 联系人初始化
             case CONTACT_INIT:
-                log.info("联系人初始化");
+                List<String> current_user = Arrays.asList(message.getStatusNotifyUserName().split(","));
                 return null;
             // 系统消息
             case SYSTEM:
