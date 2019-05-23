@@ -7,8 +7,6 @@ import chs.wechat.spy.websdk.api.response.FileResponse;
 import chs.wechat.spy.websdk.exception.WeChatException;
 import chs.wechat.spy.websdk.utils.WeChatUtils;
 import okhttp3.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class BotClient {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private Logger log = LoggerFactory.getLogger(BotClient.class);
     private static Map<String, List<Cookie>> cookieStore = new ConcurrentHashMap<>();
 
     private OkHttpClient client;
@@ -59,11 +56,6 @@ public class BotClient {
             Request okHttpRequest = createRequest(request);
             Response response = client.newCall(okHttpRequest).execute();
             String body = response.body().string();
-
-            if (log.isDebugEnabled()) {
-                log.debug("Response :\r\n{}", body);
-            }
-
             // 获取头部的Cookie,注意：可以通过Cooke.parseAll()来获取
             List<Cookie> cookies = Cookie.parseAll(okHttpRequest.url(), response.headers());
             // 防止header没有Cookie的情况
@@ -186,9 +178,6 @@ public class BotClient {
             builder.method(request.getMethod(), createRequestBody(request));
         }
         builder.url(request.getUrl());
-        if (log.isDebugEnabled()) {
-            log.debug("Request : {}", request.getUrl());
-        }
         if (null != request.getHeaders()) {
             builder.headers(request.getHeaders());
         }
@@ -217,9 +206,6 @@ public class BotClient {
         } else {
             if (request.isJsonBody()) {
                 String json = WeChatUtils.toJson(request.getParameters());
-                if (log.isDebugEnabled()) {
-                    log.debug("Request Body:\r\n{}", json);
-                }
                 return RequestBody.create(JSON, json);
             } else {
                 FormBody.Builder builder = new FormBody.Builder();

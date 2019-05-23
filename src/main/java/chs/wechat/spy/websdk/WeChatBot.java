@@ -33,52 +33,44 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class WeChatBot {
 
     /**
+     * 接收消息重试次数
+     */
+    @Getter
+    private final int receiveRetryCount = 5;
+    /**
+     * 注解绑定的函数映射
+     */
+    private final Map<MsgType, List<Invoke>> mapping = new HashMap<>(8);
+    /**
      * 操作微信接口的API
      */
     private WeChatApi api;
-
     /**
      * 调用HTTP请求的客户端
      */
     private BotClient botClient;
-
     /**
      * 微信API配置
      */
     private Config config;
-
     @Getter
     @Setter
     private boolean running;
-
     /**
      * 登录会话
      */
     @Setter
     private LoginSession session;
-
     /**
      * 最后一次正常检查时间戳
      */
     @Getter
     private long lastCheckTs;
-
-    /**
-     * 接收消息重试次数
-     */
-    @Getter
-    private final int receiveRetryCount = 5;
-
     /**
      * 待处理的消息队列
      */
     @Getter
     private volatile BlockingQueue<WeChatMessage> messages = new LinkedBlockingQueue<>();
-
-    /**
-     * 注解绑定的函数映射
-     */
-    private final Map<MsgType, List<Invoke>> mapping = new HashMap<>(8);
 
     public WeChatBot(Builder builder) {
         this.config = builder.config;
@@ -275,26 +267,8 @@ public class WeChatBot {
         msgHandle.setName("message-handle");
         msgHandle.setDaemon(true);
         msgHandle.start();
-
-        this.other();
     }
 
-    /**
-     * 启动后主线程干的事，子类可重写
-     */
-    protected void other() {
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            if (scanner.hasNext()) {
-                String text = scanner.next();
-                if ("quit".equals(text) || "exit".equals(text)) {
-                    api.logout();
-                    break;
-                }
-            }
-            DateUtils.sleep(100);
-        }
-    }
 
     /**
      * 回调微信消息给客户端、存储器
@@ -316,7 +290,7 @@ public class WeChatBot {
     public void updateLastCheck() {
         this.lastCheckTs = System.currentTimeMillis();
         if (this.config().autoLogin()) {
-            String file = this.config().assetsDir() + "/login.json";
+            String file = this.getClass().getClassLoader().getResource("").getPath() + "login.json";
             WeChatUtils.writeJson(file, HotReload.build(this.session()));
             if (log.isDebugEnabled()) {
                 log.debug("写入本地登录JSON");
@@ -334,6 +308,15 @@ public class WeChatBot {
             botClient = new BotClient(client(null));
         }
 
+        private static OkHttpClient client(Interceptor interceptor) {
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            OkHttpUtils.configureToIgnoreCertificate(builder);
+            if (interceptor != null) {
+                builder.addInterceptor(interceptor);
+            }
+            return builder.build();
+        }
+
         public Builder okHttpClient(OkHttpClient client) {
             okHttpClient = client;
             return this;
@@ -349,15 +332,6 @@ public class WeChatBot {
                 botClient = new BotClient(okHttpClient);
             }
             return new WeChatBot(this);
-        }
-
-        private static OkHttpClient client(Interceptor interceptor) {
-            OkHttpClient.Builder builder = new OkHttpClient.Builder();
-            OkHttpUtils.configureToIgnoreCertificate(builder);
-            if (interceptor != null) {
-                builder.addInterceptor(interceptor);
-            }
-            return builder.build();
         }
     }
 

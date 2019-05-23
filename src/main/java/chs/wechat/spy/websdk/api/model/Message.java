@@ -118,6 +118,7 @@ public class Message {
                 return MsgType.ADD_FRIEND;
             case 42:
                 return MsgType.PERSON_CARD;
+            case 62:
             case 43:
                 return MsgType.VIDEO;
             case 47:
@@ -126,8 +127,6 @@ public class Message {
                 return MsgType.SHARE;
             case 51:
                 return MsgType.CONTACT_INIT;
-            case 62:
-                return MsgType.VIDEO;
             case 10000:
                 return MsgType.SYSTEM;
             case 10002:

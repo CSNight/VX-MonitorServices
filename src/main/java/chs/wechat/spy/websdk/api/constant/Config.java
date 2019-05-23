@@ -82,14 +82,6 @@ public class Config {
         return this;
     }
 
-    public boolean showTerminal() {
-        return Boolean.valueOf(props.getProperty(CONF_PRINT_TERMINAL, CONF_PRINT_TERMINAL_DEFAULT));
-    }
-
-    public Config showTerminal(boolean show) {
-        props.setProperty(CONF_PRINT_TERMINAL, String.valueOf(show));
-        return this;
-    }
 
     public boolean autoReply() {
         return Boolean.valueOf(props.getProperty(CONF_AUTO_REPLY, CONF_AUTO_REPLY_DEFAULT));
