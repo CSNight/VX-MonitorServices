@@ -20,6 +20,12 @@ public class XmlMsgParser {
             if (content.contains(":<?xml")) {
                 content = content.replaceAll("^\\S*:<\\?xml", "<\\?xml");
             }
+            if (content.contains(":<msg")) {
+                content = content.replaceAll("^\\S*:<msg", "<msg");
+            }
+            if (content.contains(":<voipinvitemsg")) {
+                content = content.replaceAll("^\\S*:<voipinvitemsg", "<voipinvitemsg");
+            }
             InputStream in = new ByteArrayInputStream(content.getBytes());
             Document doc = sax.read(in);
             node = doc.selectSingleNode(path);

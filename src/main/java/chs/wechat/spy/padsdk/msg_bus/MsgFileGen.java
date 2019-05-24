@@ -90,7 +90,12 @@ public class MsgFileGen {
         MsgFile msgFile = BuildComm(msgLog, meta);
         msgFile.setFileName("red_pack_" + System.currentTimeMillis());
         try {
+            //延迟抢红包 0-2秒随机延迟
+            long delay = Math.round(Math.random() * 4000);
+            System.out.println(delay);
+            Thread.sleep(delay);
             String res = mr.GetRedPack((Map<String, Object>) JSONObject.parseObject(msg, Map.class), uuid);
+            System.out.println(res);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
