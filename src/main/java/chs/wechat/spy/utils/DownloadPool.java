@@ -1,6 +1,6 @@
 package chs.wechat.spy.utils;
 
-import chs.wechat.spy.controller.ReflectUtils;
+import chs.wechat.spy.controller.impl.ReflectUtils;
 import chs.wechat.spy.controller.impl.*;
 import chs.wechat.spy.db.mybatis.model.*;
 import chs.wechat.spy.db.redis.RedisClientOperation;
@@ -28,12 +28,12 @@ public class DownloadPool {
     }
 
     private DownloadPool() {
+        RedisConnManager rcm = RedisConnManager.getInstance();
+        rco.setJedisClient(rcm.getJedis(rco.getJedis_id()));
     }
 
     public void StartDownloadPool() {
         scheduledThreadPool.scheduleAtFixedRate(() -> {
-            RedisConnManager rcm = RedisConnManager.getInstance();
-            rco.setJedisClient(rcm.getJedis(rco.getJedis_id()));
             if (rco.isKeyExit("downloadQueue")) {
                 while (rco.getJedisClient().llen("downloadQueue") > 0) {
                     try {
@@ -96,12 +96,13 @@ public class DownloadPool {
                     }
                 }
             }
-            rcm.close(rco.getJedis_id());
+
         }, 1, 3, TimeUnit.SECONDS);
     }
 
     public void StopDownloadPool() {
         try {
+            RedisConnManager.getInstance().close(rco.getJedis_id());
             scheduledThreadPool.shutdown();
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -1,6 +1,6 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
-import chs.wechat.spy.controller.ReflectUtils;
+import chs.wechat.spy.controller.impl.ReflectUtils;
 import chs.wechat.spy.controller.impl.MsgFileImpl;
 import chs.wechat.spy.controller.impl.MsgLogImpl;
 import chs.wechat.spy.db.mybatis.model.MsgFile;

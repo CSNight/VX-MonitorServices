@@ -1,4 +1,4 @@
-package chs.wechat.spy.controller;
+package chs.wechat.spy.controller.impl;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
