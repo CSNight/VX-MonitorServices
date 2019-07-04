@@ -26,6 +26,9 @@ public class XmlMsgParser {
             if (content.contains(":<voipinvitemsg")) {
                 content = content.replaceAll("^\\S*:<voipinvitemsg", "<voipinvitemsg");
             }
+            if(content.contains(":<sysmsg")){
+                content = content.replaceAll("^\\S*:<sysmsg", "<sysmsg");
+            }
             InputStream in = new ByteArrayInputStream(content.getBytes());
             Document doc = sax.read(in);
             node = doc.selectSingleNode(path);
