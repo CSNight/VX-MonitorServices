@@ -1,10 +1,6 @@
 package chs.wechat.spy.padsdk.msg_bus;
 
-import chs.wechat.spy.controller.ReflectUtils;
-import chs.wechat.spy.controller.impl.ChatRoomsImpl;
-import chs.wechat.spy.controller.impl.ContactImpl;
-import chs.wechat.spy.controller.impl.PublicContactImpl;
-import chs.wechat.spy.controller.impl.RoomMembersImpl;
+import chs.wechat.spy.controller.impl.*;
 import chs.wechat.spy.db.mybatis.model.MsgLog;
 import chs.wechat.spy.db.redis.RedisClientOperation;
 import chs.wechat.spy.db.redis.RedisConnManager;
@@ -47,6 +43,7 @@ public class ApiMsgBus {
     }
 
     private void ApiLogMsgProcess(String context, RedisClientOperation rco) {
+        WebSocketServerSingleton wss = WebSocketServerSingleton.getInstance();
         String uuid = ConfigProperties.GetProperties("app_uid");
         if (context.equals("初始化成功:1")) {
             rco.setHashField(uuid, "init_status", "true");
@@ -58,7 +55,6 @@ public class ApiMsgBus {
             rco.setHashField(uuid, "current_opt", "WAITING_LOGIN");
         } else if (context.equals("已过期")) {
             rco.setHashField(uuid, "current_opt", "TIME_OUT");
-            WebSocketServerSingleton wss = WebSocketServerSingleton.getInstance();
             ServerResponse sr = new ServerResponse(1, "TIME_OUT", "OR_CODE_TIME_OUT");
             wss.sendAll(JSONUtil.pojo2json(sr));
         } else if (context.equals("正在登录中")) {
@@ -72,8 +68,12 @@ public class ApiMsgBus {
             rco.setHashField(uuid, "current_opt", "LOGOUT");
             rco.setHashField(uuid, "login_status", "logout");
             rco.setHashField(uuid, "logout_time", String.valueOf(System.currentTimeMillis()));
-            WebSocketServerSingleton wss = WebSocketServerSingleton.getInstance();
             ServerResponse sr = new ServerResponse(1, "LOGOUT", "LOGOUT");
+            wss.sendAll(JSONUtil.pojo2json(sr));
+        } else if (context.equals("取消操作了")) {
+            rco.setHashField(uuid, "current_opt", "LOGIN_CANCEL");
+            rco.setHashField(uuid, "login_status", "cancel");
+            ServerResponse sr = new ServerResponse(1, "CANCEL", "CANCEL");
             wss.sendAll(JSONUtil.pojo2json(sr));
         }
     }
