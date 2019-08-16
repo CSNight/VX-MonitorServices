@@ -6,9 +6,9 @@ server:
     context-path: /
 spring:
   datasource:
-    url: jdbc:mysql://47.92.211.200:10024/wechat?serverTimezone=Asia/Shanghai
-    username: csnight
-    password: night@123456
+    url: jdbc:mysql://**********/wechat?serverTimezone=Asia/Shanghai
+    username: *****
+    password: ************
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 mybatis:
