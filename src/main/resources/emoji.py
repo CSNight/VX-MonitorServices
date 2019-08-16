@@ -20,7 +20,7 @@ from sqlalchemy.types import String
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:23.0) Gecko/20100101 Firefox/23.0'}
 # 导入相应的模块
 engine = create_engine(
-    "mysql+mysqlconnector://csnight:night@123456@47.92.211.200:10024/wechat?")  # 创建数据库连接，max_overflow指定最大连接数
+    "mysql+mysqlconnector://*****************/wechat?")  # 创建数据库连接，max_overflow指定最大连接数
 DBSession = sessionmaker(engine)  # 创建DBSession类型
 
 BaseModel = declarative_base()  # 创建对象的基类
